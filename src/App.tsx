@@ -1,3 +1,4 @@
+import { onMount } from "solid-js";
 import styles from "./App.module.css";
 
 import ModelProvider from "./Model";
@@ -6,8 +7,13 @@ import Main from "./ui/Main";
 import Side from "./ui/Side";
 
 import * as Tone from "tone";
+import { initKeys } from "./events/key";
 
 export default function App() {
+  onMount(() => {
+    initKeys();
+  });
+
   return (
     <ModelProvider>
       <div class={styles.App} onclick={initAudio}>
