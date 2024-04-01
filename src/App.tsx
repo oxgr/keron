@@ -1,28 +1,25 @@
-import { createContext } from "solid-js";
-import { createStore } from "solid-js/store";
-
 import styles from "./App.module.css";
 
-import Header from "./ui/sections/Header";
-import Main from "./ui/sections/Main";
-import Side from "./ui/sections/Side";
+import ModelProvider from "./Model";
+import Header from "./ui/Header";
+import Main from "./ui/Main";
+import Side from "./ui/Side";
 
-function testType(view: View) {
-  return;
-}
+import * as Tone from "tone";
 
-testType(View.Settings);
-
-function App() {
-  const modelDefault: Model = { view: View.Settings };
-  const [model, setModel] = createStore(modelDefault);
+export default function App() {
   return (
-    <div class={styles.App}>
-      <Header />
-      <Main />
-      <Side />
-    </div>
+    <ModelProvider>
+      <div class={styles.App} onclick={initAudio}>
+        <Header />
+        <Main />
+        <Side />
+      </div>
+    </ModelProvider>
   );
 }
 
-export default App;
+async function initAudio() {
+  await Tone.start();
+  console.log("audio is ready");
+}

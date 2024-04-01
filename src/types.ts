@@ -1,9 +1,15 @@
-enum View {
+export type Model = {
+  view: View;
+  key: KeyModel;
+};
+
+export enum View {
   Settings,
   Song,
   Pattern,
 }
 
-type Model = {
-  view: View;
+export type KeyModel = {
+  active: boolean;
+  event?: KeyboardEvent;
 };
