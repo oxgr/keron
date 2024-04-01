@@ -1,6 +1,10 @@
+import { useModel } from "../state/model";
+import { View } from "../types";
 import styles from "/src/App.module.css";
 
 export default function Header() {
+  const { model, setModel } = useModel();
+
   return (
     <header class={`${styles.header} ${styles.section}`}>
       <h2>header</h2>

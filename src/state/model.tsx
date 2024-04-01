@@ -28,7 +28,44 @@ function initModel(): Model {
     project: {
       name: "ox",
       song: {
-        chains: [],
+        chains: [
+          {
+            patterns: [
+              {
+                lines: [
+                  {
+                    note: "C-4",
+                    instrument: {
+                      type: "S01",
+                      table: {},
+                    },
+                  },
+                  {
+                    note: "E-4",
+                    instrument: {
+                      type: "S01",
+                      table: {},
+                    },
+                  },
+                  {
+                    note: "F-4",
+                    instrument: {
+                      type: "S01",
+                      table: {},
+                    },
+                  },
+                  {
+                    note: "G-4",
+                    instrument: {
+                      type: "S01",
+                      table: {},
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
     },
   };

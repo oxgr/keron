@@ -1,0 +1,8 @@
+.line {
+  width: 100%;
+  background: #27232f;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  border-bottom: var(--border);
+}

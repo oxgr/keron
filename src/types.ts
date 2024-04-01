@@ -1,3 +1,5 @@
+import { Note } from "tone/build/esm/core/type/NoteUnits";
+
 export type Model = {
   view: View;
   key: Key;
@@ -33,10 +35,16 @@ type Chain = {
 };
 
 type Pattern = {
+  lines: Line[];
+};
+
+type Line = {
+  note: Note;
   instrument: Instrument;
 };
 
 type Instrument = {
+  type: string;
   table: Table;
 };
 
