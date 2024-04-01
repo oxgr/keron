@@ -21,9 +21,15 @@ export function useModel() {
 
 function initModel(): Model {
   return {
-    view: View.Settings,
+    view: View.Pattern,
     key: {
       active: false,
+    },
+    project: {
+      name: "ox",
+      song: {
+        chains: [],
+      },
     },
   };
 }

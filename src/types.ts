@@ -1,15 +1,43 @@
 export type Model = {
   view: View;
-  key: KeyModel;
+  key: Key;
+  project: Project;
 };
 
 export enum View {
   Settings,
+  Project,
   Song,
+  Chain,
   Pattern,
+  Instrument,
+  Table,
 }
 
-export type KeyModel = {
+type Key = {
   active: boolean;
   event?: KeyboardEvent;
 };
+
+type Project = {
+  name: string;
+  song: Song;
+};
+
+type Song = {
+  chains: Chain[];
+};
+
+type Chain = {
+  patterns: Pattern[];
+};
+
+type Pattern = {
+  instrument: Instrument;
+};
+
+type Instrument = {
+  table: Table;
+};
+
+type Table = {};

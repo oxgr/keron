@@ -40,6 +40,16 @@
   border-radius: var(--border-radius);
   /* margin: var(--section-margin); */
   padding: var(--section-padding);
+
+  div {
+    margin-bottom: 1rem;
+  }
+
+  h3,
+  h2,
+  h1 {
+    margin-top: 0;
+  }
 }
 
 .header {
@@ -50,9 +60,6 @@
 .main {
   /* flex: 0 1 100%; */
   grid-area: main;
-  div {
-    margin-bottom: 1rem;
-  }
 }
 
 .side {

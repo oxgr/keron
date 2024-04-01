@@ -7,7 +7,7 @@ export function initKeys() {
   document.addEventListener("keydown", keyHandler);
 
   function keyHandler(event: KeyboardEvent) {
-    console.log(event);
+    // console.log(event);
     setModel(
       "key",
       produce((key) => {
