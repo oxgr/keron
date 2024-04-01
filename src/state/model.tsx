@@ -1,7 +1,7 @@
 import { ParentProps, createContext, onMount, useContext } from "solid-js";
 import { createStore, produce } from "solid-js/store";
 
-import { View, Model } from "./types";
+import { View, Model } from "../types";
 
 const defaultModel = initModel();
 const [model, setModel] = createStore(defaultModel);

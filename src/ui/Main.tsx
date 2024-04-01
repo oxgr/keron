@@ -1,4 +1,4 @@
-import { useModel } from "../Model";
+import { useModel } from "../state/model";
 import styles from "/src/App.module.css";
 import * as Tone from "tone";
 

@@ -1,7 +1,7 @@
 import { onMount } from "solid-js";
 import styles from "./App.module.css";
 
-import ModelProvider from "./Model";
+import ModelProvider from "./state/model";
 import Header from "./ui/Header";
 import Main from "./ui/Main";
 import Side from "./ui/Side";
@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <ModelProvider>
-      <div class={styles.App} onclick={initAudio}>
+      <div class={styles.App}>
         <Header />
         <Main />
         <Side />

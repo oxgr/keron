@@ -1,5 +1,5 @@
 import { produce } from "solid-js/store";
-import { useModel } from "../Model";
+import { useModel } from "../state/model";
 
 export function initKeys() {
   const { model, setModel } = useModel();

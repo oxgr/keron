@@ -50,6 +50,9 @@
 .main {
   /* flex: 0 1 100%; */
   grid-area: main;
+  div {
+    margin-bottom: 1rem;
+  }
 }
 
 .side {
