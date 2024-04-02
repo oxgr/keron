@@ -9,4 +9,6 @@ export const keymap: Keymap = {
   " ": actions.togglePlaybackPattern,
   p: actions.printTime,
   Backspace: actions.playDefaultNote,
+  h: actions.prevViewMode,
+  l: actions.nextViewMode,
 };

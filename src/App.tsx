@@ -6,9 +6,9 @@ import Header from "./ui/Header";
 import Main from "./ui/Main";
 import Side from "./ui/Side";
 
-import { initKeys } from "./events/key";
+import { initKeys } from "./event/key";
 import { initAudio } from "./audio/init";
-import { KeyActor } from "./events/KeyActor";
+import { KeyActor } from "./event/KeyActor";
 
 export default function App() {
   onMount(() => {

@@ -1,5 +1,5 @@
 import { playNote } from "../audio/synth";
-import { actions } from "../events/actions";
+import { actions } from "../event/actions";
 import { useModel } from "../state/model";
 import styles from "/src/App.module.css";
 

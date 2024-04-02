@@ -47,12 +47,15 @@ type Bank = {
 };
 
 type BuiltinBank = {
+  // TODO: Find a way to type this as an instrument that can reference Tone.Instrument + other types
   instruments: any[];
 };
 
 type Song = {
-  chains: Chain[];
+  chains: ChainId[];
 };
+
+type ChainId = number;
 
 type Chain = {
   patterns: PatternId[];

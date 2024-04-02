@@ -37,11 +37,7 @@ function initModel(): Model {
         line: 0,
       },
       song: {
-        chains: [
-          {
-            patterns: [],
-          },
-        ],
+        chains: [0],
       },
       bank: {
         samples: [],
@@ -53,6 +49,118 @@ function initModel(): Model {
         patterns: [
           {
             lines: [
+              {
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "E4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "F4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "G4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "E4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "F4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "G4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "E4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "F4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "E4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "F4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "G4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
               {
                 note: "C4",
                 instrument: {
