@@ -2,6 +2,7 @@ import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
 import { View, Model } from "../types";
+import { Synth } from "tone";
 
 const defaultModel = initModel();
 const [model, setModel] = createStore(defaultModel);
@@ -13,7 +14,7 @@ export function useModel() {
 }
 
 function initModel(): Model {
-  return {
+  const defaultModel: Model = {
     view: View.Pattern,
     key: {
       active: false,
@@ -31,7 +32,7 @@ function initModel(): Model {
                 lines: [
                   {
                     active: false,
-                    note: "C-4",
+                    note: "C4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -39,7 +40,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "E-4",
+                    note: "E4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -47,7 +48,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "F-4",
+                    note: "F4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -55,7 +56,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "G-4",
+                    note: "G4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -63,7 +64,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "C-4",
+                    note: "C4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -71,7 +72,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "E-4",
+                    note: "E4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -79,7 +80,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "F-4",
+                    note: "F4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -87,7 +88,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "G-4",
+                    note: "G4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -95,7 +96,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "C-4",
+                    note: "C4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -103,7 +104,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "E-4",
+                    note: "E4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -111,7 +112,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "F-4",
+                    note: "F4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -119,7 +120,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "G-4",
+                    note: "C4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -127,7 +128,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "C-4",
+                    note: "C4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -135,7 +136,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "E-4",
+                    note: "E4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -143,7 +144,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "F-4",
+                    note: "F4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -151,7 +152,7 @@ function initModel(): Model {
                   },
                   {
                     active: false,
-                    note: "G-4",
+                    note: "G4",
                     instrument: {
                       type: "S01",
                       table: {},
@@ -165,4 +166,20 @@ function initModel(): Model {
       },
     },
   };
+
+  // defaultModel.project.song.chains[0].patterns[0].lines = Array(16).fill(
+  //   {
+  //     active: false,
+  //     note: "C-4",
+  //     instrument: {
+  //       type: "S01",
+  //       table: {},
+  //     },
+  //   } as never,
+  //   0,
+  //   16,
+  // );
+
+  console.log(defaultModel);
+  return defaultModel;
 }

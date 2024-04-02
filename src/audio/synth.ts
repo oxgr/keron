@@ -1,10 +1,11 @@
 import * as Tone from "tone";
+import { useModel } from "../state/model";
+import { Note } from "tone/build/esm/core/type/NoteUnits";
+import { Time } from "tone/build/esm/core/type/Units";
 
-export function playNote() {
-  console.log("playing audio...");
-  //create a synth and connect it to the main output (your speakers)
-  const synth = new Tone.Synth().toDestination();
+export function playNote(note: Note, duration: Time) {
+  const { model } = useModel();
 
-  //play a middle 'C' for the duration of an 8th note
-  synth.triggerAttackRelease("C4", "8n");
+  // console.log("playing audio...");
+  model.synth.triggerAttackRelease(note, duration);
 }

@@ -15,3 +15,7 @@
   border-color: var(--color-border-active);
   opacity: 1;
 }
+
+code {
+  font-size: 0.8em;
+}

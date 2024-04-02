@@ -8,4 +8,5 @@ type Keymap = Record<string, Action>;
 export const keymap: Keymap = {
   " ": actions.togglePlaybackPattern,
   p: actions.printTime,
+  Backspace: actions.playDefaultNote,
 };

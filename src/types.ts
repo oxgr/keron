@@ -1,3 +1,4 @@
+import { Synth } from "tone";
 import { Note } from "tone/build/esm/core/type/NoteUnits";
 
 export type Model = {
@@ -5,6 +6,7 @@ export type Model = {
   key: Key;
   project: Project;
   transport: Transport;
+  synth: Synth;
 };
 
 export enum View {

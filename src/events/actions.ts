@@ -17,6 +17,11 @@ export const actions: Record<string, Action> = {
     desc: "Toggle playback of a pattern.",
     fn: togglePlaybackPattern,
   },
+  playDefaultNote: {
+    label: "Play default note",
+    desc: "Plays a C4 note for 8n.",
+    fn: () => playNote("C4", "8n"),
+  },
   playNote: {
     label: "Play note",
     desc: "Plays a single note.",
