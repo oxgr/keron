@@ -7,5 +7,5 @@ export function playNote(note: Note, duration: Time) {
   const { model } = useModel();
 
   // console.log("playing audio...");
-  model.synth.triggerAttackRelease(note, duration);
+  model.bank.instruments[0].triggerAttackRelease(note, duration);
 }

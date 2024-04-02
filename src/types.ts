@@ -1,4 +1,3 @@
-import { Synth } from "tone";
 import { Note } from "tone/build/esm/core/type/NoteUnits";
 
 export type Model = {
@@ -6,10 +5,20 @@ export type Model = {
   key: Key;
   project: Project;
   transport: Transport;
-  synth: Synth;
+  bank: BuiltinBank;
 };
 
-export enum View {
+type View = {
+  mode: ViewMode;
+  cursor: Cursor;
+};
+
+type Cursor = {
+  // TODO: Define where a cursor position can be.
+  position: Object;
+};
+
+export enum ViewMode {
   Settings,
   Project,
   Song,
@@ -27,6 +36,18 @@ type Key = {
 type Project = {
   name: string;
   song: Song;
+  active: Active;
+  bank: Bank;
+};
+
+type Bank = {
+  chains: Chain[];
+  patterns: Pattern[];
+  samples: Sample[];
+};
+
+type BuiltinBank = {
+  instruments: any[];
 };
 
 type Song = {
@@ -34,15 +55,16 @@ type Song = {
 };
 
 type Chain = {
-  patterns: Pattern[];
+  patterns: PatternId[];
 };
+
+type PatternId = number;
 
 type Pattern = {
   lines: Line[];
 };
 
 type Line = {
-  active: boolean;
   note: Note;
   instrument: Instrument;
 };
@@ -52,8 +74,18 @@ type Instrument = {
   table: Table;
 };
 
+type Sample = {
+  id: number;
+};
+
 type Table = {};
 
 type Transport = {
   playbackActive: boolean;
+};
+
+type Active = {
+  chain: number;
+  pattern: number;
+  line: number;
 };

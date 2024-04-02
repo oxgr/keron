@@ -1,8 +1,7 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { View, Model } from "../types";
-import { Synth } from "tone";
+import { ViewMode, Model } from "../types";
 
 const defaultModel = initModel();
 const [model, setModel] = createStore(defaultModel);
@@ -15,150 +14,156 @@ export function useModel() {
 
 function initModel(): Model {
   const defaultModel: Model = {
-    view: View.Pattern,
+    view: {
+      mode: ViewMode.Pattern,
+      cursor: {
+        position: {},
+      },
+    },
     key: {
       active: false,
     },
     transport: {
       playbackActive: false,
     },
+    bank: {
+      instruments: [],
+    },
     project: {
       name: "ox",
+      active: {
+        chain: 0,
+        pattern: 0,
+        line: 0,
+      },
       song: {
         chains: [
           {
-            patterns: [
+            patterns: [],
+          },
+        ],
+      },
+      bank: {
+        samples: [],
+        chains: [
+          {
+            patterns: [0],
+          },
+        ],
+        patterns: [
+          {
+            lines: [
               {
-                lines: [
-                  {
-                    active: false,
-                    note: "C4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "E4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "F4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "G4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "C4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "E4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "F4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "G4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "C4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "E4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "F4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "C4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "C4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "E4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "F4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                  {
-                    active: false,
-                    note: "G4",
-                    instrument: {
-                      type: "S01",
-                      table: {},
-                    },
-                  },
-                ],
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "E4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "F4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "G4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "E4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "F4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "G4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "E4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "F4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "C4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "E4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "F4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "G4",
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
               },
             ],
           },

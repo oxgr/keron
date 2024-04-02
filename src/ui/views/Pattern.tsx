@@ -6,10 +6,12 @@ export default function PatternView() {
   const { model, setModel } = useModel();
   return (
     <div class="track">
-      <For each={model.project.song.chains[0].patterns[0].lines}>
+      <For
+        each={model.project.bank.patterns[model.project.active.pattern].lines}
+      >
         {(line, index) => (
           <div
-            class={`${pattern.line} ${line.active ? pattern.lineActive : null}`}
+            class={`${pattern.line} ${index() === model.project.active.line ? pattern.lineActive : null}`}
           >
             <div class={pattern.linenr}>{index()}</div>
             <div class={pattern.note}>{line.note}</div>

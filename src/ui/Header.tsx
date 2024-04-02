@@ -1,5 +1,4 @@
 import { useModel } from "../state/model";
-import { View } from "../types";
 import styles from "/src/App.module.css";
 
 export default function Header() {

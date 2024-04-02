@@ -1,7 +1,5 @@
 import * as Tone from "tone";
 import { useModel } from "../state/model";
-import { produce } from "solid-js/store";
-import { Seconds } from "tone/build/esm/core/type/Units";
 import { playNote } from "./synth";
 
 export function initAudio() {
@@ -18,7 +16,7 @@ export function initAudio() {
 
   //create a synth and connect it to the main output (your speakers)
   const synth = new Tone.Synth().toDestination();
-  setModel("synth", synth);
+  setModel("bank", "instruments", (ins) => [...ins, synth]);
 
   Tone.Transport.scheduleRepeat(loopCallback, "16n");
 
@@ -40,18 +38,22 @@ function loopCallback() {
   const { model, setModel } = useModel();
   setModel(
     "project",
-    "song",
-    "chains",
-    0,
-    "patterns",
-    0,
-    "lines",
-    produce((lines) =>
-      lines.map((line, index) => (line.active = index === activeLine)),
-    ),
+    "active",
+    "line",
+    activeLine,
+    // "song",
+    // "chains",
+    // 0,
+    // "patterns",
+    // 0,
+    // "lines",
+    // produce((lines) =>
+    //   lines.map((line, index) => (line.active = index === activeLine)),
+    // ),
   );
 
   const noteToPlay =
-    model.project.song.chains[0].patterns[0].lines[activeLine].note;
+    model.project.bank.patterns[model.project.active.pattern].lines[activeLine]
+      .note;
   playNote(noteToPlay, "8n");
 }
