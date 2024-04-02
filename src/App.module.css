@@ -3,8 +3,10 @@
   --color-fg: #f4cde9;
   --color-fg-accent: #f99286;
   --color-fg-accent-sec: #b6377d;
+  --color-fg-muted: #6f5a71;
   --color-bg-accent: #6f5a71;
   --color-bg-accent-sec: #ad7fa8;
+  --color-bg-muted: #27232f;
   --color-border: var(--color-bg-accent);
   --color-border-accent: var(--color-fg-accent-sec);
   --color-border-active: var(--color-border-accent);
@@ -17,20 +19,25 @@
   --border-radius: 1rem;
 }
 
+body {
+  background: var(--color-bg-muted);
+}
+
 .App {
+  margin: 0 auto;
   background: var(--color-bg);
   color: var(--color-fg);
   font-family: system-ui;
   /* padding: var(--app-padding); */
   /* width: calc(100vw - var(--app-padding) * 2); */
   /* height: calc(100vh - var(--app-padding) * 2); */
-  width: 100vw;
   height: 100vh;
+  width: calc(100vh / 3 * 4);
   overflow: hidden;
   /* display: flex; */
   /* flex-flow: column; */
   display: grid;
-  grid-template: 10% 90% / 80% 20%;
+  grid-template: 5% 95% / 80% 20%;
   grid-template-areas:
     "header header"
     "main side";
@@ -38,15 +45,14 @@
 
 /* .footer, */
 /* .header, */
-.section {
+/* .section { */
+.main {
   border: solid 1px var(--color-border-accent);
   border-radius: var(--border-radius);
+}
+.section {
   /* margin: var(--section-margin); */
   padding: var(--section-padding);
-
-  > div {
-    margin-bottom: 1rem;
-  }
 
   h3,
   h2,
@@ -58,6 +64,20 @@
 .header {
   /* flex: 0 0 5%; */
   grid-area: header;
+  display: flex;
+  align-items: center;
+}
+
+.tabs {
+  display: flex;
+  gap: 2rem;
+  font-size: 1rem;
+  align-items: center;
+  color: var(--color-fg-muted);
+  .viewActive {
+    color: var(--color-fg-accent);
+    font-weight: bold;
+  }
 }
 
 .main {

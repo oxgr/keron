@@ -8,12 +8,13 @@
   align-items: center;
   margin-bottom: 0.5rem;
   border-bottom: var(--border);
-  opacity: 0.6;
+  /* opacity: 0.6; */
+  color: var(--color-fg-muted);
 }
 
 .lineActive {
   border-color: var(--color-border-active);
-  opacity: 1;
+  color: var(--color-fg-accent);
 }
 
 code {

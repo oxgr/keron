@@ -2,7 +2,7 @@ import { togglePlaybackPattern } from "../audio/transport";
 import { playNote } from "../audio/synth";
 import * as Tone from "tone";
 import { useModel } from "../state/model";
-import { ViewMode } from "../types";
+import { CursorMoveDirection, ViewMode } from "../types";
 import { untrack } from "solid-js/web";
 
 export type Action = {
@@ -48,6 +48,17 @@ export const actions: Record<string, Action> = {
     fn: nextViewMode,
   },
 };
+
+// function moveCursor(direction: CursorMoveDirection) {
+//   const track = ( direction == CursorMoveDirection.Up || direction == CursorMoveDirection.Down ) ? "lines" : "columns"
+//   const current = () => model.view.cursor
+//
+//   setModel(
+//     "view",
+//     "cursor",
+//     untrack(() => model.view.cursor[target]),
+//   );
+// }
 
 function prevViewMode() {
   setModel(

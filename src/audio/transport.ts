@@ -21,7 +21,7 @@ export function togglePlaybackPattern() {
   if (state != "started") {
     setupLoop();
     Tone.Transport.loop = true;
-    Tone.Transport.setLoopPoints(0, "2:0:0");
+    Tone.Transport.setLoopPoints(0, "1:0:0");
     Tone.Transport.start();
   } else {
     Tone.Transport.stop();

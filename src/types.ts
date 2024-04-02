@@ -14,9 +14,16 @@ type View = {
 };
 
 type Cursor = {
-  // TODO: Define where a cursor position can be.
-  position: Object;
+  line: number;
+  column: number;
 };
+
+export enum CursorMoveDirection {
+  Left,
+  Down,
+  Up,
+  Right,
+}
 
 export enum ViewMode {
   Settings,

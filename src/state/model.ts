@@ -161,6 +161,10 @@ function initModel(): Model {
                   table: {},
                 },
               },
+            ],
+          },
+          {
+            lines: [
               {
                 note: "C4",
                 instrument: {
