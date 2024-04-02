@@ -7,7 +7,7 @@ export default function PatternView() {
   const { model, setModel } = useModel();
   return (
     <div class="track">
-      <h2 class={styles.mainTitle}>{model.project.active.pattern}</h2>
+      <div class={styles.mainTitle}>{model.project.active.pattern}</div>
       <For
         each={model.project.bank.patterns[model.project.active.pattern].lines}
       >

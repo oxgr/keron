@@ -1,5 +1,5 @@
 import { onMount } from "solid-js";
-import styles from "./App.module.css";
+import styles from "/src/App.module.css";
 
 import ModelProvider from "./state/ModelProvider";
 import Header from "./ui/Header";
@@ -14,6 +14,10 @@ export default function App() {
   onMount(() => {
     initKeys();
     initAudio();
+    document.addEventListener("click", fullscreen, { once: true });
+    function fullscreen() {
+      document.body.requestFullscreen();
+    }
   });
 
   return (

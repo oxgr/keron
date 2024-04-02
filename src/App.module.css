@@ -11,33 +11,36 @@
   --color-border-accent: var(--color-fg-accent-sec);
   --color-border-active: var(--color-border-accent);
 
+  --app-height: 100vh;
+  --app-width: calc(100vh / 3 * 4);
   --app-padding: 1rem;
   --section-margin: 1rem;
   --section-padding: 1rem;
 
   --border: solid 1px var(--color-border);
-  --border-radius: 1rem;
+  --border-radius: 1em;
+
+  font-size: calc(var(--app-height) * 0.04);
 }
 
 body {
-  background: var(--color-bg-muted);
+  /* background: var(--color-bg-muted); */
+  background: black;
 }
 
 .App {
+  height: var(--app-height);
+  width: var(--app-width);
+  overflow: hidden;
+
   margin: 0 auto;
   background: var(--color-bg);
   color: var(--color-fg);
-  font-family: system-ui;
-  /* padding: var(--app-padding); */
-  /* width: calc(100vw - var(--app-padding) * 2); */
-  /* height: calc(100vh - var(--app-padding) * 2); */
-  height: 100vh;
-  width: calc(100vh / 3 * 4);
-  overflow: hidden;
-  /* display: flex; */
-  /* flex-flow: column; */
+  font-family: monospace, system-ui;
+
   display: grid;
-  grid-template: 5% 95% / 80% 20%;
+  grid-template-rows: 5% 95%;
+  grid-template-columns: 80% 20%;
   grid-template-areas:
     "header header"
     "main side";
@@ -47,9 +50,12 @@ body {
 /* .header, */
 /* .section { */
 .main {
-  border: solid 1px var(--color-border-accent);
-  border-radius: var(--border-radius);
+  /* border: solid 1px var(--color-border-accent); */
+  /* border-radius: var(--border-radius); */
+  overflow: hidden;
+  padding: 2rem;
 }
+
 .section {
   /* margin: var(--section-margin); */
   padding: var(--section-padding);
@@ -70,8 +76,8 @@ body {
 
 .tabs {
   display: flex;
-  gap: 2rem;
-  font-size: 1rem;
+  gap: 1em;
+  font-size: 0.8em;
   align-items: center;
   color: var(--color-fg-muted);
   .viewActive {
@@ -83,6 +89,10 @@ body {
 .main {
   /* flex: 0 1 100%; */
   grid-area: main;
+}
+
+.mainTitle {
+  margin-bottom: 1rem;
 }
 
 .side {
