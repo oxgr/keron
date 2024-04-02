@@ -17,7 +17,8 @@ function initModel(): Model {
     view: {
       mode: ViewMode.Pattern,
       cursor: {
-        position: {},
+        line: 0,
+        column: 0,
       },
     },
     key: {
@@ -37,10 +38,15 @@ function initModel(): Model {
         line: 0,
       },
       song: {
-        chains: [0],
+        tracks: [0],
       },
       bank: {
         samples: [],
+        tracks: [
+          {
+            chains: [0],
+          },
+        ],
         chains: [
           {
             patterns: [0],

@@ -2,6 +2,7 @@ import * as Tone from "tone";
 import { useModel } from "../state/model";
 import { playNote } from "./synth";
 import { lineIndexToNotation, positionToLine } from "./utils";
+import { getPattern } from "../state/utils";
 
 const { model, setModel } = useModel();
 
@@ -30,7 +31,7 @@ export function togglePlaybackPattern() {
 
 function setupLoop() {
   const activePatternIndex = model.project.active.pattern;
-  const activePattern = model.project.bank.patterns[activePatternIndex];
+  const activePattern = getPattern(activePatternIndex);
 
   const lines = activePattern.lines.map((line, index) => [
     "0:" + lineIndexToNotation(index),
@@ -43,4 +44,5 @@ function loopCallback(time: any, note: any) {
   playNote(note, "8n", time);
   const activeLine = positionToLine(Tone.Transport.position);
   setModel("project", "active", "line", activeLine);
+  setModel("view", "cursor", "line", activeLine);
 }

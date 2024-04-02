@@ -99,3 +99,7 @@ body {
   /* flex: 0 0 5%; */
   grid-area: side;
 }
+
+.sideContent {
+  font-size: 0.8rem;
+}

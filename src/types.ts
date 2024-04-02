@@ -8,15 +8,17 @@ export type Model = {
   bank: BuiltinBank;
 };
 
-type View = {
+export type View = {
   mode: ViewMode;
   cursor: Cursor;
 };
 
-type Cursor = {
+export type Cursor = {
   line: number;
   column: number;
 };
+
+export type CursorTrack = keyof Cursor;
 
 export enum CursorMoveDirection {
   Left,
@@ -35,66 +37,70 @@ export enum ViewMode {
   Table,
 }
 
-type Key = {
+export type Key = {
   active: boolean;
   event?: KeyboardEvent;
 };
 
-type Project = {
+export type Project = {
   name: string;
   song: Song;
   active: Active;
   bank: Bank;
 };
 
-type Bank = {
+export type Bank = {
+  tracks: Track[];
   chains: Chain[];
   patterns: Pattern[];
   samples: Sample[];
 };
 
-type BuiltinBank = {
+export type BuiltinBank = {
   // TODO: Find a way to type this as an instrument that can reference Tone.Instrument + other types
   instruments: any[];
 };
 
-type Song = {
+export type Song = {
+  tracks: TrackId[];
+};
+
+export type TrackId = number;
+export type Track = {
   chains: ChainId[];
 };
 
-type ChainId = number;
-
-type Chain = {
+export type ChainId = number;
+export type Chain = {
   patterns: PatternId[];
 };
 
-type PatternId = number;
-
-type Pattern = {
+export type PatternId = number;
+export type Pattern = {
   lines: Line[];
 };
 
-type Line = {
+export type Line = {
   note: Note;
   instrument: Instrument;
 };
 
-type Instrument = {
+export type Instrument = {
   type: string;
   table: Table;
 };
 
-type Sample = {
+export type Sample = {
   id: number;
 };
 
-type Table = {};
+export type Table = {};
 
-type Transport = {
+export type Transport = {
   playbackActive: boolean;
 };
 
-type Active = {
+export type Active = {
   chain: number;
   pattern: number;
   line: number;

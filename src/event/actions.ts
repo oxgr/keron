@@ -2,7 +2,7 @@ import { togglePlaybackPattern } from "../audio/transport";
 import { playNote } from "../audio/synth";
 import * as Tone from "tone";
 import { useModel } from "../state/model";
-import { CursorMoveDirection, ViewMode } from "../types";
+import { Cursor, CursorMoveDirection, ViewMode } from "../types";
 import { untrack } from "solid-js/web";
 
 export type Action = {
@@ -47,18 +47,55 @@ export const actions: Record<string, Action> = {
     desc: "Switch to the next view mode.",
     fn: nextViewMode,
   },
+  moveCursorLeft: {
+    label: "Move cursor left",
+    desc: "Move the cursor to the left",
+    fn: () => moveCursor(CursorMoveDirection.Left),
+  },
+  moveCursorRight: {
+    label: "Move cursor Right",
+    desc: "Move the cursor to the Right",
+    fn: () => moveCursor(CursorMoveDirection.Right),
+  },
+  moveCursorUp: {
+    label: "Move cursor Up",
+    desc: "Move the cursor to the Up",
+    fn: () => moveCursor(CursorMoveDirection.Up),
+  },
+  moveCursorDown: {
+    label: "Move cursor Down",
+    desc: "Move the cursor to the Down",
+    fn: () => moveCursor(CursorMoveDirection.Down),
+  },
 };
 
-// function moveCursor(direction: CursorMoveDirection) {
-//   const track = ( direction == CursorMoveDirection.Up || direction == CursorMoveDirection.Down ) ? "lines" : "columns"
-//   const current = () => model.view.cursor
-//
-//   setModel(
-//     "view",
-//     "cursor",
-//     untrack(() => model.view.cursor[target]),
-//   );
-// }
+function moveCursor(direction: CursorMoveDirection) {
+  const track =
+    direction == CursorMoveDirection.Up || direction == CursorMoveDirection.Down
+      ? "line"
+      : "column";
+
+  const updatePos = (currPos: number, direction: CursorMoveDirection) => {
+    const newPos =
+      direction == CursorMoveDirection.Up ||
+      direction == CursorMoveDirection.Left
+        ? currPos - 1
+        : currPos + 1;
+
+    return newPos;
+  };
+
+  const newPos = () => updatePos(model.view.cursor[track], direction);
+
+  setModel("view", "cursor", track, untrack(newPos));
+  if (track == "line")
+    setModel(
+      "project",
+      "active",
+      "line",
+      untrack(() => model.view.cursor.line),
+    );
+}
 
 function prevViewMode() {
   setModel(
