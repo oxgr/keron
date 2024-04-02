@@ -8,7 +8,9 @@ export default function PatternView() {
     <div class="track">
       <For each={model.project.song.chains[0].patterns[0].lines}>
         {(line, index) => (
-          <div class={pattern.line}>
+          <div
+            class={`${pattern.line} ${line.active ? pattern.lineActive : null}`}
+          >
             <div class={pattern.linenr}>{index()}</div>
             <div class={pattern.note}>{line.note}</div>
           </div>

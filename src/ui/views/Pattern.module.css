@@ -1,8 +1,17 @@
 .line {
   width: 100%;
   background: #27232f;
-  display: flex;
+  display: grid;
+  grid-template-columns: 2em 2em;
+  justify-items: end;
   gap: 1rem;
   align-items: center;
+  margin-bottom: 0.5rem;
   border-bottom: var(--border);
+  opacity: 0.6;
+}
+
+.lineActive {
+  border-color: var(--color-border-active);
+  opacity: 1;
 }

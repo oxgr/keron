@@ -4,6 +4,7 @@ export type Model = {
   view: View;
   key: Key;
   project: Project;
+  transport: Transport;
 };
 
 export enum View {
@@ -39,6 +40,7 @@ type Pattern = {
 };
 
 type Line = {
+  active: boolean;
   note: Note;
   instrument: Instrument;
 };
@@ -49,3 +51,7 @@ type Instrument = {
 };
 
 type Table = {};
+
+type Transport = {
+  playbackActive: boolean;
+};
