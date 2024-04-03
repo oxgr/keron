@@ -8,31 +8,44 @@ import Gutter from "../components/Gutter";
 
 export default function SongView() {
   const { model } = useModel();
+
   const lineRange = () => model.view.lineRange;
   const cursorLine = () => model.view.cursor.line;
   const activeTrack = () => model.project.active.track;
   const activeChain = () => model.project.active.chain;
-  const fullTracks = () => {
-    const tracks = model.project.song.tracks;
-    const len = tracks.length;
-    return [...tracks, ...Array(8 - len).fill(0)];
+
+  const allTracks = () => model.project.song.tracks;
+  const allChainsInTrack = (trackId: number) =>
+    !isNaN(trackId) ? getTrack(trackId).chains : [];
+
+  const fillArray = (array: any[] = [], length: number): string[] => {
+    if (!array) return Array(length).fill("--");
+
+    const len = array.length;
+    return [
+      ...array.map((val) => val.toString(16).toUpperCase()),
+      ...Array(length - len).fill("--"),
+    ];
   };
+
+  const fullTracks = (tracks: number[]) => fillArray(tracks, 8);
+  const fullChains = (chains: number[]) => fillArray(chains, 16);
 
   return (
     <div class="song">
       {/* <div class={styles.mainTitle}>{model.project.active.phrase}</div> */}
       <Grid>
         <Gutter lineRange={lineRange} activeLine={cursorLine}></Gutter>
-        <For each={fullTracks()}>
+        <For each={fullTracks(allTracks())}>
           {(trackId, trackIndex) => (
             <Column
-              text={trackId.toString()}
+              text={trackId}
               active={() => trackIndex() === activeTrack()}
             >
-              <For each={getTrack(trackId).chains}>
-                {(_, chainIndex) => (
+              <For each={fullChains(allChainsInTrack(Number(trackId)))}>
+                {(chainId, chainIndex) => (
                   <Block
-                    text={chainIndex().toString()}
+                    text={chainId}
                     activeLine={() => chainIndex() === activeChain()}
                     // activeColumn={() => trackIndex() === activeTrack()}
                   ></Block>

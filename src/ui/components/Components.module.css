@@ -23,12 +23,17 @@
 }
 
 .columnHeader .activeColumn,
-.gutter .activeLine,
-.activeColumn .activeLine {
+.gutter .activeLine {
   color: var(--color-fg-accent);
+  font-weight: bold;
+}
+.activeColumn .activeLine {
+  background: var(--color-fg-accent);
+  color: var(--color-bg);
+  font-weight: bold;
 }
 
 .activeLine,
 .activeColumn {
-  font-weight: bold;
+  /* font-weight: bold; */
 }

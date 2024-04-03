@@ -22,7 +22,7 @@ export default function Gutter({
         <For each={(() => lineNrs(lineRange()))()}>
           {(linenr) => (
             <Block
-              text={linenr.toString().padStart(2, "0")}
+              text={linenr.toString(16).toUpperCase().padStart(2, "0")}
               activeLine={() => linenr == activeLine()}
               // activeColumn={() => true}
             ></Block>
