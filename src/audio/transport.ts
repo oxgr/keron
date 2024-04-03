@@ -2,14 +2,14 @@ import * as Tone from "tone";
 import { useModel } from "../state/model";
 import { playNote } from "./synth";
 import { lineIndexToNotation, positionToLine } from "./utils";
-import { getPattern } from "../state/utils";
+import { getPhrase } from "../state/utils";
 
 const { model, setModel } = useModel();
 
 /**
- * Toggle the playback of a single pattern.
+ * Toggle the playback of a single phrase.
  */
-export function togglePlaybackPattern() {
+export function togglePlaybackPhrase() {
   // console.log("toggling playback");
   //
   // setModel("transport", "playbackActive", (pb) => !pb);
@@ -34,10 +34,10 @@ export function togglePlaybackPattern() {
 }
 
 function setupLoop() {
-  const activePatternIndex = model.project.active.pattern;
-  const activePattern = getPattern(activePatternIndex);
+  const activePhraseIndex = model.project.active.phrase;
+  const activePhrase = getPhrase(activePhraseIndex);
 
-  const lines = activePattern.lines.map((line, index) => [
+  const lines = activePhrase.lines.map((line, index) => [
     "0:" + lineIndexToNotation(index),
     line.note,
   ]);

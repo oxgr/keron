@@ -2,7 +2,7 @@ import { For, Match, Show, Switch, createEffect } from "solid-js";
 import { useModel } from "../state/model";
 import { ViewMode } from "../types";
 import styles from "/src/App.module.css";
-import PatternView from "./views/PatternView";
+import PhraseView from "./views/PhraseView";
 import ChainView from "./views/ChainView";
 
 export default function Main() {
@@ -18,8 +18,8 @@ export default function Main() {
         <Match when={ViewMode[model.view.mode] === "Chain"}>
           <ChainView />
         </Match>
-        <Match when={ViewMode[model.view.mode] === "Pattern"}>
-          <PatternView />
+        <Match when={ViewMode[model.view.mode] === "Phrase"}>
+          <PhraseView />
         </Match>
       </Switch>
     </main>

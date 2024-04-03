@@ -15,7 +15,7 @@ export function useModel() {
 function initModel(): Model {
   const defaultModel: Model = {
     view: {
-      mode: ViewMode.Pattern,
+      mode: ViewMode.Phrase,
       cursor: {
         line: 0,
         column: 0,
@@ -35,7 +35,7 @@ function initModel(): Model {
       active: {
         track: 0,
         chain: 0,
-        pattern: 0,
+        phrase: 0,
         line: 0,
       },
       song: {
@@ -50,10 +50,10 @@ function initModel(): Model {
         ],
         chains: [
           {
-            patterns: [0],
+            phrases: [0],
           },
         ],
-        patterns: [
+        phrases: [
           {
             lines: [
               {
@@ -291,7 +291,7 @@ function initModel(): Model {
     },
   };
 
-  // defaultModel.project.song.chains[0].patterns[0].lines = Array(16).fill(
+  // defaultModel.project.song.chains[0].phrases[0].lines = Array(16).fill(
   //   {
   //     active: false,
   //     note: "C-4",

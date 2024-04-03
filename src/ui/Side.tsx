@@ -6,7 +6,7 @@ import styles from "/src/App.module.css";
 export default function Side() {
   const { model, setModel } = useModel();
 
-  // const lines = model.project.song.chains[0].patterns[0].lines;
+  // const lines = model.project.song.chains[0].phrases[0].lines;
   // const linesActive = lines.map((line) => line.active);
 
   const key = () => {

@@ -32,7 +32,7 @@ export enum ViewMode {
   Project,
   Song,
   Chain,
-  Pattern,
+  Phrase,
   Instrument,
   Table,
 }
@@ -40,6 +40,13 @@ export enum ViewMode {
 export type Key = {
   active: boolean;
   event?: KeyboardEvent;
+};
+
+export type Active = {
+  track: number;
+  chain: number;
+  phrase: number;
+  line: number;
 };
 
 export type Project = {
@@ -52,7 +59,7 @@ export type Project = {
 export type Bank = {
   tracks: Track[];
   chains: Chain[];
-  patterns: Pattern[];
+  phrases: Phrase[];
   samples: Sample[];
 };
 
@@ -72,11 +79,11 @@ export type Track = {
 
 export type ChainId = number;
 export type Chain = {
-  patterns: PatternId[];
+  phrases: PhraseId[];
 };
 
-export type PatternId = number;
-export type Pattern = {
+export type PhraseId = number;
+export type Phrase = {
   lines: Line[];
 };
 
@@ -98,11 +105,4 @@ export type Table = {};
 
 export type Transport = {
   playbackActive: boolean;
-};
-
-export type Active = {
-  track: number;
-  chain: number;
-  pattern: number;
-  line: number;
 };

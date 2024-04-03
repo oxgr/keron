@@ -6,7 +6,7 @@ type Keymap = Record<string, Action>;
  * Map of keyboard keys and the respective actions they trigger
  */
 export const keymap: Keymap = {
-  " ": actions.togglePlaybackPattern,
+  " ": actions.togglePlaybackPhrase,
   p: actions.printTime,
   Backspace: actions.playDefaultNote,
   ",": actions.prevViewMode,

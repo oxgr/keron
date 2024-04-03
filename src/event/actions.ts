@@ -1,4 +1,4 @@
-import { togglePlaybackPattern } from "../audio/transport";
+import { togglePlaybackPhrase } from "../audio/transport";
 import { playNote } from "../audio/synth";
 import * as Tone from "tone";
 import { useModel } from "../state/model";
@@ -17,10 +17,10 @@ const { model, setModel } = useModel();
  * All possible actions that can be carried out.
  */
 export const actions: Record<string, Action> = {
-  togglePlaybackPattern: {
+  togglePlaybackPhrase: {
     label: "Toggle playback",
-    desc: "Toggle playback of a pattern.",
-    fn: togglePlaybackPattern,
+    desc: "Toggle playback of a phrase.",
+    fn: togglePlaybackPhrase,
   },
   playDefaultNote: {
     label: "Play default note",

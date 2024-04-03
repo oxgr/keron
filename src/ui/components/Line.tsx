@@ -1,6 +1,6 @@
 import { Accessor } from "solid-js";
 import { Line as LineType } from "../../types";
-import pattern from "../views/View.module.css";
+import phrase from "../views/View.module.css";
 
 export default function Line({
   line,
@@ -12,9 +12,9 @@ export default function Line({
   active: Function;
 }) {
   return (
-    <div class={`${pattern.line} ${active() ? pattern.lineActive : null}`}>
-      <div class={pattern.linenr}>{index()}</div>
-      <div class={pattern.note}>{line.note}</div>
+    <div class={`${phrase.line} ${active() ? phrase.lineActive : null}`}>
+      <div class={phrase.linenr}>{index()}</div>
+      <div class={phrase.note}>{line.note}</div>
     </div>
   );
 }
