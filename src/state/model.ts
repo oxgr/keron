@@ -40,16 +40,22 @@ function initModel(): Model {
         line: 0,
       },
       song: {
-        tracks: [0, 1],
+        tracks: [0, 1, 2, 3],
       },
       bank: {
         samples: [],
         tracks: [
           {
-            chains: [0, 0],
+            chains: [1, 0],
           },
           {
             chains: [0],
+          },
+          {
+            chains: [1, 2],
+          },
+          {
+            chains: [3, 3, 3],
           },
         ],
         chains: [
@@ -61,6 +67,9 @@ function initModel(): Model {
           },
           {
             phrases: [0, 0],
+          },
+          {
+            phrases: [1, 1, 1, 1],
           },
         ],
         phrases: [

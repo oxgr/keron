@@ -11,6 +11,8 @@ export default function SongView() {
 
   const lineRange = () => model.view.lineRange;
   const cursorLine = () => model.view.cursor.line;
+  const cursorColumn = () => model.view.cursor.column;
+
   const activeTrack = () => model.project.active.track;
   const activeChain = () => model.project.active.chain;
 
@@ -40,13 +42,13 @@ export default function SongView() {
           {(trackId, trackIndex) => (
             <Column
               text={trackId}
-              active={() => trackIndex() === activeTrack()}
+              active={() => trackIndex() === cursorColumn()}
             >
               <For each={fullChains(allChainsInTrack(Number(trackId)))}>
                 {(chainId, chainIndex) => (
                   <Block
                     text={chainId}
-                    activeLine={() => chainIndex() === activeChain()}
+                    activeLine={() => chainIndex() === cursorLine()}
                     // activeColumn={() => trackIndex() === activeTrack()}
                   ></Block>
                 )}

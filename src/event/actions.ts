@@ -2,8 +2,9 @@ import { togglePlaybackPhrase } from "../audio/transport";
 import { playNote } from "../audio/synth";
 import * as Tone from "tone";
 import { useModel } from "../state/model";
-import { Cursor, CursorMoveDirection, ViewMode } from "../types";
+import { Cursor, CursorMoveDirection, ViewMode, Active } from "../types";
 import { untrack } from "solid-js/web";
+import { getActiveTrack } from "../state/utils";
 
 export type Action = {
   label: string;
@@ -70,7 +71,7 @@ export const actions: Record<string, Action> = {
 };
 
 function moveCursor(direction: CursorMoveDirection) {
-  const track =
+  const axis =
     direction == CursorMoveDirection.Up || direction == CursorMoveDirection.Down
       ? "line"
       : "column";
@@ -85,40 +86,41 @@ function moveCursor(direction: CursorMoveDirection) {
     return newPos;
   };
 
-  const newPos = () => updatePos(model.view.cursor[track], direction);
+  const newPos = () => updatePos(model.view.cursor[axis], direction);
 
-  setModel("view", "cursor", track, untrack(newPos));
+  setModel("view", "cursor", axis, untrack(newPos));
 
-  if (track == "line")
+  const alterActiveModel = (prop: keyof Active, value: any) => {
+    // if (!value) return;
     setModel(
       "project",
       "active",
-      "line",
-      untrack(() => model.view.cursor.line),
+      prop,
+      untrack(() => value),
     );
-
-  if (track == "line")
-    setModel(
-      "project",
-      "active",
-      "chain",
-      untrack(() => model.view.cursor.line),
-    );
-
-  if (track == "column")
-    setModel(
-      "project",
-      "active",
-      "track",
-      untrack(() => model.view.cursor.column),
-    );
+  };
 
   switch (model.view.mode) {
     case ViewMode.Settings:
     case ViewMode.Project:
     case ViewMode.Song:
+      if (axis == "column") alterActiveModel("track", model.view.cursor.column);
+      alterActiveModel(
+        "chain",
+        getActiveTrack()?.chains?.[model.view.cursor.line],
+      );
+      break;
+
     case ViewMode.Chain:
+      if (axis == "line") alterActiveModel("phrase", model.view.cursor.line);
+      if (axis == "column") alterActiveModel("track", model.view.cursor.line);
+      break;
+
     case ViewMode.Phrase:
+      if (axis == "line") alterActiveModel("line", model.view.cursor.line);
+      // if (axis == "column") alterActiveModel("track", model.view.cursor.line);
+      break;
+
     case ViewMode.Instrument:
     case ViewMode.Table:
   }

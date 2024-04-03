@@ -18,10 +18,14 @@ export default function ChainView() {
   const activeChainId = () => model.project.active.chain;
   const activePhraseId = () => model.project.active.phrase;
 
-  const activeChain = () => getChain(activePhraseId());
-  const allPhrasesInActiveChain = () => activeChain().phrases;
+  // const activeChain = () => getChain(activePhraseId());
+  const allPhrasesInChain = (chainId: number) =>
+    getChain(chainId)?.phrases ?? [];
 
-  const fillArray = (array: any[] = [], length: number): string[] => {
+  const fillArray = (
+    array: any[] | undefined = [],
+    length: number,
+  ): string[] => {
     if (!array) return Array(length).fill("--");
 
     const len = array.length;
@@ -38,10 +42,10 @@ export default function ChainView() {
 
         <Gutter lineRange={lineRange} activeLine={cursorLine}></Gutter>
         <Column
-          text={activeChainId().toString(16).toUpperCase()}
+          text={activeChainId()?.toString(16).toUpperCase() ?? "--"}
           active={() => true}
         >
-          <For each={fillArray(allPhrasesInActiveChain(), 16)}>
+          <For each={fillArray(allPhrasesInChain(activeChainId()), 16)}>
             {(phraseId, phraseIndex) => (
               <Block
                 text={phraseId}
