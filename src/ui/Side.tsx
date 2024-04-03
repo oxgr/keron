@@ -21,6 +21,7 @@ export default function Side() {
         {debug("key", () => model.key.event?.key)}
         {debug("cursor", () => model.view.cursor)}
         {debug("active", () => model.project.active)}
+        {debug("mode", () => model.view.mode)}
       </div>
     </div>
   );

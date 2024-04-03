@@ -5,6 +5,7 @@ import { useModel } from "../state/model";
 import { Cursor, CursorMoveDirection, ViewMode, Active } from "../types";
 import { untrack } from "solid-js/web";
 import { getActiveChain, getActiveTrack } from "../state/utils";
+import { produce } from "solid-js/store";
 
 export type Action = {
   label: string;
@@ -142,8 +143,12 @@ function moveCursor(direction: CursorMoveDirection) {
 function prevViewMode() {
   setModel(
     "view",
-    "mode",
-    untrack(() => model.view.mode - 1),
+    produce((view) => {
+      view.mode = view.mode - 1;
+      // TODO: set this to a previously remembered cursor position per view
+      view.cursor.line = 0;
+      view.cursor.column = 0;
+    }),
   );
 }
 
