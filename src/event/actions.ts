@@ -6,6 +6,7 @@ import { Cursor, CursorMoveDirection, ViewMode, Active } from "../types";
 import { untrack } from "solid-js/web";
 import { getActiveChain, getActiveTrack } from "../state/utils";
 import { produce } from "solid-js/store";
+import { getEnumValues } from "../ui/views/utils";
 
 export type Action = {
   label: string;
@@ -147,11 +148,21 @@ function moveCursor(direction: CursorMoveDirection) {
   }
 }
 
-function prevViewMode() {
+function setViewMode(index: () => number) {
   setModel(
     "view",
     produce((view) => {
-      view.mode = view.mode - 1;
+      const givenIndex = untrack(index);
+      const viewModeValues = getEnumValues(ViewMode);
+      // round-robin value when we get to the edge
+
+      const newIndex =
+        givenIndex < 0
+          ? viewModeValues.at(-1)
+          : givenIndex > viewModeValues.at(-1)
+            ? 0
+            : givenIndex;
+      view.mode = newIndex;
       // TODO: set this to a previously remembered cursor position per view
       view.cursor.line = 0;
       view.cursor.column = 0;
@@ -159,14 +170,10 @@ function prevViewMode() {
   );
 }
 
+function prevViewMode() {
+  setViewMode(() => model.view.mode - 1);
+}
+
 function nextViewMode() {
-  setModel(
-    "view",
-    produce((view) => {
-      view.mode = view.mode + 1;
-      // TODO: set this to a previously remembered cursor position per view
-      view.cursor.line = 0;
-      view.cursor.column = 0;
-    }),
-  );
+  setViewMode(() => model.view.mode + 1);
 }
