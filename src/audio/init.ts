@@ -2,7 +2,7 @@ import * as Tone from "tone";
 import { useModel } from "../state/model";
 
 export function initAudio() {
-  const { model, setModel } = useModel();
+  const { setModel } = useModel();
 
   async function startAudio() {
     await Tone.start();

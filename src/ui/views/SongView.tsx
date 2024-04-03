@@ -8,17 +8,19 @@ import Gutter from "../components/Gutter";
 
 export default function SongView() {
   const { model } = useModel();
+  const lineRange = () => model.view.lineRange;
   const cursorLine = () => model.view.cursor.line;
+  const activeTrack = () => model.project.active.track;
   return (
     <div class="song">
       {/* <div class={styles.mainTitle}>{model.project.active.phrase}</div> */}
       <Grid>
-        <Gutter activeLine={cursorLine}></Gutter>
+        <Gutter lineRange={lineRange} activeLine={cursorLine}></Gutter>
         <For each={model.project.song.tracks}>
           {(trackId, index) => (
             <Column
               text={trackId.toString()}
-              active={index() === model.project.active.track}
+              active={() => index() === activeTrack()}
             >
               <For each={getTrack(trackId).chains}>
                 {(_, index) => (

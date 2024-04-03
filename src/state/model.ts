@@ -20,6 +20,7 @@ function initModel(): Model {
         line: 0,
         column: 0,
       },
+      lineRange: [0, 16],
     },
     key: {
       active: false,

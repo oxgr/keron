@@ -11,6 +11,7 @@ export type Model = {
 export type View = {
   mode: ViewMode;
   cursor: Cursor;
+  lineRange: number[];
 };
 
 export type Cursor = {

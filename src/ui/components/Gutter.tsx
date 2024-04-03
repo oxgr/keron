@@ -4,18 +4,22 @@ import Column from "./Column";
 import Block from "./Block";
 import { useModel } from "../../state/model";
 
-export default function Gutter({ activeLine }: { activeLine: Function }) {
-  const lineNrs = (len: number) =>
-    Array(len)
-      .fill(0, 0, len)
+export default function Gutter({
+  lineRange,
+  activeLine,
+}: {
+  lineRange: () => number[];
+  activeLine: () => number;
+}) {
+  const lineNrs = (range: number[]) =>
+    Array(16)
+      .fill(0, range[0], range[1])
       .map((_, i) => i);
-
-  // const {model} = useModel()
 
   return (
     <div class={components.gutter}>
       <Column>
-        <For each={lineNrs(16)}>
+        <For each={(() => lineNrs(lineRange()))()}>
           {(linenr) => (
             <>
               <Block

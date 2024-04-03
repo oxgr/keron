@@ -88,6 +88,7 @@ function moveCursor(direction: CursorMoveDirection) {
   const newPos = () => updatePos(model.view.cursor[track], direction);
 
   setModel("view", "cursor", track, untrack(newPos));
+
   if (track == "line")
     setModel(
       "project",
@@ -95,6 +96,24 @@ function moveCursor(direction: CursorMoveDirection) {
       "line",
       untrack(() => model.view.cursor.line),
     );
+
+  if (track == "column")
+    setModel(
+      "project",
+      "active",
+      "track",
+      untrack(() => model.view.cursor.column),
+    );
+
+  switch (model.view.mode) {
+    case ViewMode.Settings:
+    case ViewMode.Project:
+    case ViewMode.Song:
+    case ViewMode.Chain:
+    case ViewMode.Phrase:
+    case ViewMode.Instrument:
+    case ViewMode.Table:
+  }
 }
 
 function prevViewMode() {

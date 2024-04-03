@@ -1,4 +1,3 @@
-import phrase from "./View.module.css";
 import styles from "../../App.module.css";
 import { For } from "solid-js";
 import { useModel } from "../../state/model";
