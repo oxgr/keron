@@ -1,3 +1,7 @@
+## Todo
+
+- [ ] Cursor positions saved in model for every view
+
 ## Usage
 
 Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.

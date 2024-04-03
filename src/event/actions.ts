@@ -4,7 +4,7 @@ import * as Tone from "tone";
 import { useModel } from "../state/model";
 import { Cursor, CursorMoveDirection, ViewMode, Active } from "../types";
 import { untrack } from "solid-js/web";
-import { getActiveTrack } from "../state/utils";
+import { getActiveChain, getActiveTrack } from "../state/utils";
 
 export type Action = {
   label: string;
@@ -121,7 +121,11 @@ function moveCursor(direction: CursorMoveDirection) {
       break;
 
     case ViewMode.Chain:
-      if (axis == "line") updateActiveModel("phrase", model.view.cursor.line);
+      if (axis == "line")
+        updateActiveModel(
+          "phrase",
+          getActiveChain()?.phrases?.[model.view.cursor.line] ?? 0,
+        );
       if (axis == "column") updateActiveModel("track", model.view.cursor.line);
       break;
 

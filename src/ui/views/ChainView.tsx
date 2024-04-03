@@ -26,32 +26,18 @@ export default function ChainView() {
   return (
     <div class="track">
       <Grid>
-        {/* <div class={styles.mainTitle}>{model.project.active.phrase}</div> */}
-
         <Gutter lineRange={lineRange} activeLine={cursorLine}></Gutter>
         <Column text={toHexString(activeChainId())} active={() => true}>
           <For each={fillArrayTo(allPhrasesInChain(activeChainId()), 16)}>
             {(phraseId, phraseIndex) => (
               <Block
                 text={phraseId}
-                activeLine={() => phraseIndex() === activePhraseId()}
+                activeLine={() => phraseIndex() === cursorLine()}
                 // activeColumn={() => trackIndex() === activeTrack()}
               ></Block>
             )}
           </For>
         </Column>
-        {/* <For */}
-        {/*   each={} */}
-        {/* > */}
-        {/*   {(line, index) => ( */}
-        {/*     <div */}
-        {/*       class={`${phrase.line} ${index() === model.project.active.line ? phrase.lineActive : null}`} */}
-        {/*     > */}
-        {/*       <div class={phrase.linenr}>{index()}</div> */}
-        {/*       <div class={phrase.note}>{line.note}</div> */}
-        {/*     </div> */}
-        {/*   )} */}
-        {/* </For> */}
       </Grid>
     </div>
   );
