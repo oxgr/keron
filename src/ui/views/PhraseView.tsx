@@ -20,7 +20,7 @@ export default function PhraseView() {
   const allLinesInPhrase = (phraseId: number) =>
     getPhrase(phraseId)?.lines ?? [];
 
-  const columns = [
+  const phrasePropColumns = [
     {
       headerText: "N",
       value: (line: Line) =>
@@ -39,7 +39,7 @@ export default function PhraseView() {
           lineRange={lineRange}
           activeLine={cursorLine}
         ></Gutter>
-        <For each={columns}>
+        <For each={phrasePropColumns}>
           {({ headerText, value }, columnIndex) => (
             <Column
               headerText={headerText}

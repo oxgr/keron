@@ -1,28 +1,31 @@
-import { For, Match, Show, Switch, createEffect } from "solid-js";
+import { Match, Switch } from "solid-js";
 import { useModel } from "../state/model";
 import { ViewMode } from "../types";
 import styles from "/src/App.module.css";
+import ProjectView from "./views/ProjectView";
 import SongView from "./views/SongView";
 import ChainView from "./views/ChainView";
 import PhraseView from "./views/PhraseView";
 
 export default function Main() {
-  const { model, setModel } = useModel();
-
-  const viewMode = () => model.view.mode;
+  const { model } = useModel();
 
   return (
     <main class={`${styles.main} ${styles.section}`}>
-      {/* <h2 class={styles.mainTitle}>{ViewMode[viewMode()].toUpperCase()}</h2> */}
-
       <Switch fallback={<div>Not Found</div>}>
-        <Match when={ViewMode[model.view.mode] === "Song"}>
+        <Match when={model.view.mode === ViewMode.Configuration}>
+          <ProjectView />
+        </Match>
+        <Match when={model.view.mode === ViewMode.Project}>
+          <ProjectView />
+        </Match>
+        <Match when={model.view.mode === ViewMode.Song}>
           <SongView />
         </Match>
-        <Match when={ViewMode[model.view.mode] === "Chain"}>
+        <Match when={model.view.mode === ViewMode.Chain}>
           <ChainView />
         </Match>
-        <Match when={ViewMode[model.view.mode] === "Phrase"}>
+        <Match when={model.view.mode === ViewMode.Phrase}>
           <PhraseView />
         </Match>
       </Switch>

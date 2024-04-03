@@ -1,6 +1,7 @@
 import { playNote } from "../audio/synth";
 import { actions } from "../event/actions";
 import { useModel } from "../state/model";
+import { ViewMode } from "../types";
 import styles from "/src/App.module.css";
 
 export default function Side() {
@@ -22,6 +23,9 @@ export default function Side() {
         {debug("cursor", () => model.view.cursor)}
         {debug("active", () => model.project.active)}
         {debug("mode", () => model.view.mode)}
+        {debug("viewModeKeys", () =>
+          Object.keys(ViewMode).filter((e) => isNaN(parseInt(e))),
+        )}
       </div>
     </div>
   );

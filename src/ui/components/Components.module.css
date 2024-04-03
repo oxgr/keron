@@ -14,8 +14,8 @@
   flex-basis: 2em;
 }
 
-.column:not(.gutter) .block {
-  /* color: var(--color-fg); */
+.gutter .columnHeader .block {
+  color: var(--color-fg-accent-sec);
 }
 
 .gutter .block,

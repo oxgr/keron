@@ -419,6 +419,6 @@ function initModel(): Model {
   //   16,
   // );
 
-  console.log(defaultModel);
+  // console.log(defaultModel);
   return defaultModel;
 }

@@ -19,10 +19,20 @@ const { model, setModel } = useModel();
  * All possible actions that can be carried out.
  */
 export const actions: Record<string, Action> = {
-  togglePlaybackPhrase: {
-    label: "Toggle playback",
-    desc: "Toggle playback of a phrase.",
-    fn: togglePlaybackPhrase,
+  printTime: {
+    label: "",
+    desc: "",
+    fn: () => console.log(Tone.Transport.progress),
+  },
+  prevViewMode: {
+    label: "Previous view",
+    desc: "Switch to the previous view mode.",
+    fn: prevViewMode,
+  },
+  nextViewMode: {
+    label: "Next view",
+    desc: "Switch to the next view mode.",
+    fn: nextViewMode,
   },
   playDefaultNote: {
     label: "Play default note",
@@ -41,20 +51,10 @@ export const actions: Record<string, Action> = {
     desc: "Plays a single note.",
     fn: playNote,
   },
-  printTime: {
-    label: "",
-    desc: "",
-    fn: () => console.log(Tone.Transport.progress),
-  },
-  prevViewMode: {
-    label: "Previous view",
-    desc: "Switch to the previous view mode.",
-    fn: prevViewMode,
-  },
-  nextViewMode: {
-    label: "Next view",
-    desc: "Switch to the next view mode.",
-    fn: nextViewMode,
+  togglePlaybackPhrase: {
+    label: "Toggle playback",
+    desc: "Toggle playback of a phrase.",
+    fn: togglePlaybackPhrase,
   },
   moveCursorLeft: {
     label: "Move cursor left",
@@ -119,7 +119,7 @@ function moveCursor(direction: CursorMoveDirection) {
   };
 
   switch (model.view.mode) {
-    case ViewMode.Settings:
+    case ViewMode.Configuration:
     case ViewMode.Project:
     case ViewMode.Song:
       if (axis == "column")

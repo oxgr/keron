@@ -29,7 +29,7 @@ export enum CursorMoveDirection {
 }
 
 export enum ViewMode {
-  Settings,
+  Configuration,
   Project,
   Song,
   Chain,

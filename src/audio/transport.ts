@@ -11,12 +11,6 @@ const { model, setModel } = useModel();
  * Toggle the playback of a single phrase.
  */
 export function togglePlaybackPhrase() {
-  // console.log("toggling playback");
-  //
-  // setModel("transport", "playbackActive", (pb) => !pb);
-  // const pbActive = model.transport.playbackActive;
-  //
-
   const state = Tone.Transport.state;
   console.log("playback:", state);
 
@@ -28,7 +22,6 @@ export function togglePlaybackPhrase() {
     Tone.Transport.start();
   } else {
     console.log("pausing...");
-    // setupLoop();
     Tone.Transport.stop();
     // Tone.Transport.pause();
   }

@@ -1,5 +1,4 @@
 import components from "/src/ui/components/Components.module.css";
-import styles from "/src/App.module.css";
 import { emptyBlockString } from "../views/utils";
 
 export default function Block({

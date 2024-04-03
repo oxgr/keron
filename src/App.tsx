@@ -9,18 +9,13 @@ import Side from "./ui/Side";
 import { initKeys } from "./event/key";
 import { initAudio } from "./audio/init";
 import { KeyActor } from "./event/KeyActor";
-import { keyEffect } from "./state/ModelActor";
-import { createEffect } from "solid-js";
 
 export default function App() {
-  // createEffect(keyEffect);
   onMount(() => {
     initKeys();
     initAudio();
+    const fullscreen = () => document.body.requestFullscreen();
     document.addEventListener("click", fullscreen, { once: true });
-    function fullscreen() {
-      document.body.requestFullscreen();
-    }
   });
 
   return (
