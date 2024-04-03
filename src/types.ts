@@ -97,7 +97,7 @@ export type Line = {
 export type Velocity = number;
 
 export type Instrument = {
-  type: string;
+  id: number;
   table: Table;
 };
 

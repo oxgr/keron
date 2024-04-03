@@ -2,7 +2,7 @@ import * as Tone from "tone";
 import { useModel } from "../state/model";
 import { playNote } from "./synth";
 import { lineIndexToNotation, positionToLine } from "./utils";
-import { getPhrase } from "../state/utils";
+import { getLine, getPhrase } from "../state/utils";
 import { ViewMode } from "../types";
 
 const { model, setModel } = useModel();
@@ -29,8 +29,8 @@ export function togglePlaybackPhrase() {
   } else {
     console.log("pausing...");
     // setupLoop();
-    // Tone.Transport.stop();
-    Tone.Transport.pause();
+    Tone.Transport.stop();
+    // Tone.Transport.pause();
   }
 }
 
@@ -46,10 +46,14 @@ function setupLoop() {
 }
 
 function loopCallback(time: any, note: any) {
-  playNote(note, "8n", time);
-  const activeLine = positionToLine(Tone.Transport.position);
+  const activeLineNumber = positionToLine(Tone.Transport.position);
   if (model.view.mode == ViewMode.Phrase) {
-    setModel("project", "active", "line", activeLine);
-    setModel("view", "cursor", "line", activeLine);
+    setModel("project", "active", "line", activeLineNumber);
+    setModel("view", "cursor", "line", activeLineNumber);
   }
+  const { velocity, instrument } = getLine(
+    activeLineNumber,
+    model.project.active.phrase,
+  );
+  playNote({ note, duration: "8n", time, velocity, instrument });
 }

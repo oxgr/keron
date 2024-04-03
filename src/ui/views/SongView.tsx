@@ -32,7 +32,7 @@ export default function SongView() {
         <For each={fullTracks(allTracks())}>
           {(trackId, trackIndex) => (
             <Column
-              text={trackId}
+              headerText={trackId}
               active={() => trackIndex() === cursorColumn()}
             >
               <For each={fullChains(allChainsInTrack(Number(trackId)))}>

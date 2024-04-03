@@ -79,7 +79,7 @@ function initModel(): Model {
                 note: "C4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -87,7 +87,7 @@ function initModel(): Model {
                 note: "E4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -95,7 +95,7 @@ function initModel(): Model {
                 note: "F4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -103,7 +103,7 @@ function initModel(): Model {
                 note: "G4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -111,7 +111,7 @@ function initModel(): Model {
                 note: "C4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -119,7 +119,7 @@ function initModel(): Model {
                 note: "E4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -127,7 +127,7 @@ function initModel(): Model {
                 note: "F4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -135,7 +135,7 @@ function initModel(): Model {
                 note: "G4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -143,7 +143,7 @@ function initModel(): Model {
                 note: "C4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -151,7 +151,7 @@ function initModel(): Model {
                 note: "E4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -159,7 +159,7 @@ function initModel(): Model {
                 note: "F4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -167,7 +167,7 @@ function initModel(): Model {
                 note: "C4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -175,7 +175,7 @@ function initModel(): Model {
                 note: "C4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -183,7 +183,7 @@ function initModel(): Model {
                 note: "E4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -191,7 +191,7 @@ function initModel(): Model {
                 note: "F4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -199,7 +199,7 @@ function initModel(): Model {
                 note: "G4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -211,7 +211,7 @@ function initModel(): Model {
                 note: "C4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -219,7 +219,7 @@ function initModel(): Model {
                 note: "E4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -227,7 +227,7 @@ function initModel(): Model {
                 note: "F4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -235,7 +235,7 @@ function initModel(): Model {
                 note: "G4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -243,7 +243,7 @@ function initModel(): Model {
                 note: "C4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -251,7 +251,7 @@ function initModel(): Model {
                 note: "E4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -259,7 +259,7 @@ function initModel(): Model {
                 note: "F4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -267,7 +267,7 @@ function initModel(): Model {
                 note: "G4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -275,7 +275,7 @@ function initModel(): Model {
                 note: "C4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -283,7 +283,7 @@ function initModel(): Model {
                 note: "E4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -291,7 +291,7 @@ function initModel(): Model {
                 note: "B4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -299,7 +299,7 @@ function initModel(): Model {
                 note: "D4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -307,7 +307,7 @@ function initModel(): Model {
                 note: "B4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -315,7 +315,7 @@ function initModel(): Model {
                 note: "Bb4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -323,7 +323,7 @@ function initModel(): Model {
                 note: "F4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },
@@ -331,7 +331,7 @@ function initModel(): Model {
                 note: "G4",
                 velocity: 64,
                 instrument: {
-                  type: "S01",
+                  id: 1,
                   table: {},
                 },
               },

@@ -14,6 +14,11 @@ export function initAudio() {
   document.addEventListener("keydown", startAudio, { once: true });
 
   // add our instruments
-  const synth = new Tone.Synth().toDestination();
-  setModel("bank", "instruments", (ins) => [...ins, synth]);
+  const instruments = [
+    new Tone.Synth().toDestination(),
+    new Tone.MembraneSynth().toDestination(),
+    new Tone.NoiseSynth().toDestination(),
+    new Tone.PluckSynth().toDestination(),
+  ];
+  setModel("bank", "instruments", instruments);
 }

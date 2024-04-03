@@ -1,6 +1,9 @@
 ## Todo
 
 - [ ] Cursor positions saved in model for every view
+- [ ] Playhead in model
+  - moves independently of cursor
+  - possibly bold?
 
 ## Usage
 

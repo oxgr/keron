@@ -5,9 +5,13 @@ import Block from "./Block";
 import { useModel } from "../../state/model";
 
 export default function Gutter({
+  headerText = "",
+  headerPad = 0,
   lineRange,
   activeLine,
 }: {
+  headerText?: string;
+  headerPad?: number;
   lineRange: () => number[];
   activeLine: () => number;
 }) {
@@ -18,7 +22,7 @@ export default function Gutter({
 
   return (
     <div class={components.gutter}>
-      <Column>
+      <Column headerText={headerText} headerPad={headerPad}>
         <For each={(() => lineNrs(lineRange()))()}>
           {(linenr) => (
             <Block

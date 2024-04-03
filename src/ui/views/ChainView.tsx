@@ -26,8 +26,13 @@ export default function ChainView() {
   return (
     <div class="track">
       <Grid>
-        <Gutter lineRange={lineRange} activeLine={cursorLine}></Gutter>
-        <Column text={toHexString(activeChainId())} active={() => true}>
+        <Gutter
+          headerText={toHexString(activeChainId())}
+          headerPad={2}
+          lineRange={lineRange}
+          activeLine={cursorLine}
+        ></Gutter>
+        <Column headerText={"PH"} active={() => true}>
           <For each={fillArrayTo(allPhrasesInChain(activeChainId()), 16)}>
             {(phraseId, phraseIndex) => (
               <Block
