@@ -27,7 +27,14 @@ export const actions: Record<string, Action> = {
   playDefaultNote: {
     label: "Play default note",
     desc: "Plays a C4 note for 8n.",
-    fn: () => playNote("C4", "8n", Tone.Transport.now()),
+    fn: () =>
+      playNote({
+        note: "C4",
+        duration: "8n",
+        time: Tone.Transport.now(),
+        velocity: 100,
+        instrument: { id: 1, table: {} },
+      }),
   },
   playNote: {
     label: "Play note",
@@ -155,7 +162,11 @@ function prevViewMode() {
 function nextViewMode() {
   setModel(
     "view",
-    "mode",
-    untrack(() => model.view.mode + 1),
+    produce((view) => {
+      view.mode = view.mode + 1;
+      // TODO: set this to a previously remembered cursor position per view
+      view.cursor.line = 0;
+      view.cursor.column = 0;
+    }),
   );
 }

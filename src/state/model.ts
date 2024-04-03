@@ -76,7 +76,9 @@ function initModel(): Model {
           {
             lines: [
               {
-                note: "C4",
+                note: "C",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -84,7 +86,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "E4",
+                note: "E",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -92,7 +96,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "F4",
+                note: "F",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -100,7 +106,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "G4",
+                note: "G",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -108,7 +116,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "C4",
+                note: "C",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -116,7 +126,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "E4",
+                note: "E",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -124,7 +136,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "F4",
+                note: "F",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -132,7 +146,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "G4",
+                note: "G",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -140,7 +156,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "C4",
+                note: "C",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -148,7 +166,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "E4",
+                note: "E",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -156,7 +176,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "F4",
+                note: "F",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -164,7 +186,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "C4",
+                note: "C",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -172,7 +196,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "C4",
+                note: "C",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -180,7 +206,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "E4",
+                note: "E",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -188,7 +216,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "F4",
+                note: "F",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -196,7 +226,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "G4",
+                note: "G",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -208,7 +240,9 @@ function initModel(): Model {
           {
             lines: [
               {
-                note: "C4",
+                note: "C",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -216,7 +250,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "E4",
+                note: "E",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -224,7 +260,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "F4",
+                note: "F",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -232,7 +270,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "G4",
+                note: "G",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -240,7 +280,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "C4",
+                note: "C",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -248,7 +290,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "E4",
+                note: "E",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -256,7 +300,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "F4",
+                note: "F",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -264,7 +310,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "G4",
+                note: "G",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -272,7 +320,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "C4",
+                note: "C",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -280,7 +330,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "E4",
+                note: "E",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -288,7 +340,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "B4",
+                note: "B",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -296,7 +350,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "D4",
+                note: "D",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -304,7 +360,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "B4",
+                note: "B",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -312,7 +370,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "Bb4",
+                note: "B",
+                accidental: "b",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -320,7 +380,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "F4",
+                note: "F",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,
@@ -328,7 +390,9 @@ function initModel(): Model {
                 },
               },
               {
-                note: "G4",
+                note: "G",
+                accidental: "",
+                octave: 4,
                 velocity: 64,
                 instrument: {
                   id: 1,

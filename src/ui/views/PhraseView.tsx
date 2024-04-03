@@ -21,7 +21,11 @@ export default function PhraseView() {
     getPhrase(phraseId)?.lines ?? [];
 
   const columns = [
-    { headerText: "N", value: (line: Line) => line.note },
+    {
+      headerText: "N",
+      value: (line: Line) =>
+        line.note + line.accidental.padStart(1, "-") + line.octave,
+    },
     { headerText: "V", value: (line: Line) => toHexString(line.velocity) },
     { headerText: "I", value: (line: Line) => toHexString(line.instrument.id) },
   ];
@@ -46,6 +50,10 @@ export default function PhraseView() {
                 each={fillArrayTo(
                   allLinesInPhrase(activePhraseId()).map(value),
                   16,
+                  {
+                    pad: 3,
+                    hex: false,
+                  },
                 )}
               >
                 {(lineId, lineIndex) => (

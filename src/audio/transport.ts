@@ -38,22 +38,26 @@ function setupLoop() {
   const activePhraseIndex = model.project.active.phrase;
   const activePhrase = getPhrase(activePhraseIndex);
 
-  const lines = activePhrase.lines.map((line, index) => [
-    "0:" + lineIndexToNotation(index),
-    line.note,
-  ]);
+  const lines = activePhrase.lines.map((line, index) => {
+    const { note, accidental, octave, velocity } = line;
+    const fullNote = note + accidental + octave;
+    return {
+      time: "0:" + lineIndexToNotation(index),
+      note: fullNote,
+      velocity,
+    };
+  });
   const part = new Tone.Part(loopCallback, lines).start(0);
 }
 
-function loopCallback(time: any, note: any) {
+function loopCallback(time: any, value: any) {
   const activeLineNumber = positionToLine(Tone.Transport.position);
   if (model.view.mode == ViewMode.Phrase) {
     setModel("project", "active", "line", activeLineNumber);
     setModel("view", "cursor", "line", activeLineNumber);
   }
-  const { velocity, instrument } = getLine(
-    activeLineNumber,
-    model.project.active.phrase,
-  );
+
+  const { note, velocity } = value;
+  const { instrument } = getLine(activeLineNumber, model.project.active.phrase);
   playNote({ note, duration: "8n", time, velocity, instrument });
 }

@@ -17,11 +17,19 @@ export function playNote({
   instrument: Instrument;
 }) {
   const { model } = useModel();
+  // console.log({
+  //   note,
+  //   duration,
+  //   time,
+  //   velocity,
+  //   instrument,
+  // });
 
   // console.log("playing audio...");
   model.bank.instruments[instrument.id].triggerAttackRelease(
     note,
     duration,
     time,
+    velocity,
   );
 }

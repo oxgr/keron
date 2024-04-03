@@ -1,4 +1,4 @@
-import { Note } from "tone/build/esm/core/type/NoteUnits";
+// import { Note } from "tone/build/esm/core/type/NoteUnits";
 
 export type Model = {
   view: View;
@@ -90,6 +90,8 @@ export type Phrase = {
 
 export type Line = {
   note: Note;
+  accidental: Accidental;
+  octave: Octave;
   velocity: Velocity;
   instrument: Instrument;
 };
@@ -110,3 +112,7 @@ export type Table = {};
 export type Transport = {
   playbackActive: boolean;
 };
+
+export type Note = "A" | "B" | "C" | "D" | "E" | "F" | "G";
+export type Accidental = "" | "b" | "#" | "x";
+export type Octave = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
