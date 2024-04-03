@@ -76,7 +76,7 @@ function moveCursor(direction: CursorMoveDirection) {
       ? "line"
       : "column";
 
-  const updatePos = (currPos: number, direction: CursorMoveDirection) => {
+  const getNewPos = (currPos: number, direction: CursorMoveDirection) => {
     const newPos =
       direction == CursorMoveDirection.Up ||
       direction == CursorMoveDirection.Left
@@ -86,9 +86,19 @@ function moveCursor(direction: CursorMoveDirection) {
     return newPos;
   };
 
-  const newPos = () => updatePos(model.view.cursor[axis], direction);
+  const updatePos = () => getNewPos(model.view.cursor[axis], direction);
 
-  setModel("view", "cursor", axis, untrack(newPos));
+  //dont update model if cursor pos is outside bounds
+  const LINE_BOUNDS = 16;
+  const COLUMN_BOUNDS = 8;
+  const newPos = untrack(updatePos);
+  if (
+    newPos >= 0 &&
+    ((axis == "line" && newPos < LINE_BOUNDS) ||
+      (axis == "column" && newPos < COLUMN_BOUNDS))
+  ) {
+    setModel("view", "cursor", axis, newPos);
+  }
 
   const updateActiveModel = (prop: keyof Active, value: any) => {
     // if (!value) return;
