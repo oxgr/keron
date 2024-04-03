@@ -20,12 +20,16 @@ export function togglePlaybackPattern() {
   console.log("playback:", state);
 
   if (state != "started") {
+    console.log("playing...");
     setupLoop();
     Tone.Transport.loop = true;
     Tone.Transport.setLoopPoints(0, "1:0:0");
     Tone.Transport.start();
   } else {
-    Tone.Transport.stop();
+    console.log("pausing...");
+    setupLoop();
+    // Tone.Transport.stop();
+    Tone.Transport.pause();
   }
 }
 

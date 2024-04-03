@@ -28,6 +28,12 @@ body {
   background: black;
 }
 
+pre {
+  font-size: 0.6em;
+  overflow: hidden;
+  margin: 0;
+}
+
 .App {
   height: var(--app-height);
   width: var(--app-width);
@@ -102,4 +108,7 @@ body {
 
 .sideContent {
   font-size: 0.8rem;
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
 }

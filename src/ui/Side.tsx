@@ -16,24 +16,21 @@ export default function Side() {
 
   return (
     <div class={`${styles.side} ${styles.section}`}>
-      <h2>side</h2>
+      {/* <h2>side</h2> */}
       <div class={styles.sideContent}>
-        <div>key:</div>
-        <div>
-          [ <strong>{key()}</strong> ]
-        </div>
-
-        <div>line:</div>
-        <div>
-          [{" "}
-          <strong>
-            {(() => model.project.active.line)()},
-            {(() => model.view.cursor.line)()}
-          </strong>{" "}
-          ]
-        </div>
+        {debug("key", () => model.key.event?.key)}
+        {debug("active", () => model.view.cursor)}
+        {debug("active", () => model.project.active)}
       </div>
-      {/* <code>{JSON.stringify(linesActive, null, 2)}</code> */}
     </div>
+  );
+}
+
+function debug(label: string, fn: Function) {
+  return (
+    <pre>
+      <b>{label}: </b>
+      {JSON.stringify(fn(), null, 2)}
+    </pre>
   );
 }

@@ -11,7 +11,7 @@ export function KeyActor() {
   createEffect(() => {
     const key = model.key.event?.key;
     if (key) {
-      console.log(`key pressed: [ ${key} ]`);
+      // console.log(`key pressed: [ ${key} ]`);
       const action = keymap[key];
       if (action) action.fn();
     }

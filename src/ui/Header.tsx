@@ -8,7 +8,6 @@ export default function Header() {
   const { model, setModel } = useModel();
 
   const views = Object.keys(ViewMode).filter((e) => isNaN(parseInt(e)));
-  console.log(views);
 
   return (
     <header class={`${styles.header} ${styles.section}`}>
