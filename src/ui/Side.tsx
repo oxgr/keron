@@ -19,7 +19,7 @@ export default function Side() {
       {/* <h2>side</h2> */}
       <div class={styles.sideContent}>
         {debug("key", () => model.key.event?.key)}
-        {debug("active", () => model.view.cursor)}
+        {debug("cursor", () => model.view.cursor)}
         {debug("active", () => model.project.active)}
       </div>
     </div>

@@ -19,7 +19,7 @@ export function getLine(id: number, phraseId: number) {
 }
 
 export function getActiveTrack() {
-  return getChain(model.project.active.track);
+  return getTrack(model.project.active.track);
 }
 
 export function getActiveChain() {

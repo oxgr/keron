@@ -92,6 +92,11 @@ pre {
   }
 }
 
+.active {
+  color: var(--color-fg-accent);
+  font-weight: bold;
+}
+
 .main {
   /* flex: 0 1 100%; */
   grid-area: main;

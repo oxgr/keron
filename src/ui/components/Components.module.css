@@ -1,0 +1,18 @@
+.grid {
+  display: flex;
+  gap: 1rem;
+}
+
+.column {
+  display: flex;
+  flex-flow: column;
+  color: var(--color-fg-muted);
+}
+
+.columnHeader {
+  flex-basis: 2em;
+}
+
+.column:not(.gutter) .block {
+  /* color: var(--color-fg); */
+}

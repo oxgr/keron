@@ -15,7 +15,7 @@ export function useModel() {
 function initModel(): Model {
   const defaultModel: Model = {
     view: {
-      mode: ViewMode.Phrase,
+      mode: ViewMode.Song,
       cursor: {
         line: 0,
         column: 0,
@@ -39,18 +39,27 @@ function initModel(): Model {
         line: 0,
       },
       song: {
-        tracks: [0],
+        tracks: [0, 1],
       },
       bank: {
         samples: [],
         tracks: [
+          {
+            chains: [0, 0],
+          },
           {
             chains: [0],
           },
         ],
         chains: [
           {
-            phrases: [0],
+            phrases: [0, 1],
+          },
+          {
+            phrases: [1, 0],
+          },
+          {
+            phrases: [0, 0],
           },
         ],
         phrases: [
