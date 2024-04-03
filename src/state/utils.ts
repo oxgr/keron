@@ -17,3 +17,19 @@ export function getPattern(id: number) {
 export function getLine(id: number, patternId: number) {
   return model.project.bank.patterns[patternId].lines[id];
 }
+
+export function getActiveTrack() {
+  return getChain(model.project.active.track);
+}
+
+export function getActiveChain() {
+  return getChain(model.project.active.chain);
+}
+
+export function getActivePattern() {
+  return getPattern(model.project.active.pattern);
+}
+
+export function getActiveLine() {
+  return getPattern(model.project.active.line);
+}

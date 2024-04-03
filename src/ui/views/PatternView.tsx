@@ -2,6 +2,7 @@ import pattern from "./View.module.css";
 import styles from "../../App.module.css";
 import { For } from "solid-js";
 import { useModel } from "../../state/model";
+import Line from "../components/Line";
 
 export default function PatternView() {
   const { model, setModel } = useModel();
@@ -12,12 +13,11 @@ export default function PatternView() {
         each={model.project.bank.patterns[model.project.active.pattern].lines}
       >
         {(line, index) => (
-          <div
-            class={`${pattern.line} ${index() === model.project.active.line ? pattern.lineActive : null}`}
-          >
-            <div class={pattern.linenr}>{index()}</div>
-            <div class={pattern.note}>{line.note}</div>
-          </div>
+          <Line
+            line={line}
+            index={index}
+            active={() => index() === model.project.active.line}
+          ></Line>
         )}
       </For>
     </div>

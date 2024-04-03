@@ -33,6 +33,7 @@ function initModel(): Model {
     project: {
       name: "ox",
       active: {
+        track: 0,
         chain: 0,
         pattern: 0,
         line: 0,

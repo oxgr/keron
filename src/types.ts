@@ -101,6 +101,7 @@ export type Transport = {
 };
 
 export type Active = {
+  track: number;
   chain: number;
   pattern: number;
   line: number;
