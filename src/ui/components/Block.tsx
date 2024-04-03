@@ -3,15 +3,23 @@ import styles from "/src/App.module.css";
 
 export default function Block({
   text,
-  active,
+  activeLine = () => false,
+  activeColumn = () => false,
 }: {
   text: string;
-  active: Function;
+  activeLine?: () => boolean;
+  activeColumn?: () => boolean;
 }) {
-  const paddedText = text.padStart(2, "0");
+  const renderedText = text.padStart(2, "0");
+  const setActiveLineClass = () => (activeLine() ? components.activeLine : "");
+  const setActiveColumnClass = () =>
+    activeColumn() ? components.activeColumn : "";
+
   return (
-    <div class={`${components.block} ${active() ? styles.active : ""}`}>
-      {paddedText}
+    <div
+      class={`${components.block} ${setActiveLineClass()} ${setActiveColumnClass()}`}
+    >
+      {renderedText}
     </div>
   );
 }

@@ -6,7 +6,7 @@
 .column {
   display: flex;
   flex-flow: column;
-  color: var(--color-fg-muted);
+  color: var(--color-fg);
 }
 
 .columnHeader {
@@ -15,4 +15,20 @@
 
 .column:not(.gutter) .block {
   /* color: var(--color-fg); */
+}
+
+.gutter .block,
+.columnHeader .block {
+  color: var(--color-fg-muted);
+}
+
+.columnHeader .activeColumn,
+.gutter .activeLine,
+.activeColumn .activeLine {
+  color: var(--color-fg-accent);
+}
+
+.activeLine,
+.activeColumn {
+  font-weight: bold;
 }

@@ -21,12 +21,11 @@ export default function Gutter({
       <Column>
         <For each={(() => lineNrs(lineRange()))()}>
           {(linenr) => (
-            <>
-              <Block
-                text={linenr.toString().padStart(2, "0")}
-                active={() => linenr == activeLine()}
-              ></Block>
-            </>
+            <Block
+              text={linenr.toString().padStart(2, "0")}
+              activeLine={() => linenr == activeLine()}
+              // activeColumn={() => true}
+            ></Block>
           )}
         </For>
       </Column>

@@ -11,22 +11,30 @@ export default function SongView() {
   const lineRange = () => model.view.lineRange;
   const cursorLine = () => model.view.cursor.line;
   const activeTrack = () => model.project.active.track;
+  const activeChain = () => model.project.active.chain;
+  const fullTracks = () => {
+    const tracks = model.project.song.tracks;
+    const len = tracks.length;
+    return [...tracks, ...Array(8 - len).fill(0)];
+  };
+
   return (
     <div class="song">
       {/* <div class={styles.mainTitle}>{model.project.active.phrase}</div> */}
       <Grid>
         <Gutter lineRange={lineRange} activeLine={cursorLine}></Gutter>
-        <For each={model.project.song.tracks}>
-          {(trackId, index) => (
+        <For each={fullTracks()}>
+          {(trackId, trackIndex) => (
             <Column
               text={trackId.toString()}
-              active={() => index() === activeTrack()}
+              active={() => trackIndex() === activeTrack()}
             >
               <For each={getTrack(trackId).chains}>
-                {(_, index) => (
+                {(_, chainIndex) => (
                   <Block
-                    text={index().toString()}
-                    active={() => index() === model.project.active.chain}
+                    text={chainIndex().toString()}
+                    activeLine={() => chainIndex() === activeChain()}
+                    // activeColumn={() => trackIndex() === activeTrack()}
                   ></Block>
                 )}
               </For>

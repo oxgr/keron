@@ -97,6 +97,14 @@ function moveCursor(direction: CursorMoveDirection) {
       untrack(() => model.view.cursor.line),
     );
 
+  if (track == "line")
+    setModel(
+      "project",
+      "active",
+      "chain",
+      untrack(() => model.view.cursor.line),
+    );
+
   if (track == "column")
     setModel(
       "project",
