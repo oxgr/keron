@@ -3,6 +3,7 @@ import { useModel } from "../state/model";
 import { playNote } from "./synth";
 import { lineIndexToNotation, positionToLine } from "./utils";
 import { getPhrase } from "../state/utils";
+import { ViewMode } from "../types";
 
 const { model, setModel } = useModel();
 
@@ -27,7 +28,7 @@ export function togglePlaybackPhrase() {
     Tone.Transport.start();
   } else {
     console.log("pausing...");
-    setupLoop();
+    // setupLoop();
     // Tone.Transport.stop();
     Tone.Transport.pause();
   }
@@ -47,6 +48,8 @@ function setupLoop() {
 function loopCallback(time: any, note: any) {
   playNote(note, "8n", time);
   const activeLine = positionToLine(Tone.Transport.position);
-  setModel("project", "active", "line", activeLine);
-  setModel("view", "cursor", "line", activeLine);
+  if (model.view.mode == ViewMode.Phrase) {
+    setModel("project", "active", "line", activeLine);
+    setModel("view", "cursor", "line", activeLine);
+  }
 }

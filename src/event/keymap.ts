@@ -7,6 +7,7 @@ type Keymap = Record<string, Action>;
  */
 export const keymap: Keymap = {
   " ": actions.togglePlaybackPhrase,
+  // Enter: actions.togglePlaybackSong,
   p: actions.printTime,
   Backspace: actions.playDefaultNote,
   ",": actions.prevViewMode,

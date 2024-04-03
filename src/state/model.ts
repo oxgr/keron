@@ -77,6 +77,7 @@ function initModel(): Model {
             lines: [
               {
                 note: "C4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -84,6 +85,7 @@ function initModel(): Model {
               },
               {
                 note: "E4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -91,6 +93,7 @@ function initModel(): Model {
               },
               {
                 note: "F4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -98,6 +101,7 @@ function initModel(): Model {
               },
               {
                 note: "G4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -105,6 +109,7 @@ function initModel(): Model {
               },
               {
                 note: "C4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -112,6 +117,7 @@ function initModel(): Model {
               },
               {
                 note: "E4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -119,6 +125,7 @@ function initModel(): Model {
               },
               {
                 note: "F4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -126,6 +133,7 @@ function initModel(): Model {
               },
               {
                 note: "G4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -133,6 +141,7 @@ function initModel(): Model {
               },
               {
                 note: "C4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -140,6 +149,7 @@ function initModel(): Model {
               },
               {
                 note: "E4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -147,6 +157,7 @@ function initModel(): Model {
               },
               {
                 note: "F4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -154,6 +165,7 @@ function initModel(): Model {
               },
               {
                 note: "C4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -161,6 +173,7 @@ function initModel(): Model {
               },
               {
                 note: "C4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -168,6 +181,7 @@ function initModel(): Model {
               },
               {
                 note: "E4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -175,6 +189,7 @@ function initModel(): Model {
               },
               {
                 note: "F4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -182,6 +197,7 @@ function initModel(): Model {
               },
               {
                 note: "G4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -193,6 +209,7 @@ function initModel(): Model {
             lines: [
               {
                 note: "C4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -200,6 +217,7 @@ function initModel(): Model {
               },
               {
                 note: "E4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -207,6 +225,7 @@ function initModel(): Model {
               },
               {
                 note: "F4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -214,6 +233,7 @@ function initModel(): Model {
               },
               {
                 note: "G4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -221,6 +241,7 @@ function initModel(): Model {
               },
               {
                 note: "C4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -228,6 +249,7 @@ function initModel(): Model {
               },
               {
                 note: "E4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -235,6 +257,7 @@ function initModel(): Model {
               },
               {
                 note: "F4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -242,6 +265,7 @@ function initModel(): Model {
               },
               {
                 note: "G4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -249,6 +273,7 @@ function initModel(): Model {
               },
               {
                 note: "C4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -256,6 +281,39 @@ function initModel(): Model {
               },
               {
                 note: "E4",
+                velocity: 64,
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "B4",
+                velocity: 64,
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "D4",
+                velocity: 64,
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "B4",
+                velocity: 64,
+                instrument: {
+                  type: "S01",
+                  table: {},
+                },
+              },
+              {
+                note: "Bb4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -263,34 +321,7 @@ function initModel(): Model {
               },
               {
                 note: "F4",
-                instrument: {
-                  type: "S01",
-                  table: {},
-                },
-              },
-              {
-                note: "C4",
-                instrument: {
-                  type: "S01",
-                  table: {},
-                },
-              },
-              {
-                note: "C4",
-                instrument: {
-                  type: "S01",
-                  table: {},
-                },
-              },
-              {
-                note: "E4",
-                instrument: {
-                  type: "S01",
-                  table: {},
-                },
-              },
-              {
-                note: "F4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},
@@ -298,6 +329,7 @@ function initModel(): Model {
               },
               {
                 note: "G4",
+                velocity: 64,
                 instrument: {
                   type: "S01",
                   table: {},

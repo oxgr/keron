@@ -90,8 +90,11 @@ export type Phrase = {
 
 export type Line = {
   note: Note;
+  velocity: Velocity;
   instrument: Instrument;
 };
+
+export type Velocity = number;
 
 export type Instrument = {
   type: string;
