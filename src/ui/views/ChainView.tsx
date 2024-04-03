@@ -7,6 +7,7 @@ import Grid from "../components/Grid";
 import Column from "../components/Column";
 import Block from "../components/Block";
 import Gutter from "../components/Gutter";
+import { fillArrayTo, toHexString } from "./utils";
 
 export default function ChainView() {
   const { model, setModel } = useModel();
@@ -22,30 +23,14 @@ export default function ChainView() {
   const allPhrasesInChain = (chainId: number) =>
     getChain(chainId)?.phrases ?? [];
 
-  const fillArray = (
-    array: any[] | undefined = [],
-    length: number,
-  ): string[] => {
-    if (!array) return Array(length).fill("--");
-
-    const len = array.length;
-    return [
-      ...array.map((val) => val.toString(16).toUpperCase()),
-      ...Array(length - len).fill("--"),
-    ];
-  };
-
   return (
     <div class="track">
       <Grid>
         {/* <div class={styles.mainTitle}>{model.project.active.phrase}</div> */}
 
         <Gutter lineRange={lineRange} activeLine={cursorLine}></Gutter>
-        <Column
-          text={activeChainId()?.toString(16).toUpperCase() ?? "--"}
-          active={() => true}
-        >
-          <For each={fillArray(allPhrasesInChain(activeChainId()), 16)}>
+        <Column text={toHexString(activeChainId())} active={() => true}>
+          <For each={fillArrayTo(allPhrasesInChain(activeChainId()), 16)}>
             {(phraseId, phraseIndex) => (
               <Block
                 text={phraseId}

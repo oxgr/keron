@@ -5,6 +5,7 @@ import { getTrack } from "../../state/utils";
 import Column from "../components/Column";
 import Grid from "../components/Grid";
 import Gutter from "../components/Gutter";
+import { fillArrayTo } from "./utils";
 
 export default function SongView() {
   const { model } = useModel();
@@ -20,18 +21,8 @@ export default function SongView() {
   const allChainsInTrack = (trackId: number) =>
     !isNaN(trackId) ? getTrack(trackId).chains : [];
 
-  const fillArray = (array: any[] = [], length: number): string[] => {
-    if (!array) return Array(length).fill("--");
-
-    const len = array.length;
-    return [
-      ...array.map((val) => val.toString(16).toUpperCase()),
-      ...Array(length - len).fill("--"),
-    ];
-  };
-
-  const fullTracks = (tracks: number[]) => fillArray(tracks, 8);
-  const fullChains = (chains: number[]) => fillArray(chains, 16);
+  const fullTracks = (tracks: number[]) => fillArrayTo(tracks, 8);
+  const fullChains = (chains: number[]) => fillArrayTo(chains, 16);
 
   return (
     <div class="song">

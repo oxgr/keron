@@ -90,7 +90,7 @@ function moveCursor(direction: CursorMoveDirection) {
 
   setModel("view", "cursor", axis, untrack(newPos));
 
-  const alterActiveModel = (prop: keyof Active, value: any) => {
+  const updateActiveModel = (prop: keyof Active, value: any) => {
     // if (!value) return;
     setModel(
       "project",
@@ -104,20 +104,19 @@ function moveCursor(direction: CursorMoveDirection) {
     case ViewMode.Settings:
     case ViewMode.Project:
     case ViewMode.Song:
-      if (axis == "column") alterActiveModel("track", model.view.cursor.column);
-      alterActiveModel(
-        "chain",
-        getActiveTrack()?.chains?.[model.view.cursor.line],
-      );
+      if (axis == "column")
+        updateActiveModel("track", model.view.cursor.column);
+      const newChain = getActiveTrack()?.chains?.[model.view.cursor.line] ?? 0;
+      updateActiveModel("chain", newChain);
       break;
 
     case ViewMode.Chain:
-      if (axis == "line") alterActiveModel("phrase", model.view.cursor.line);
-      if (axis == "column") alterActiveModel("track", model.view.cursor.line);
+      if (axis == "line") updateActiveModel("phrase", model.view.cursor.line);
+      if (axis == "column") updateActiveModel("track", model.view.cursor.line);
       break;
 
     case ViewMode.Phrase:
-      if (axis == "line") alterActiveModel("line", model.view.cursor.line);
+      if (axis == "line") updateActiveModel("line", model.view.cursor.line);
       // if (axis == "column") alterActiveModel("track", model.view.cursor.line);
       break;
 

@@ -2,11 +2,11 @@ import components from "/src/ui/components/Components.module.css";
 import styles from "/src/App.module.css";
 
 export default function Block({
-  text,
+  text = "",
   activeLine = () => false,
   activeColumn = () => false,
 }: {
-  text: string;
+  text?: string;
   activeLine?: () => boolean;
   activeColumn?: () => boolean;
 }) {
