@@ -5,7 +5,7 @@ import { getActivePhrase, getPhrase } from "../../state/utils";
 import Grid from "../components/Grid";
 import Gutter from "../components/Gutter";
 import Column from "../components/Column";
-import { fillArrayTo, toHexString } from "./utils";
+import { emptyBlockString, fillArrayTo, toHexString } from "./utils";
 import Block from "../components/Block";
 import { Line } from "../../types";
 
@@ -23,8 +23,7 @@ export default function PhraseView() {
   const phrasePropColumns = [
     {
       headerText: "N",
-      value: (line: Line) =>
-        line.note + line.accidental.padStart(1, "-") + line.octave,
+      value: (line: Line) => line.note.padEnd(2, "-") + line.octave,
     },
     { headerText: "V", value: (line: Line) => toHexString(line.velocity) },
     { headerText: "I", value: (line: Line) => toHexString(line.instrument.id) },
@@ -40,31 +39,35 @@ export default function PhraseView() {
           activeLine={cursorLine}
         ></Gutter>
         <For each={phrasePropColumns}>
-          {({ headerText, value }, columnIndex) => (
-            <Column
-              headerText={headerText}
-              headerPad={0}
-              active={() => columnIndex() === cursorColumn()}
-            >
-              <For
-                each={fillArrayTo(
-                  allLinesInPhrase(activePhraseId()).map(value),
-                  16,
-                  {
-                    pad: 3,
-                    hex: false,
-                  },
-                )}
+          {({ headerText, value }, columnIndex) => {
+            const columnPad = 3;
+            return (
+              <Column
+                headerText={headerText}
+                headerPad={0}
+                active={() => columnIndex() === cursorColumn()}
               >
-                {(lineId, lineIndex) => (
-                  <Block
-                    text={lineId}
-                    activeLine={() => lineIndex() === cursorLine()}
-                  ></Block>
-                )}
-              </For>
-            </Column>
-          )}
+                <For
+                  each={fillArrayTo(
+                    allLinesInPhrase(activePhraseId()).map(value),
+                    16,
+                    {
+                      pad: columnPad,
+                      hex: false,
+                    },
+                  )}
+                >
+                  {(lineId, lineIndex) => (
+                    <Block
+                      text={lineId}
+                      activeLine={() => lineIndex() === cursorLine()}
+                      empty={lineId === emptyBlockString(2)}
+                    ></Block>
+                  )}
+                </For>
+              </Column>
+            );
+          }}
         </For>
       </Grid>
     </div>

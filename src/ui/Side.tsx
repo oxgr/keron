@@ -1,6 +1,7 @@
 import { playNote } from "../audio/synth";
 import { actions } from "../event/actions";
 import { useModel } from "../state/model";
+import { getActiveLine } from "../state/utils";
 import { ViewMode } from "../types";
 import { getEnumKeys, getEnumValues } from "./views/utils";
 import styles from "/src/App.module.css";
@@ -21,11 +22,13 @@ export default function Side() {
       {/* <h2>side</h2> */}
       <div class={styles.sideContent}>
         {debug("key", () => model.key.event?.key)}
+        {debug("ctrlkey", () => model.key.event?.ctrlKey)}
         {debug("cursor", () => model.view.cursor)}
         {debug("active", () => model.project.active)}
         {debug("mode", () => model.view.mode)}
-        {debug("viewModeKeys", () => getEnumValues(ViewMode))}
-        {debug("enumType", () => typeof ViewMode)}
+        {debug("activeLine", () => getActiveLine())}
+        {/* {debug("viewModeKeys", () => getEnumValues(ViewMode))} */}
+        {/* {debug("enumType", () => typeof ViewMode)} */}
       </div>
     </div>
   );

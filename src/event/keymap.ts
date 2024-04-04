@@ -13,7 +13,9 @@ export const keymap: Keymap = {
   ",": actions.prevViewMode,
   ".": actions.nextViewMode,
   h: actions.moveCursorLeft,
-  l: actions.moveCursorRight,
   j: actions.moveCursorDown,
+  l: actions.moveCursorRight,
   k: actions.moveCursorUp,
+  J: actions.moveValueDown,
+  K: actions.moveValueUp,
 };

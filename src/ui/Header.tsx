@@ -1,4 +1,3 @@
-import { isString } from "tone";
 import { useModel } from "../state/model";
 import { ViewMode } from "../types";
 import styles from "/src/App.module.css";

@@ -1,3 +1,4 @@
+import { Chain, Line, Phrase, Track } from "../types";
 import { useModel } from "./model";
 
 const { model } = useModel();
@@ -18,18 +19,18 @@ export function getLine(id: number, phraseId: number) {
   return model.project.bank.phrases[phraseId].lines[id];
 }
 
-export function getActiveTrack() {
+export function getActiveTrack(): Track {
   return getTrack(model.project.active.track);
 }
 
-export function getActiveChain() {
+export function getActiveChain(): Chain {
   return getChain(model.project.active.chain);
 }
 
-export function getActivePhrase() {
+export function getActivePhrase(): Phrase {
   return getPhrase(model.project.active.phrase);
 }
 
-export function getActiveLine() {
+export function getActiveLine(): Line {
   return getLine(model.project.active.line, model.project.active.phrase);
 }

@@ -32,8 +32,8 @@ function setupLoop() {
   const activePhrase = getPhrase(activePhraseIndex);
 
   const lines = activePhrase.lines.map((line, index) => {
-    const { note, accidental, octave, velocity } = line;
-    const fullNote = note + accidental + octave;
+    const { note, octave, velocity } = line;
+    const fullNote = note + octave;
     return {
       time: "0:" + lineIndexToNotation(index),
       note: fullNote,

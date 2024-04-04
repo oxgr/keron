@@ -5,7 +5,7 @@ import { getTrack } from "../../state/utils";
 import Column from "../components/Column";
 import Grid from "../components/Grid";
 import Gutter from "../components/Gutter";
-import { fillArrayTo } from "./utils";
+import { emptyBlockString, fillArrayTo } from "./utils";
 
 export default function SongView() {
   const { model } = useModel();
@@ -37,6 +37,7 @@ export default function SongView() {
                   <Block
                     text={chainId}
                     activeLine={() => chainIndex() === cursorLine()}
+                    empty={chainId === emptyBlockString(2)}
                     // activeColumn={() => trackIndex() === activeTrack()}
                   ></Block>
                 )}

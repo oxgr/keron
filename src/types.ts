@@ -28,6 +28,11 @@ export enum CursorMoveDirection {
   Right,
 }
 
+export enum ValueDirection {
+  Up = 1,
+  Down = -1,
+}
+
 export enum ViewMode {
   Configuration,
   Project,
@@ -36,6 +41,15 @@ export enum ViewMode {
   Phrase,
   Instrument,
   Table,
+}
+
+export enum PhraseViewColumn {
+  Note,
+  Velocity,
+  Instrument,
+  FX1,
+  FX2,
+  FX3,
 }
 
 export type Key = {
@@ -90,7 +104,7 @@ export type Phrase = {
 
 export type Line = {
   note: Note;
-  accidental: Accidental;
+  // accidental: Accidental;
   octave: Octave;
   velocity: Velocity;
   instrument: Instrument;
@@ -113,6 +127,23 @@ export type Transport = {
   playbackActive: boolean;
 };
 
-export type Note = "A" | "B" | "C" | "D" | "E" | "F" | "G";
-export type Accidental = "" | "b" | "#" | "x";
-export type Octave = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
+export type Note = (typeof NOTES)[number];
+// export type Accidental = (typeof ACCIDENTALS)[number];
+export type Octave = (typeof OCTAVES)[number];
+
+export const NOTES = [
+  "A",
+  "A#",
+  "B",
+  "C",
+  "C#",
+  "D",
+  "D#",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#",
+] as const;
+// export const ACCIDENTALS = ["", "b", "#", "x"] as const;
+export const OCTAVES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;

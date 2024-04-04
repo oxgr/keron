@@ -7,7 +7,7 @@ import Grid from "../components/Grid";
 import Column from "../components/Column";
 import Block from "../components/Block";
 import Gutter from "../components/Gutter";
-import { fillArrayTo, toHexString } from "./utils";
+import { emptyBlockString, fillArrayTo, toHexString } from "./utils";
 
 export default function ChainView() {
   const { model, setModel } = useModel();
@@ -36,6 +36,7 @@ export default function ChainView() {
               <Block
                 text={phraseId}
                 activeLine={() => phraseIndex() === cursorLine()}
+                empty={phraseId === emptyBlockString(2)}
                 // activeColumn={() => trackIndex() === activeTrack()}
               ></Block>
             )}

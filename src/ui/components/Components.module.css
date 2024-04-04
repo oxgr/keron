@@ -18,6 +18,7 @@
   color: var(--color-fg-accent-sec);
 }
 
+.block.empty,
 .gutter .block,
 .columnHeader .block {
   color: var(--color-fg-muted);

@@ -2,9 +2,22 @@ import { togglePlaybackPhrase } from "../audio/transport";
 import { playNote } from "../audio/synth";
 import * as Tone from "tone";
 import { useModel } from "../state/model";
-import { Cursor, CursorMoveDirection, ViewMode, Active } from "../types";
+import {
+  Cursor,
+  CursorMoveDirection,
+  ViewMode,
+  Active,
+  ValueDirection,
+  PhraseViewColumn,
+  NOTES,
+} from "../types";
 import { untrack } from "solid-js/web";
-import { getActiveChain, getActiveTrack } from "../state/utils";
+import {
+  getActiveChain,
+  getActiveLine,
+  getActivePhrase,
+  getActiveTrack,
+} from "../state/utils";
 import { produce } from "solid-js/store";
 import { getEnumValues } from "../ui/views/utils";
 
@@ -77,6 +90,16 @@ export const actions: Record<string, Action> = {
     desc: "Move the cursor to the Down",
     fn: () => moveCursor(CursorMoveDirection.Down),
   },
+  moveValueDown: {
+    label: "Move value down",
+    desc: "Move the active value down.",
+    fn: () => moveValue(ValueDirection.Down),
+  },
+  moveValueUp: {
+    label: "Move value up",
+    desc: "Move the active value up.",
+    fn: () => moveValue(ValueDirection.Up),
+  },
 };
 
 function moveCursor(direction: CursorMoveDirection) {
@@ -146,6 +169,56 @@ function moveCursor(direction: CursorMoveDirection) {
     case ViewMode.Instrument:
     case ViewMode.Table:
   }
+}
+
+function moveValue(direction: ValueDirection) {
+  const activeValue = (() => {
+    switch (model.view.mode) {
+      case ViewMode.Configuration:
+      case ViewMode.Project:
+      case ViewMode.Song:
+      case ViewMode.Chain:
+        break;
+
+      case ViewMode.Phrase:
+        switch (model.view.cursor.column) {
+          case PhraseViewColumn.Note:
+            function moveValueFromRefArray(
+              refArray: typeof NOTES,
+              oldValue: any,
+              direction: ValueDirection,
+            ): typeof oldValue {
+              return refArray[
+                refArray.findIndex((value) => value === oldValue) + direction
+              ];
+            }
+            const oldNote = untrack(() => getActiveLine().note);
+            const newNote = moveValueFromRefArray(NOTES, oldNote, direction);
+
+            setModel(
+              "project",
+              "bank",
+              "phrases",
+              model.project.active.phrase,
+              "lines",
+              model.project.active.line,
+              "note",
+              newNote,
+            );
+            break;
+          case PhraseViewColumn.Velocity:
+          case PhraseViewColumn.Instrument:
+          case PhraseViewColumn.FX1:
+          case PhraseViewColumn.FX2:
+          case PhraseViewColumn.FX3:
+        }
+        break;
+
+      case ViewMode.Instrument:
+      case ViewMode.Table:
+        break;
+    }
+  })();
 }
 
 function setViewMode(index: () => number) {
