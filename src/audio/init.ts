@@ -7,6 +7,11 @@ export function initAudio() {
   async function startAudio() {
     await Tone.start();
     console.log("audio is ready");
+    Tone.getDestination().volume.value = -30;
+    const lowpass = new Tone.Filter(3200, "lowpass");
+    const reverb = new Tone.Reverb();
+    const compressor = new Tone.Compressor(-18);
+    Tone.Destination.chain(lowpass, reverb, compressor);
   }
 
   // TODO: Find a way to remove the other when one is triggered.
@@ -17,8 +22,9 @@ export function initAudio() {
   const instruments = [
     new Tone.MembraneSynth().toDestination(),
     new Tone.Synth().toDestination(),
-    new Tone.NoiseSynth().toDestination(),
     new Tone.PluckSynth().toDestination(),
+    // TODO: Noise doesnt work with notes. Need to filter somehow
+    // new Tone.NoiseSynth().toDestination(),
   ];
   setModel("bank", "instruments", instruments);
 }

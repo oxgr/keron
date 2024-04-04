@@ -2,9 +2,10 @@ import * as Tone from "tone";
 import { useModel } from "../state/model";
 import { playNote } from "./synth";
 import { lineIndexToNotation, positionToLine } from "./utils";
-import { getLine, getPhrase } from "../state/utils";
-import { ViewMode } from "../types";
+import { getActivePhrase, getLine, getPhrase } from "../state/utils";
+import { Phrase, ViewMode } from "../types";
 import { produce } from "solid-js/store";
+import { createEffect, createRenderEffect, onCleanup } from "solid-js";
 
 const { model, setModel } = useModel();
 
@@ -17,8 +18,12 @@ export function togglePlaybackPhrase() {
 
   if (state != "started") {
     console.log("playing...");
-    const lines = setupLoop();
+    // createRenderEffect(() => {
+    const activePhrase = getActivePhrase();
+    const lines = setupLines(activePhrase);
     const part = new Tone.Part(loopCallback, lines).start(0);
+    //   onCleanup(() => part.dispose());
+    // });
     Tone.Transport.loop = true;
     Tone.Transport.setLoopPoints(0, "1:0:0");
     Tone.Transport.start();
@@ -30,10 +35,7 @@ export function togglePlaybackPhrase() {
   }
 }
 
-function setupLoop() {
-  const activePhraseIndex = model.view.active.phrase;
-  const activePhrase = getPhrase(activePhraseIndex);
-
+function setupLines(activePhrase: Phrase) {
   const lines = activePhrase.lines.map((line, index) => {
     const { note, octave, velocity } = line;
     const fullNote = note + octave;

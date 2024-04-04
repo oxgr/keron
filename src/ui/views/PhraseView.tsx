@@ -26,7 +26,7 @@ export default function PhraseView() {
       value: (line: Line) => line.note.padEnd(2, "-") + line.octave,
     },
     { headerText: "V", value: (line: Line) => toHexString(line.velocity) },
-    { headerText: "I", value: (line: Line) => toHexString(line.instrument.id) },
+    { headerText: "I", value: (line: Line) => toHexString(line.instrument) },
   ];
 
   return (

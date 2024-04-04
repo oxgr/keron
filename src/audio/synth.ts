@@ -1,20 +1,20 @@
 import { useModel } from "../state/model";
 import { Note } from "tone/build/esm/core/type/NoteUnits";
 import { Time } from "tone/build/esm/core/type/Units";
-import { Instrument, Velocity } from "../types";
+import { Instrument, InstrumentId, Velocity } from "../types";
 
 export function playNote({
   note,
   duration,
   time,
   velocity,
-  instrument,
+  instrument: instrumentId,
 }: {
   note: Note;
   duration: Time;
   time: Time;
   velocity: Velocity;
-  instrument: Instrument;
+  instrument: InstrumentId;
 }) {
   const { model } = useModel();
   // console.log({
@@ -26,7 +26,7 @@ export function playNote({
   // });
 
   // console.log("playing audio...");
-  model.bank.instruments[instrument.id].triggerAttackRelease(
+  model.bank.instruments[instrumentId].triggerAttackRelease(
     note,
     duration,
     time,

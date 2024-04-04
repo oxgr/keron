@@ -117,11 +117,12 @@ export type Line = {
   // accidental: Accidental;
   octave: Octave;
   velocity: Velocity;
-  instrument: Instrument;
+  instrument: InstrumentId;
 };
 
 export type Velocity = number;
 
+export type InstrumentId = number;
 export type Instrument = {
   id: number;
   table: Table;
