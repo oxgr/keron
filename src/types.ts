@@ -10,16 +10,18 @@ export type Model = {
 
 export type View = {
   mode: ViewMode;
-  cursor: Cursor;
+  cursor: GridPosition;
+  playhead: GridPosition;
+  active: Active;
   lineRange: number[];
 };
 
-export type Cursor = {
+export type GridPosition = {
   line: number;
   column: number;
 };
 
-export type CursorTrack = keyof Cursor;
+export type CursorTrack = keyof GridPosition;
 
 export enum Direction {
   Down = -1,
@@ -68,7 +70,6 @@ export type Active = {
 export type Project = {
   name: string;
   song: Song;
-  active: Active;
   bank: Bank;
 };
 

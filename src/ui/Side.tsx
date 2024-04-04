@@ -24,7 +24,7 @@ export default function Side() {
         {debug("key", () => model.key.event?.key)}
         {debug("ctrlkey", () => model.key.event?.ctrlKey)}
         {debug("cursor", () => model.view.cursor)}
-        {debug("active", () => model.project.active)}
+        {debug("active", () => model.view.active)}
         {debug("mode", () => model.view.mode)}
         {debug("activeLine", () => getActiveLine())}
         {/* {debug("viewModeKeys", () => getEnumValues(ViewMode))} */}

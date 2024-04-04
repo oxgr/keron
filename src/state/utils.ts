@@ -20,17 +20,17 @@ export function getLine(id: number, phraseId: number) {
 }
 
 export function getActiveTrack(): Track {
-  return getTrack(model.project.active.track);
+  return getTrack(model.view.active.track);
 }
 
 export function getActiveChain(): Chain {
-  return getChain(model.project.active.chain);
+  return getChain(model.view.active.chain);
 }
 
 export function getActivePhrase(): Phrase {
-  return getPhrase(model.project.active.phrase);
+  return getPhrase(model.view.active.phrase);
 }
 
 export function getActiveLine(): Line {
-  return getLine(model.project.active.line, model.project.active.phrase);
+  return getLine(model.view.active.line, model.view.active.phrase);
 }

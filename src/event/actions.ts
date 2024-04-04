@@ -3,7 +3,7 @@ import { playNote } from "../audio/synth";
 import * as Tone from "tone";
 import { useModel } from "../state/model";
 import {
-  Cursor,
+  GridPosition,
   Direction,
   ViewMode,
   Active,
@@ -146,7 +146,7 @@ function moveCursor(direction: Direction) {
   const updateActiveModel = (prop: keyof Active, value: any) => {
     // if (!value) return;
     setModel(
-      "project",
+      "view",
       "active",
       prop,
       untrack(() => value),
@@ -261,9 +261,9 @@ function moveValue(direction: Direction) {
                 "project",
                 "bank",
                 "phrases",
-                model.project.active.phrase,
+                model.view.active.phrase,
                 "lines",
-                model.project.active.line,
+                model.view.active.line,
                 key,
                 refArray[newIndex],
               );

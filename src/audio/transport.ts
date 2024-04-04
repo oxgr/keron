@@ -4,6 +4,7 @@ import { playNote } from "./synth";
 import { lineIndexToNotation, positionToLine } from "./utils";
 import { getLine, getPhrase } from "../state/utils";
 import { ViewMode } from "../types";
+import { produce } from "solid-js/store";
 
 const { model, setModel } = useModel();
 
@@ -28,7 +29,7 @@ export function togglePlaybackPhrase() {
 }
 
 function setupLoop() {
-  const activePhraseIndex = model.project.active.phrase;
+  const activePhraseIndex = model.view.active.phrase;
   const activePhrase = getPhrase(activePhraseIndex);
 
   const lines = activePhrase.lines.map((line, index) => {
@@ -46,11 +47,17 @@ function setupLoop() {
 function loopCallback(time: any, value: any) {
   const activeLineNumber = positionToLine(Tone.Transport.position);
   if (model.view.mode == ViewMode.Phrase) {
-    setModel("project", "active", "line", activeLineNumber);
-    setModel("view", "cursor", "line", activeLineNumber);
+    setModel(
+      "view",
+      produce((view) => ({
+        ...view,
+        active: { ...view.active, line: activeLineNumber },
+        cursor: { ...view.cursor, line: activeLineNumber },
+      })),
+    );
   }
 
   const { note, velocity } = value;
-  const { instrument } = getLine(activeLineNumber, model.project.active.phrase);
+  const { instrument } = getLine(activeLineNumber, model.view.active.phrase);
   playNote({ note, duration: "8n", time, velocity, instrument });
 }

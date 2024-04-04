@@ -16,7 +16,17 @@ function initModel(): Model {
   const defaultModel: Model = {
     view: {
       mode: ViewMode.Song,
+      active: {
+        track: 0,
+        chain: 0,
+        phrase: 0,
+        line: 0,
+      },
       cursor: {
+        line: 0,
+        column: 0,
+      },
+      playhead: {
         line: 0,
         column: 0,
       },
@@ -33,12 +43,6 @@ function initModel(): Model {
     },
     project: {
       name: "ox",
-      active: {
-        track: 0,
-        chain: 0,
-        phrase: 0,
-        line: 0,
-      },
       song: {
         tracks: [0, 1, 2, 3],
       },

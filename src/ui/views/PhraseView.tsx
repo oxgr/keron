@@ -16,7 +16,7 @@ export default function PhraseView() {
   const cursorLine = () => model.view.cursor.line;
   const cursorColumn = () => model.view.cursor.column;
 
-  const activePhraseId = () => model.project.active.phrase;
+  const activePhraseId = () => model.view.active.phrase;
   const allLinesInPhrase = (phraseId: number) =>
     getPhrase(phraseId)?.lines ?? [];
 

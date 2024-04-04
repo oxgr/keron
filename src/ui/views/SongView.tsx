@@ -23,7 +23,6 @@ export default function SongView() {
 
   return (
     <div class="song">
-      {/* <div class={styles.mainTitle}>{model.project.active.phrase}</div> */}
       <Grid>
         <Gutter lineRange={lineRange} activeLine={cursorLine}></Gutter>
         <For each={fullTracks(allTracks())}>

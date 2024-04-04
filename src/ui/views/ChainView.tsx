@@ -15,7 +15,7 @@ export default function ChainView() {
   const lineRange = () => model.view.lineRange;
   const cursorLine = () => model.view.cursor.line;
 
-  const activeChainId = () => model.project.active.chain;
+  const activeChainId = () => model.view.active.chain;
 
   // const activeChain = () => getChain(activePhraseId());
   const allPhrasesInChain = (chainId: number) =>
