@@ -17,13 +17,15 @@ export function togglePlaybackPhrase() {
 
   if (state != "started") {
     console.log("playing...");
-    setupLoop();
+    const lines = setupLoop();
+    const part = new Tone.Part(loopCallback, lines).start(0);
     Tone.Transport.loop = true;
     Tone.Transport.setLoopPoints(0, "1:0:0");
     Tone.Transport.start();
   } else {
     console.log("pausing...");
     Tone.Transport.stop();
+    Tone.Transport.loop = false;
     // Tone.Transport.pause();
   }
 }
@@ -41,7 +43,7 @@ function setupLoop() {
       velocity,
     };
   });
-  const part = new Tone.Part(loopCallback, lines).start(0);
+  return lines;
 }
 
 function loopCallback(time: any, value: any) {
@@ -51,8 +53,8 @@ function loopCallback(time: any, value: any) {
       "view",
       produce((view) => ({
         ...view,
-        active: { ...view.active, line: activeLineNumber },
-        cursor: { ...view.cursor, line: activeLineNumber },
+        // active: { ...view.active, line: activeLineNumber },
+        playhead: { ...view.cursor, line: activeLineNumber },
       })),
     );
   }

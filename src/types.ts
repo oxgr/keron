@@ -23,15 +23,23 @@ export type GridPosition = {
 
 export type CursorTrack = keyof GridPosition;
 
-export enum Direction {
+export enum YDirection {
   Down = -1,
-  Neutral = 0,
   Up = 1,
+}
+
+export enum XDirection {
   Left = 2,
   Right = 3,
 }
 
-export const InlineDirection = {
+export type ValueDirection = YDirection;
+export const ValueDirection = { ...YDirection } as const;
+
+export type Direction = XDirection | YDirection | 0;
+export const Direction = { ...XDirection, ...YDirection, Neutral: 0 } as const;
+
+export const XDirectionMap = {
   [Direction.Left]: Direction.Down,
   [Direction.Right]: Direction.Up,
 } as const;

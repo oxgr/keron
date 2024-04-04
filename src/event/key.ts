@@ -1,5 +1,6 @@
 import { produce } from "solid-js/store";
 import { useModel } from "../state/model";
+import { keymap } from "./keymap";
 
 const { model, setModel } = useModel();
 
@@ -17,5 +18,16 @@ export function initKeys() {
         key.event = event;
       }),
     );
+  }
+}
+
+/**
+ * Invisible component to enact actions based on keypresses.
+ */
+export function keyEffect() {
+  const key = model.key.event?.key;
+  if (key) {
+    const action = keymap[key];
+    if (action) action.fn();
   }
 }

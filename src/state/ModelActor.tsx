@@ -1,8 +1,7 @@
-import { createEffect } from "solid-js";
 import { keymap } from "../event/keymap";
 import { useModel } from "./model";
 
-const { model, setModel } = useModel();
+const { model } = useModel();
 
 /**
  * Invisible components to enact actions based on keypresses.

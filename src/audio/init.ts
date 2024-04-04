@@ -15,8 +15,8 @@ export function initAudio() {
 
   // add our instruments
   const instruments = [
-    new Tone.Synth().toDestination(),
     new Tone.MembraneSynth().toDestination(),
+    new Tone.Synth().toDestination(),
     new Tone.NoiseSynth().toDestination(),
     new Tone.PluckSynth().toDestination(),
   ];
