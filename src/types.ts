@@ -21,17 +21,18 @@ export type Cursor = {
 
 export type CursorTrack = keyof Cursor;
 
-export enum CursorMoveDirection {
-  Left,
-  Down,
-  Up,
-  Right,
+export enum Direction {
+  Down = -1,
+  Neutral = 0,
+  Up = 1,
+  Left = 2,
+  Right = 3,
 }
 
-export enum ValueDirection {
-  Up = 1,
-  Down = -1,
-}
+export const InlineDirection = {
+  [Direction.Left]: Direction.Down,
+  [Direction.Right]: Direction.Up,
+} as const;
 
 export enum ViewMode {
   Configuration,

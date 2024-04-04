@@ -16,6 +16,8 @@ export const keymap: Keymap = {
   j: actions.moveCursorDown,
   l: actions.moveCursorRight,
   k: actions.moveCursorUp,
+  H: actions.moveValueLeft,
   J: actions.moveValueDown,
   K: actions.moveValueUp,
+  L: actions.moveValueRight,
 };

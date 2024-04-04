@@ -4,12 +4,14 @@ import * as Tone from "tone";
 import { useModel } from "../state/model";
 import {
   Cursor,
-  CursorMoveDirection,
+  Direction,
   ViewMode,
   Active,
-  ValueDirection,
   PhraseViewColumn,
   NOTES,
+  OCTAVES,
+  Line,
+  InlineDirection,
 } from "../types";
 import { untrack } from "solid-js/web";
 import {
@@ -73,45 +75,54 @@ export const actions: Record<string, Action> = {
   moveCursorLeft: {
     label: "Move cursor left",
     desc: "Move the cursor to the left",
-    fn: () => moveCursor(CursorMoveDirection.Left),
+    fn: () => moveCursor(Direction.Left),
   },
   moveCursorRight: {
     label: "Move cursor Right",
     desc: "Move the cursor to the Right",
-    fn: () => moveCursor(CursorMoveDirection.Right),
+    fn: () => moveCursor(Direction.Right),
   },
   moveCursorUp: {
     label: "Move cursor Up",
     desc: "Move the cursor to the Up",
-    fn: () => moveCursor(CursorMoveDirection.Up),
+    fn: () => moveCursor(Direction.Up),
   },
   moveCursorDown: {
     label: "Move cursor Down",
     desc: "Move the cursor to the Down",
-    fn: () => moveCursor(CursorMoveDirection.Down),
+    fn: () => moveCursor(Direction.Down),
   },
   moveValueDown: {
     label: "Move value down",
     desc: "Move the active value down.",
-    fn: () => moveValue(ValueDirection.Down),
+    fn: () => moveValue(Direction.Down),
   },
   moveValueUp: {
     label: "Move value up",
     desc: "Move the active value up.",
-    fn: () => moveValue(ValueDirection.Up),
+    fn: () => moveValue(Direction.Up),
+  },
+  moveValueLeft: {
+    label: "Move value Left",
+    desc: "Move the active value Left.",
+    fn: () => moveValue(Direction.Left),
+  },
+  moveValueRight: {
+    label: "Move value Right",
+    desc: "Move the active value Right.",
+    fn: () => moveValue(Direction.Right),
   },
 };
 
-function moveCursor(direction: CursorMoveDirection) {
+function moveCursor(direction: Direction) {
   const axis =
-    direction == CursorMoveDirection.Up || direction == CursorMoveDirection.Down
+    direction == Direction.Up || direction == Direction.Down
       ? "line"
       : "column";
 
-  const getNewPos = (currPos: number, direction: CursorMoveDirection) => {
+  const getNewPos = (currPos: number, direction: Direction) => {
     const newPos =
-      direction == CursorMoveDirection.Up ||
-      direction == CursorMoveDirection.Left
+      direction == Direction.Up || direction == Direction.Left
         ? currPos - 1
         : currPos + 1;
 
@@ -171,7 +182,7 @@ function moveCursor(direction: CursorMoveDirection) {
   }
 }
 
-function moveValue(direction: ValueDirection) {
+function moveValue(direction: Direction) {
   const activeValue = (() => {
     switch (model.view.mode) {
       case ViewMode.Configuration:
@@ -183,28 +194,93 @@ function moveValue(direction: ValueDirection) {
       case ViewMode.Phrase:
         switch (model.view.cursor.column) {
           case PhraseViewColumn.Note:
-            function moveValueFromRefArray(
-              refArray: typeof NOTES,
-              oldValue: any,
-              direction: ValueDirection,
-            ): typeof oldValue {
-              return refArray[
-                refArray.findIndex((value) => value === oldValue) + direction
-              ];
-            }
-            const oldNote = untrack(() => getActiveLine().note);
-            const newNote = moveValueFromRefArray(NOTES, oldNote, direction);
+            /**
+             * @returns 0 if index is in bounds, -1 if under, 1 if over
+             */
+            const indexDirectionAtBounds = (
+              index: number,
+              array: readonly any[],
+            ): Direction => {
+              if (index < 0) return Direction.Down;
+              if (index >= array.length) return Direction.Up;
+              return Direction.Neutral;
+            };
 
-            setModel(
-              "project",
-              "bank",
-              "phrases",
-              model.project.active.phrase,
-              "lines",
-              model.project.active.line,
-              "note",
-              newNote,
-            );
+            /**
+             * Round robins index if it reaches the bounds of the array or clamps it instead if `clamp` is true.
+             *
+             * @returns the index if within bounds, index at opposite bound if exceeds them.
+             */
+            const handleIndexAtBounds = (
+              index: number,
+              array: readonly any[],
+              opts = { clamp: false },
+            ) => {
+              const dirAtBounds = indexDirectionAtBounds(index, array);
+              if (dirAtBounds == Direction.Down)
+                return opts.clamp ? 0 : array.length - 1;
+              if (dirAtBounds == Direction.Up)
+                return opts.clamp ? array.length - 1 : 0;
+              return index;
+            };
+
+            /**
+             * @returns new index or -1 if `oldValue` does not exist in refArray
+             */
+            const newIndexFromRefArray = (
+              oldValue: any,
+              refArray: readonly (typeof oldValue)[],
+              direction: Direction,
+              opts = { clamp: false },
+            ): number => {
+              const currIndex = refArray.findIndex(
+                (value) => value === oldValue,
+              );
+              if (currIndex === -1) return currIndex;
+
+              const newIndex = currIndex + direction;
+              return handleIndexAtBounds(newIndex, refArray, {
+                clamp: opts.clamp,
+              });
+            };
+
+            const moveNoteValue = (
+              key: keyof Line,
+              refArray: readonly any[],
+              direction: Direction,
+            ) => {
+              const oldValue = untrack(() => getActiveLine()[key]);
+
+              const newIndex = newIndexFromRefArray(
+                oldValue,
+                refArray,
+                direction,
+              );
+
+              setModel(
+                "project",
+                "bank",
+                "phrases",
+                model.project.active.phrase,
+                "lines",
+                model.project.active.line,
+                key,
+                refArray[newIndex],
+              );
+            };
+
+            switch (direction) {
+              case Direction.Up:
+              case Direction.Down:
+                moveNoteValue("note", NOTES, direction);
+                break;
+
+              case Direction.Left:
+              case Direction.Right:
+                moveNoteValue("octave", OCTAVES, InlineDirection[direction]);
+                break;
+            }
+
             break;
           case PhraseViewColumn.Velocity:
           case PhraseViewColumn.Instrument:
