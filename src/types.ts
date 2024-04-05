@@ -155,4 +155,4 @@ export const NOTES = [
   "G#",
 ] as const;
 // export const ACCIDENTALS = ["", "b", "#", "x"] as const;
-export const OCTAVES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
+export const OCTAVES = [1, 2, 3, 4, 5, 6, 7, 8, 9] as const;

@@ -17,16 +17,56 @@ export default function PhraseView() {
   const cursorColumn = () => model.view.cursor.column;
 
   const activePhraseId = () => model.view.active.phrase;
-  const allLinesInPhrase = (phraseId: number) =>
-    getPhrase(phraseId)?.lines ?? [];
+  const allLinesInPhrase = (phraseId: number) => {
+    return !isNaN(phraseId) ? getPhrase(phraseId)?.lines ?? [] : [];
+  };
+  const activeLines = () => allLinesInPhrase(activePhraseId());
 
-  const phrasePropColumns = [
+  const fullLineProps = (
+    linePropArr: (string | number | undefined)[],
+    { pad = 2 },
+  ) => {
+    return fillArrayTo(linePropArr, 16, {
+      pad,
+      hex: false,
+    });
+  };
+
+  const NOTE_COLUMN_PAD = 3;
+
+  const phrasePropColumns: {
+    headerText: string;
+    key: string;
+    pad: number;
+    lineMapFn: (line: Line) => string | number | undefined;
+  }[] = [
     {
       headerText: "N",
-      value: (line: Line) => line.note.padEnd(2, "-") + line.octave,
+      key: "note",
+      pad: 3,
+      lineMapFn: (line: Line) => {
+        if (line.note === undefined) return undefined;
+        return line.note.padEnd(2, "-") + line.octave;
+      },
     },
-    { headerText: "V", value: (line: Line) => toHexString(line.velocity) },
-    { headerText: "I", value: (line: Line) => toHexString(line.instrument) },
+    {
+      headerText: "V",
+      key: "velocity",
+      pad: 2,
+      lineMapFn: (line: Line) => {
+        if (line.velocity === undefined) return undefined;
+        return line.velocity;
+      },
+    },
+    {
+      headerText: "I",
+      key: "instrument",
+      pad: 2,
+      lineMapFn: (line: Line) => {
+        if (line.instrument === undefined) return undefined;
+        return line.instrument;
+      },
+    },
   ];
 
   return (
@@ -39,8 +79,7 @@ export default function PhraseView() {
           activeLine={cursorLine}
         ></Gutter>
         <For each={phrasePropColumns}>
-          {({ headerText, value }, columnIndex) => {
-            const columnPad = 3;
+          {({ headerText, key, lineMapFn, pad }, columnIndex) => {
             return (
               <Column
                 headerText={headerText}
@@ -48,22 +87,17 @@ export default function PhraseView() {
                 active={() => columnIndex() === cursorColumn()}
               >
                 <For
-                  each={fillArrayTo(
-                    allLinesInPhrase(activePhraseId()).map(value),
-                    16,
-                    {
-                      pad: columnPad,
-                      hex: false,
-                    },
-                  )}
+                  each={fullLineProps(activeLines().map(lineMapFn), { pad })}
                 >
-                  {(lineId, lineIndex) => (
-                    <Block
-                      text={lineId}
-                      activeLine={() => lineIndex() === cursorLine()}
-                      empty={lineId === emptyBlockString(2)}
-                    ></Block>
-                  )}
+                  {(linePropStr, lineIndex) => {
+                    return (
+                      <Block
+                        text={linePropStr}
+                        activeLine={() => lineIndex() === cursorLine()}
+                        empty={linePropStr === emptyBlockString(pad)}
+                      ></Block>
+                    );
+                  }}
                 </For>
               </Column>
             );

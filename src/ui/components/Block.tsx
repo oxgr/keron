@@ -8,13 +8,17 @@ export default function Block({
   pad = 2,
   empty = false,
 }: {
-  text?: string | null;
+  text?: string | number | null;
   activeLine?: () => boolean;
   activeColumn?: () => boolean;
   pad?: number;
   empty?: boolean;
 }) {
-  const renderedText = text?.padStart(pad, "0") ?? emptyBlockString(pad);
+  const renderedText = (() => {
+    if (text == null) return emptyBlockString(pad);
+    if (typeof text !== "string") text = text.toString();
+    return text.padStart(pad, "0");
+  })();
   const setActiveLineClass = () => (activeLine() ? components.activeLine : "");
   const setActiveColumnClass = () =>
     activeColumn() ? components.activeColumn : "";

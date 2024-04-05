@@ -54,7 +54,7 @@ pre {
 
   display: grid;
   grid-template-rows: 10% 90%;
-  grid-template-columns: 80% 20%;
+  grid-template-columns: 75% 25%;
   grid-template-areas:
     "header header"
     "main side";
@@ -112,6 +112,7 @@ pre {
 .side {
   /* flex: 0 0 5%; */
   grid-area: side;
+  overflow: scroll;
 }
 
 .sideContent {

@@ -42,273 +42,14 @@ function initModel(): Model {
       instruments: [0, 1, 2],
     },
     project: {
-      name: "ox",
+      name: "~",
       song: {
-        tracks: [
-          {
-            chains: [1, 0],
-          },
-          {
-            chains: [0],
-          },
-          {
-            chains: [1, 2],
-          },
-          {
-            chains: [3, 3, 3],
-          },
-        ],
+        tracks: [],
       },
       bank: {
         samples: [],
-        chains: [
-          {
-            phrases: [0, 1],
-          },
-          {
-            phrases: [1, 0],
-          },
-          {
-            phrases: [0, 0],
-          },
-          {
-            phrases: [1, 1, 1, 1],
-          },
-        ],
-        phrases: [
-          {
-            lines: [
-              {
-                note: "C",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "E",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "F",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "G",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "C",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "E",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "F",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "G",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "C",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "E",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "F",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "C#",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "C",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "E",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "F",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "G",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-            ],
-          },
-          {
-            lines: [
-              {
-                note: "C",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "E",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "F",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "G",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "C",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "E",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "F",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "G",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "C",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "E",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "B",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "D",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "B",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "B",
-                // accidental: "b",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "F",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-              {
-                note: "G",
-                // accidental: "",
-                octave: 4,
-                velocity: 64,
-                instrument: 1,
-              },
-            ],
-          },
-        ],
+        chains: [],
+        phrases: [],
       },
     },
   };
@@ -327,21 +68,36 @@ function initModel(): Model {
         return undefined;
       });
 
+  const numLines = 16;
   const numPhrases = 8;
   const numChains = 8;
   const numTracks = 8;
 
   defaultModel.project.bank.phrases = randArray(numPhrases, 1, () => ({
-    lines: randArray(16, 1, () => ({
-      note: NOTES[randInt(NOTES.length)],
-      octave: OCTAVES[randInt(OCTAVES.length)],
-      velocity: randInt(127),
-      instrument: randInt(defaultModel.bank.instruments.length),
-    })),
+    lines: randArray(numLines, 1, () => {
+      const lineExists = prob(0.6);
+      if (!lineExists)
+        return {
+          note: undefined,
+          octave: undefined,
+          velocity: undefined,
+          instrument: undefined,
+        };
+      return {
+        note: NOTES[randInt(NOTES.length)],
+        octave: OCTAVES[randInt(OCTAVES.length)],
+        velocity: randInt(127),
+        instrument: randInt(defaultModel.bank.instruments.length),
+      };
+    }),
   }));
 
-  defaultModel.project.song.tracks = randArray(8, 1, () => ({
-    chains: randArray(4, 1, () => randInt(4)),
+  defaultModel.project.bank.chains = randArray(numChains, 1, () => ({
+    phrases: randArray(numPhrases, 0.8, () => randInt(numPhrases)),
+  }));
+
+  defaultModel.project.song.tracks = randArray(numTracks, 1, () => ({
+    chains: randArray(numChains, 0.6, () => randInt(numChains)),
   }));
 
   // defaultModel.project.bank.tracks[0].chains[0].phrases[0].lines = Array(

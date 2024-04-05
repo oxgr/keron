@@ -8,7 +8,7 @@ export function initAudio() {
     await Tone.start();
     console.log("audio is ready");
     Tone.getDestination().volume.value = -30;
-    const lowpass = new Tone.Filter(3200, "lowpass");
+    const lowpass = new Tone.Filter(1000, "lowpass");
     const reverb = new Tone.Reverb();
     const compressor = new Tone.Compressor(-18);
     Tone.Destination.chain(lowpass, reverb, compressor);

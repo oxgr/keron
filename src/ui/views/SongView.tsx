@@ -16,7 +16,6 @@ export default function SongView() {
 
   const allTracks = () => model.project.song.tracks.map((_, index) => index);
   const allChainsInTrack = (trackId: number) => {
-    console.log(trackId);
     return !isNaN(trackId) ? getTrack(trackId)?.chains ?? [] : [];
   };
 

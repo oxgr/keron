@@ -1,9 +1,5 @@
-import { playNote } from "../audio/synth";
-import { actions } from "../event/actions";
 import { useModel } from "../state/model";
-import { getActiveLine } from "../state/utils";
-import { ViewMode } from "../types";
-import { getEnumKeys, getEnumValues } from "./views/utils";
+import { getActiveLine, getActivePhrase } from "../state/utils";
 import styles from "/src/App.module.css";
 
 export default function Side() {
@@ -25,7 +21,9 @@ export default function Side() {
         {debug("cursor", () => model.view.cursor)}
         {debug("active", () => model.view.active)}
         {debug("activeLine", () => getActiveLine())}
-        {debug("tracks", () => model.project.song.tracks)}
+        {/* {debug("linesInPhrase", () => */}
+        {/*   getActivePhrase().lines.map((v, i) => ({ ...v, index: i })), */}
+        {/* )} */}
       </div>
     </div>
   );

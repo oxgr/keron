@@ -14,18 +14,26 @@ export function fillArrayTo(
     pad: 2,
     hex: true,
   },
-): Array<string> {
+): (string | undefined)[] {
   if (!array) return Array(length);
 
   const len = array.length;
   return [
-    ...array.map((val) => (!!opts.hex ? toHexString(val) : val)),
+    ...array.map((val) => {
+      if (val == undefined || val == null) {
+        return emptyBlockString(opts.pad);
+      }
+      if (!!opts.hex || typeof val == "number") {
+        return toHexString(val);
+      }
+      return val;
+    }),
     ...Array(length - len).fill(emptyBlockString(opts.pad)),
   ];
 }
 
-export function toHexString(val: number): string {
-  return val.toString(16).toUpperCase();
+export function toHexString(val: number): string | undefined {
+  return val?.toString(16).toUpperCase();
 }
 
 export function getEnumKeys(target: any) {

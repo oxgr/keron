@@ -37,12 +37,13 @@ export function togglePlaybackPhrase() {
 
 function setupLines(activePhrase: Phrase) {
   const lines = activePhrase.lines.map((line, index) => {
-    const { note, octave, velocity } = line;
+    const { note, octave, velocity, instrument } = line;
     const fullNote = note + octave;
     return {
       time: "0:" + lineIndexToNotation(index),
       note: fullNote,
       velocity,
+      instrument,
     };
   });
   return lines;
@@ -61,7 +62,10 @@ function loopCallback(time: any, value: any) {
     );
   }
 
-  const { note, velocity } = value;
-  const { instrument } = getLine(activeLineNumber, model.view.active.phrase);
+  if (value.instrument === undefined) return;
+  console.log(value);
+
+  const { note, velocity, instrument } = value;
+  // const {  } = getLine(activeLineNumber, model.view.active.phrase);
   playNote({ note, duration: "8n", time, velocity, instrument });
 }
