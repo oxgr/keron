@@ -82,7 +82,6 @@ export type Project = {
 };
 
 export type Bank = {
-  tracks: Track[];
   chains: Chain[];
   phrases: Phrase[];
   samples: Sample[];
@@ -94,10 +93,9 @@ export type BuiltinBank = {
 };
 
 export type Song = {
-  tracks: TrackId[];
+  tracks: Track[];
 };
 
-export type TrackId = number;
 export type Track = {
   chains: ChainId[];
 };

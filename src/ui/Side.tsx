@@ -22,13 +22,10 @@ export default function Side() {
       {/* <h2>side</h2> */}
       <div class={styles.sideContent}>
         {debug("key", () => model.key.event?.key)}
-        {debug("ctrlkey", () => model.key.event?.ctrlKey)}
         {debug("cursor", () => model.view.cursor)}
         {debug("active", () => model.view.active)}
-        {debug("mode", () => model.view.mode)}
         {debug("activeLine", () => getActiveLine())}
-        {/* {debug("viewModeKeys", () => getEnumValues(ViewMode))} */}
-        {/* {debug("enumType", () => typeof ViewMode)} */}
+        {debug("tracks", () => model.project.song.tracks)}
       </div>
     </div>
   );

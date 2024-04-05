@@ -1,7 +1,7 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { ViewMode, Model } from "../types";
+import { ViewMode, Model, NOTES, OCTAVES } from "../types";
 
 const defaultModel = initModel();
 const [model, setModel] = createStore(defaultModel);
@@ -39,15 +39,11 @@ function initModel(): Model {
       playbackActive: false,
     },
     bank: {
-      instruments: [],
+      instruments: [0, 1, 2],
     },
     project: {
       name: "ox",
       song: {
-        tracks: [0, 1, 2, 3],
-      },
-      bank: {
-        samples: [],
         tracks: [
           {
             chains: [1, 0],
@@ -62,6 +58,9 @@ function initModel(): Model {
             chains: [3, 3, 3],
           },
         ],
+      },
+      bank: {
+        samples: [],
         chains: [
           {
             phrases: [0, 1],
@@ -314,7 +313,40 @@ function initModel(): Model {
     },
   };
 
-  // defaultModel.project.song.chains[0].phrases[0].lines = Array(16).fill(
+  const randInt = (range = 1) => Math.floor(Math.random() * range);
+  const prob = (factor = 0.5) => Math.random() < factor;
+  const randArray = (
+    range: number,
+    probFactor: number,
+    elementFn: (v: any, i: number) => any,
+  ) =>
+    Array(range)
+      .fill(0)
+      .map((v, i) => {
+        if (prob(probFactor)) return elementFn(v, i);
+        return undefined;
+      });
+
+  const numPhrases = 8;
+  const numChains = 8;
+  const numTracks = 8;
+
+  defaultModel.project.bank.phrases = randArray(numPhrases, 1, () => ({
+    lines: randArray(16, 1, () => ({
+      note: NOTES[randInt(NOTES.length)],
+      octave: OCTAVES[randInt(OCTAVES.length)],
+      velocity: randInt(127),
+      instrument: randInt(defaultModel.bank.instruments.length),
+    })),
+  }));
+
+  defaultModel.project.song.tracks = randArray(8, 1, () => ({
+    chains: randArray(4, 1, () => randInt(4)),
+  }));
+
+  // defaultModel.project.bank.tracks[0].chains[0].phrases[0].lines = Array(
+  //   16,
+  // ).fill(
   //   {
   //     active: false,
   //     note: "C-4",

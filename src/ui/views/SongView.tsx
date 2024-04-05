@@ -14,9 +14,11 @@ export default function SongView() {
   const cursorLine = () => model.view.cursor.line;
   const cursorColumn = () => model.view.cursor.column;
 
-  const allTracks = () => model.project.song.tracks;
-  const allChainsInTrack = (trackId: number) =>
-    !isNaN(trackId) ? getTrack(trackId).chains : [];
+  const allTracks = () => model.project.song.tracks.map((_, index) => index);
+  const allChainsInTrack = (trackId: number) => {
+    console.log(trackId);
+    return !isNaN(trackId) ? getTrack(trackId)?.chains ?? [] : [];
+  };
 
   const fullTracks = (tracks: number[]) => fillArrayTo(tracks, 8);
   const fullChains = (chains: number[]) => fillArrayTo(chains, 16);

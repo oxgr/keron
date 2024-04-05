@@ -4,7 +4,7 @@ import { useModel } from "./model";
 const { model } = useModel();
 
 export function getTrack(id: number) {
-  return model.project.bank.tracks[id];
+  return model.project.song.tracks[id];
 }
 
 export function getChain(id: number) {
