@@ -19,6 +19,7 @@ export default function Side() {
       <div class={styles.sideContent}>
         {debug("key", () => model.key.event?.key)}
         {debug("cursor", () => model.view.cursor)}
+        {debug("playhead", () => model.view.playhead)}
         {debug("active", () => model.view.active)}
         {debug("activeLine", () => getActiveLine())}
         {/* {debug("linesInPhrase", () => */}

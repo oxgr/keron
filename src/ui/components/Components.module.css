@@ -35,7 +35,22 @@
   font-weight: bold;
 }
 
-.activeLine,
-.activeColumn {
-  /* font-weight: bold; */
+.playhead,
+.playheadLine {
+  background: var(--color-bg-muted);
+  font-weight: bold;
+}
+
+.playhead {
+  width: 70%;
+  position: absolute;
+  z-index: 0;
+}
+
+*:not(.playhead) {
+  z-index: 10;
+}
+
+.gutter .playheadLine {
+  color: var(--color-fg);
 }

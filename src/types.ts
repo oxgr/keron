@@ -11,7 +11,7 @@ export type Model = {
 export type View = {
   mode: ViewMode;
   cursor: GridPosition;
-  playhead: GridPosition;
+  playhead: Active;
   active: Active;
   lineRange: number[];
 };

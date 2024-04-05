@@ -52,18 +52,10 @@ function setupLines(activePhrase: Phrase) {
 function loopCallback(time: any, value: any) {
   const activeLineNumber = positionToLine(Tone.Transport.position);
   if (model.view.mode == ViewMode.Phrase) {
-    setModel(
-      "view",
-      produce((view) => ({
-        ...view,
-        // active: { ...view.active, line: activeLineNumber },
-        playhead: { ...view.cursor, line: activeLineNumber },
-      })),
-    );
+    setModel("view", "playhead", "line", activeLineNumber);
   }
 
   if (value.instrument === undefined) return;
-  console.log(value);
 
   const { note, velocity, instrument } = value;
   // const {  } = getLine(activeLineNumber, model.view.active.phrase);

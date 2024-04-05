@@ -27,8 +27,10 @@ function initModel(): Model {
         column: 0,
       },
       playhead: {
+        track: 0,
+        chain: 0,
+        phrase: 0,
         line: 0,
-        column: 0,
       },
       lineRange: [0, 16],
     },

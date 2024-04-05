@@ -4,12 +4,14 @@ import { emptyBlockString } from "../views/utils";
 export default function Block({
   text = "",
   activeLine = () => false,
+  playheadLine = () => false,
   activeColumn = () => false,
   pad = 2,
   empty = false,
 }: {
   text?: string | number | null;
   activeLine?: () => boolean;
+  playheadLine?: () => boolean;
   activeColumn?: () => boolean;
   pad?: number;
   empty?: boolean;
@@ -19,14 +21,25 @@ export default function Block({
     if (typeof text !== "string") text = text.toString();
     return text.padStart(pad, "0");
   })();
-  const setActiveLineClass = () => (activeLine() ? components.activeLine : "");
-  const setActiveColumnClass = () =>
-    activeColumn() ? components.activeColumn : "";
-  const setEmptyClass = () => (empty ? components.empty : "");
+
+  const condClassFn =
+    (cond: () => boolean, cssClass: CSSModuleClasses[string]) => () =>
+      cond() ? cssClass : "";
+
+  const setEmptyClass = condClassFn(() => empty, components.empty);
+  const setActiveLineClass = condClassFn(activeLine, components.activeLine);
+  const setPlayheadLineClass = condClassFn(
+    playheadLine,
+    components.playheadLine,
+  );
+  const setActiveColumnClass = condClassFn(
+    activeColumn,
+    components.activeColumn,
+  );
 
   return (
     <div
-      class={`${components.block} ${setEmptyClass()} ${setActiveLineClass()} ${setActiveColumnClass()}`}
+      class={`${components.block}  ${setEmptyClass()} ${setActiveLineClass()} ${setPlayheadLineClass()} ${setActiveColumnClass()}`}
     >
       {renderedText}
     </div>

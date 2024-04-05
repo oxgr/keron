@@ -8,11 +8,13 @@ import Column from "../components/Column";
 import { emptyBlockString, fillArrayTo, toHexString } from "./utils";
 import Block from "../components/Block";
 import { Line } from "../../types";
+import Playhead from "../components/Playhead";
 
 export default function PhraseView() {
   const { model, setModel } = useModel();
 
   const lineRange = () => model.view.lineRange;
+  const playheadLine = () => model.view.playhead.line;
   const cursorLine = () => model.view.cursor.line;
   const cursorColumn = () => model.view.cursor.column;
 
@@ -77,6 +79,7 @@ export default function PhraseView() {
           headerPad={2}
           lineRange={lineRange}
           activeLine={cursorLine}
+          playheadLine={playheadLine}
         ></Gutter>
         <For each={phrasePropColumns}>
           {({ headerText, key, lineMapFn, pad }, columnIndex) => {
@@ -94,6 +97,7 @@ export default function PhraseView() {
                       <Block
                         text={linePropStr}
                         activeLine={() => lineIndex() === cursorLine()}
+                        playheadLine={() => lineIndex() === playheadLine()}
                         empty={linePropStr === emptyBlockString(pad)}
                       ></Block>
                     );
