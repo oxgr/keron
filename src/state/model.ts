@@ -1,7 +1,15 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { ViewMode, Model, NOTES, OCTAVES, Bank, Project } from "../types";
+import {
+  ViewMode,
+  Model,
+  NOTES,
+  OCTAVES,
+  Bank,
+  Project,
+  LineFxRange,
+} from "../types";
 import { InstrumentTypes } from "../audio/types";
 import { getEnumKeys } from "../ui/views/utils";
 
@@ -111,12 +119,18 @@ function randomiseModelProject(
           octave: undefined,
           velocity: undefined,
           instrument: undefined,
+          fx1: undefined,
+          fx2: undefined,
+          fx3: undefined,
         };
       return {
         note: NOTES[randInt(NOTES.length)],
         octave: OCTAVES[randInt(OCTAVES.length)],
         velocity: randInt(127),
         instrument: randInt(numInstruments),
+        fx1: { id: randInt(16), val: randInt(LineFxRange.Low) },
+        fx2: { id: randInt(16), val: randInt(LineFxRange.Low) },
+        fx3: { id: randInt(16), val: randInt(LineFxRange.Low) },
       };
     }),
   }));

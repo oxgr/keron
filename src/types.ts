@@ -113,7 +113,22 @@ export type Line = {
   octave: Octave;
   velocity: Velocity;
   instrument: InstrumentId;
+  fx1: LineFx;
+  fx2: LineFx;
+  fx3: LineFx;
 };
+
+export type LineFx = {
+  id: LineFxId;
+  val: number;
+};
+
+export type LineFxId = number;
+
+export enum LineFxRange {
+  Low = 0,
+  High = 127,
+}
 
 export type Velocity = number;
 

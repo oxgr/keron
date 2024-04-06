@@ -67,6 +67,48 @@ export default function PhraseView() {
         return line.instrument;
       },
     },
+    {
+      headerText: "FX1",
+      key: "instrument",
+      pad: 4,
+      lineMapFn: (line: Line) => {
+        const key: keyof Line = "fx1";
+        if (line[key] === undefined) return undefined;
+        const str = String.fromCharCode(line[key].id + 64);
+        return (
+          (str + str).padEnd(2, "-") +
+          (line[key].val.toString().padStart(2, "-") ?? "-")
+        );
+      },
+    },
+    {
+      headerText: "FX2",
+      key: "instrument",
+      pad: 4,
+      lineMapFn: (line: Line) => {
+        const key: keyof Line = "fx2";
+        if (line[key] === undefined) return undefined;
+        const str = String.fromCharCode(line[key].id + 64);
+        return (
+          (str + str).padEnd(2, "-") +
+          (line[key].val.toString().padStart(2, "-") ?? "-")
+        );
+      },
+    },
+    {
+      headerText: "FX3",
+      key: "instrument",
+      pad: 4,
+      lineMapFn: (line: Line) => {
+        const key: keyof Line = "fx3";
+        if (line[key] === undefined) return undefined;
+        const str = String.fromCharCode(line[key].id + 64);
+        return (
+          (str + str).padEnd(2, "-") +
+          (line[key].val.toString().padStart(2, "-") ?? "-")
+        );
+      },
+    },
   ];
 
   return (
