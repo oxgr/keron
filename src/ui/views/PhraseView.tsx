@@ -36,9 +36,9 @@ export default function PhraseView() {
 
   const lineFxMapFn = (key: "fx1" | "fx2" | "fx3") => (line: Line) => {
     if (line[key] === undefined) return undefined;
-    const str = String.fromCharCode(line[key]?.id + 64) ?? "";
-    const str2 = line[key]?.val?.toString() ?? "";
-    return (str + str).padEnd(2, "-") + str2.padStart(2, "-");
+    const fxNameStr = String.fromCharCode(line[key]?.id + 64) ?? "";
+    const fxValueStr = toHexString(line[key]?.val) ?? "";
+    return (fxNameStr + fxNameStr).padEnd(2, "-") + fxValueStr.padStart(2, "-");
   };
 
   const phrasePropColumns: {
