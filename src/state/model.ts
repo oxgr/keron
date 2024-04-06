@@ -62,6 +62,7 @@ function createDefaultModel(): Model {
   };
 
   defaultModel.project = randomiseModelProject(defaultModel.project, {
+    numLineFxs: 16,
     numLines: 16,
     numPhrases: 8,
     numChains: 8,
@@ -76,12 +77,14 @@ function createDefaultModel(): Model {
 function randomiseModelProject(
   project: Project,
   {
+    numLineFxs,
     numLines,
     numPhrases,
     numChains,
     numTracks,
     numInstruments,
   }: {
+    numLineFxs: number;
     numLines: number;
     numPhrases: number;
     numChains: number;
@@ -89,8 +92,8 @@ function randomiseModelProject(
     numInstruments: number;
   },
 ): Project {
-  const randInt = (range = 1) => Math.floor(Math.random() * range);
-  const prob = (factor = 0.5) => Math.random() < factor;
+  const randInt = (range: number) => Math.floor(Math.random() * range);
+  const prob = (factor: number) => Math.random() < factor;
   const randArray = (
     range: number,
     probFactor: number,
@@ -113,24 +116,19 @@ function randomiseModelProject(
   project.bank.phrases = randArray(numPhrases, 1, () => ({
     lines: randArray(numLines, 1, () => {
       const lineExists = prob(0.6);
-      if (!lineExists)
-        return {
-          note: undefined,
-          octave: undefined,
-          velocity: undefined,
-          instrument: undefined,
-          fx1: undefined,
-          fx2: undefined,
-          fx3: undefined,
-        };
+      if (!lineExists) return {};
+      const probFx = (probFactor: number) => {
+        if (prob(probFactor))
+          return { id: randInt(numLineFxs), val: randInt(LineFxRange.High) };
+      };
       return {
         note: NOTES[randInt(NOTES.length)],
         octave: OCTAVES[randInt(OCTAVES.length)],
         velocity: randInt(127),
         instrument: randInt(numInstruments),
-        fx1: { id: randInt(16), val: randInt(LineFxRange.Low) },
-        fx2: { id: randInt(16), val: randInt(LineFxRange.Low) },
-        fx3: { id: randInt(16), val: randInt(LineFxRange.Low) },
+        fx1: probFx(0.6),
+        fx2: probFx(0.6),
+        fx3: probFx(0.6),
       };
     }),
   }));

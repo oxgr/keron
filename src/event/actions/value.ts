@@ -25,6 +25,7 @@ export function moveValue(direction: Direction) {
     case ViewMode.Phrase:
       let newValue,
         key: keyof Line = "note";
+
       switch (model.view.cursor.column) {
         case PhraseViewColumn.Note:
           switch (direction) {
@@ -112,6 +113,8 @@ export function moveValue(direction: Direction) {
         case PhraseViewColumn.FX1:
         case PhraseViewColumn.FX2:
         case PhraseViewColumn.FX3:
+        default:
+          return;
       }
 
       setModel(

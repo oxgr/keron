@@ -34,6 +34,13 @@ export default function PhraseView() {
 
   const NOTE_COLUMN_PAD = 3;
 
+  const lineFxMapFn = (key: "fx1" | "fx2" | "fx3") => (line: Line) => {
+    if (line[key] === undefined) return undefined;
+    const str = String.fromCharCode(line[key]?.id + 64) ?? "";
+    const str2 = line[key]?.val?.toString() ?? "";
+    return (str + str).padEnd(2, "-") + str2.padStart(2, "-");
+  };
+
   const phrasePropColumns: {
     headerText: string;
     key: string;
@@ -71,43 +78,19 @@ export default function PhraseView() {
       headerText: "FX1",
       key: "instrument",
       pad: 4,
-      lineMapFn: (line: Line) => {
-        const key: keyof Line = "fx1";
-        if (line[key] === undefined) return undefined;
-        const str = String.fromCharCode(line[key].id + 64);
-        return (
-          (str + str).padEnd(2, "-") +
-          (line[key].val.toString().padStart(2, "-") ?? "-")
-        );
-      },
+      lineMapFn: lineFxMapFn("fx1"),
     },
     {
       headerText: "FX2",
       key: "instrument",
       pad: 4,
-      lineMapFn: (line: Line) => {
-        const key: keyof Line = "fx2";
-        if (line[key] === undefined) return undefined;
-        const str = String.fromCharCode(line[key].id + 64);
-        return (
-          (str + str).padEnd(2, "-") +
-          (line[key].val.toString().padStart(2, "-") ?? "-")
-        );
-      },
+      lineMapFn: lineFxMapFn("fx2"),
     },
     {
       headerText: "FX3",
       key: "instrument",
       pad: 4,
-      lineMapFn: (line: Line) => {
-        const key: keyof Line = "fx3";
-        if (line[key] === undefined) return undefined;
-        const str = String.fromCharCode(line[key].id + 64);
-        return (
-          (str + str).padEnd(2, "-") +
-          (line[key].val.toString().padStart(2, "-") ?? "-")
-        );
-      },
+      lineMapFn: lineFxMapFn("fx3"),
     },
   ];
 
