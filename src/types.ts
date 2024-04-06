@@ -108,11 +108,11 @@ export type Phrase = {
 };
 
 export type Line = {
-  note: Note | undefined;
+  note: Note;
   // accidental: Accidental;
-  octave: Octave | undefined;
-  velocity: Velocity | undefined;
-  instrument: InstrumentId | undefined;
+  octave: Octave;
+  velocity: Velocity;
+  instrument: InstrumentId;
 };
 
 export type Velocity = number;
