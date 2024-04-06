@@ -46,7 +46,7 @@ export default function PhraseView() {
       pad: 3,
       lineMapFn: (line: Line) => {
         if (line.note === undefined) return undefined;
-        return line.note.padEnd(2, "-") + line.octave;
+        return line.note.padEnd(2, "-") + (line.octave ?? "-");
       },
     },
     {
