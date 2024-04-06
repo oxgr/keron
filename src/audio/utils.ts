@@ -1,9 +1,12 @@
 import { Time } from "tone/build/esm/core/type/Units";
 
-export function lineIndexToNotation(index: number) {
-  const beats = Math.floor(index * 0.25);
+export function lineToPosition(index: number) {
+  const bars = Math.floor(index / 16);
+  const beats = Math.floor(index / 4);
   const sixts = index % 4;
-  return `${beats}:${sixts}`;
+
+  const position = `${bars}:${beats}:${sixts}`;
+  return position;
 }
 
 export function positionToLine(position: Time): number {

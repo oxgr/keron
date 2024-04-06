@@ -1,6 +1,6 @@
 import * as Tone from "tone";
 import { playNote } from "./synth";
-import { lineIndexToNotation, positionToLine } from "./utils";
+import { lineToPosition, positionToLine } from "./utils";
 import { getActivePhrase } from "../state/utils";
 import {
   Instrument,
@@ -15,6 +15,7 @@ import { useAudioModel } from "./init";
 import { useModel } from "../state/model";
 import { SetStoreFunction } from "solid-js/store";
 import { Time } from "tone/build/esm/core/type/Units";
+import { untrack } from "solid-js/web";
 
 /**
  * Toggle the playback of a single phrase.
@@ -32,15 +33,16 @@ export function togglePlaybackPhrase() {
 
   if (state != "started") {
     console.log("playing...");
+
     addLinesToPart(phrasePart, model).start(0);
     phrasePart.callback = linePlaybackCallback;
-    console.log(phrasePart);
 
-    // setAudio(
-    //   "active",
+    // Start playback on cursor
     //
-    // )
-    // const part = new Tone.Part(linePlaybackCallback, linesWithTime).start(0);
+    // const startPoint = lineIndexToNotation(
+    //   untrack(() => model.view.cursor.line),
+    // );
+    // // transport().start().position = startPoint;
 
     transport().loop = true;
     transport().setLoopPoints(0, "1:0:0");
@@ -62,7 +64,7 @@ function addLinesToPart(part: Tone.Part, model: Model): Tone.Part {
     .map((line, index) => {
       return {
         line,
-        time: ("0:" + lineIndexToNotation(index)) as Time,
+        time: lineToPosition(index) as Time,
         instrument: model.project.bank.instruments[line.instrument],
       };
     })
