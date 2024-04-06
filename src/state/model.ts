@@ -1,9 +1,9 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { ViewMode, Model, NOTES, OCTAVES } from "../types";
+import { ViewMode, Model, NOTES, OCTAVES, Bank, Project } from "../types";
 
-const defaultModel = initModel();
+const defaultModel = createDefaultModel();
 const [model, setModel] = createStore(defaultModel);
 
 export const ModelContext = createContext({ model, setModel });
@@ -12,7 +12,7 @@ export function useModel() {
   return useContext(ModelContext);
 }
 
-function initModel(): Model {
+function createDefaultModel(): Model {
   const defaultModel: Model = {
     view: {
       mode: ViewMode.Song,
@@ -37,12 +37,6 @@ function initModel(): Model {
     key: {
       active: false,
     },
-    transport: {
-      playbackActive: false,
-    },
-    bank: {
-      instruments: [0, 1, 2],
-    },
     project: {
       name: "~",
       song: {
@@ -52,10 +46,39 @@ function initModel(): Model {
         samples: [],
         chains: [],
         phrases: [],
+        instruments: [],
       },
     },
   };
 
+  defaultModel.project = randomiseModelProject(defaultModel.project, {
+    numLines: 16,
+    numPhrases: 8,
+    numChains: 8,
+    numTracks: 8,
+    numInstruments: 8,
+  });
+
+  // console.log(defaultModel);
+  return defaultModel;
+}
+
+function randomiseModelProject(
+  project: Project,
+  {
+    numLines,
+    numPhrases,
+    numChains,
+    numTracks,
+    numInstruments,
+  }: {
+    numLines: number;
+    numPhrases: number;
+    numChains: number;
+    numTracks: number;
+    numInstruments: number;
+  },
+): Project {
   const randInt = (range = 1) => Math.floor(Math.random() * range);
   const prob = (factor = 0.5) => Math.random() < factor;
   const randArray = (
@@ -70,12 +93,9 @@ function initModel(): Model {
         return undefined;
       });
 
-  const numLines = 16;
-  const numPhrases = 8;
-  const numChains = 8;
-  const numTracks = 8;
+  project.bank.instruments = randArray(numInstruments, 1, () => ({}));
 
-  defaultModel.project.bank.phrases = randArray(numPhrases, 1, () => ({
+  project.bank.phrases = randArray(numPhrases, 1, () => ({
     lines: randArray(numLines, 1, () => {
       const lineExists = prob(0.6);
       if (!lineExists)
@@ -89,34 +109,18 @@ function initModel(): Model {
         note: NOTES[randInt(NOTES.length)],
         octave: OCTAVES[randInt(OCTAVES.length)],
         velocity: randInt(127),
-        instrument: randInt(defaultModel.bank.instruments.length),
+        instrument: randInt(numInstruments),
       };
     }),
   }));
 
-  defaultModel.project.bank.chains = randArray(numChains, 1, () => ({
+  project.bank.chains = randArray(numChains, 1, () => ({
     phrases: randArray(numPhrases, 0.8, () => randInt(numPhrases)),
   }));
 
-  defaultModel.project.song.tracks = randArray(numTracks, 1, () => ({
+  project.song.tracks = randArray(numTracks, 1, () => ({
     chains: randArray(numChains, 0.6, () => randInt(numChains)),
   }));
 
-  // defaultModel.project.bank.tracks[0].chains[0].phrases[0].lines = Array(
-  //   16,
-  // ).fill(
-  //   {
-  //     active: false,
-  //     note: "C-4",
-  //     instrument: {
-  //       type: "S01",
-  //       table: {},
-  //     },
-  //   } as never,
-  //   0,
-  //   16,
-  // );
-
-  // console.log(defaultModel);
-  return defaultModel;
+  return project;
 }

@@ -7,8 +7,8 @@ const { model, setModel } = useModel();
 /**
  * Initialise event listeners for keypresses
  */
-export function initKeys() {
-  document.addEventListener("keydown", keyHandler);
+export function onMountInput(element: HTMLElement) {
+  element.addEventListener("keydown", keyHandler);
 
   function keyHandler(event: KeyboardEvent) {
     setModel(

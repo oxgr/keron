@@ -38,12 +38,11 @@ export const actions: Record<string, Action> = {
     label: "Play default note",
     desc: "Plays a C4 note for 8n.",
     fn: () =>
-      playNote({
-        note: "C4",
-        duration: "8n",
-        time: Tone.Transport.now(),
+      playNote(Tone.Transport.now(), {
+        note: "C",
+        octave: 4,
         velocity: 100,
-        instrument: { id: 1, table: {} },
+        instrument: 1,
       }),
   },
   playNote: {

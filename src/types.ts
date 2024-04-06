@@ -1,11 +1,9 @@
-// import { Note } from "tone/build/esm/core/type/NoteUnits";
+import { InstrumentTypes } from "./audio/types";
 
 export type Model = {
   view: View;
   key: Key;
   project: Project;
-  transport: Transport;
-  bank: BuiltinBank;
 };
 
 export type View = {
@@ -85,11 +83,7 @@ export type Bank = {
   chains: Chain[];
   phrases: Phrase[];
   samples: Sample[];
-};
-
-export type BuiltinBank = {
-  // TODO: Find a way to type this as an instrument that can reference Tone.Instrument + other types
-  instruments: any[];
+  instruments: Instrument[];
 };
 
 export type Song = {
@@ -111,18 +105,18 @@ export type Phrase = {
 };
 
 export type Line = {
-  note: Note;
+  note: Note | undefined;
   // accidental: Accidental;
-  octave: Octave;
-  velocity: Velocity;
-  instrument: InstrumentId;
+  octave: Octave | undefined;
+  velocity: Velocity | undefined;
+  instrument: InstrumentId | undefined;
 };
 
 export type Velocity = number;
 
 export type InstrumentId = number;
 export type Instrument = {
-  id: number;
+  type: InstrumentTypes;
   table: Table;
 };
 
@@ -131,10 +125,6 @@ export type Sample = {
 };
 
 export type Table = {};
-
-export type Transport = {
-  playbackActive: boolean;
-};
 
 export type Note = (typeof NOTES)[number];
 // export type Accidental = (typeof ACCIDENTALS)[number];

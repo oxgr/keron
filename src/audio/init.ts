@@ -1,30 +1,54 @@
 import * as Tone from "tone";
-import { useModel } from "../state/model";
+import { createStore } from "solid-js/store";
+import { createContext, useContext } from "solid-js";
+import { AudioModel } from "./types";
 
-export function initAudio() {
-  const { setModel } = useModel();
+const defaultAudioModel = createDefaultAudioModel();
+const [audio, setAudio] = createStore(defaultAudioModel);
 
-  async function startAudio() {
-    await Tone.start();
-    console.log("audio is ready");
-    Tone.getDestination().volume.value = -30;
-    const lowpass = new Tone.Filter(1000, "lowpass");
-    const reverb = new Tone.Reverb();
-    const compressor = new Tone.Compressor(-18);
-    Tone.Destination.chain(lowpass, reverb, compressor);
-  }
+export const AudioModelContext = createContext({ audio, setAudio });
 
+export function useAudioModel() {
+  return useContext(AudioModelContext);
+}
+
+export function onMountAudio(element: HTMLElement) {
   // TODO: Find a way to remove the other when one is triggered.
-  document.addEventListener("click", startAudio, { once: true });
-  document.addEventListener("keydown", startAudio, { once: true });
+  element.addEventListener("click", enableAudioContext, { once: true });
+  element.addEventListener("keydown", enableAudioContext, { once: true });
+}
 
-  // add our instruments
-  const instruments = [
-    new Tone.MembraneSynth().toDestination(),
-    new Tone.Synth().toDestination(),
-    new Tone.PluckSynth().toDestination(),
-    // TODO: Noise doesnt work with notes. Need to filter somehow
-    // new Tone.NoiseSynth().toDestination(),
-  ];
-  setModel("bank", "instruments", instruments);
+async function enableAudioContext() {
+  const { audio, setAudio } = useAudioModel();
+
+  await Tone.start();
+  setAudio("ready", true);
+  console.log("audio is ready");
+
+  const lowpass = new Tone.Filter(1000, "lowpass");
+  const reverb = new Tone.Reverb();
+  const compressor = new Tone.Compressor(-18);
+  audio.global.destination.chain(lowpass, reverb, compressor);
+  audio.global.destination.volume.value = -30;
+}
+
+function createDefaultAudioModel(): AudioModel {
+  const defaultAudioModel = {
+    ready: false,
+    global: {
+      transport: Tone.Transport,
+      destination: Tone.Destination,
+    },
+
+    instrumentEngines: [
+      new Tone.Synth().toDestination(),
+      new Tone.MembraneSynth().toDestination(),
+      new Tone.PluckSynth().toDestination(),
+
+      // TODO: Noise doesnt work with notes. Need to filter somehow
+      // new Tone.NoiseSynth().toDestination(),
+    ],
+  };
+
+  return defaultAudioModel;
 }

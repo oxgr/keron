@@ -1,34 +1,19 @@
-import { useModel } from "../state/model";
-import { Note } from "tone/build/esm/core/type/NoteUnits";
 import { Time } from "tone/build/esm/core/type/Units";
-import { Instrument, InstrumentId, Velocity } from "../types";
+import { Line } from "../types";
+import { useAudioModel } from "./init";
 
-export function playNote({
-  note,
-  duration,
-  time,
-  velocity,
-  instrument: instrumentId,
-}: {
-  note: Note;
-  duration: Time;
-  time: Time;
-  velocity: Velocity;
-  instrument: InstrumentId;
-}) {
-  const { model } = useModel();
-  // console.log({
-  //   note,
-  //   duration,
-  //   time,
-  //   velocity,
-  //   instrument,
-  // });
+export function playNote(time: Time, line: Line) {
+  const { audio } = useAudioModel();
 
-  // console.log("playing audio...");
-  model.bank.instruments[instrumentId].triggerAttackRelease(
-    note,
-    duration,
+  const { note, octave, velocity, instrument } = line;
+  if (!note || !octave || !velocity || !instrument) return;
+
+  const DURATION = "8n";
+  const fullNote = note + octave;
+
+  audio.instrumentEngines[instrument].triggerAttackRelease(
+    fullNote,
+    DURATION,
     time,
     velocity,
   );
