@@ -1,21 +1,12 @@
 import * as Tone from "tone";
 import { playNote } from "./synth";
-import { lineToPosition, positionToLine } from "./utils";
+import { lineToPosition } from "./utils";
 import { getActivePhrase } from "../state/utils";
-import {
-  Instrument,
-  Line,
-  Model,
-  Phrase,
-  StoreTuple,
-  ViewMode,
-} from "../types";
+import { Instrument, Line, Model, ViewMode } from "../types";
 import { createMemo } from "solid-js";
-import { useAudioModel } from "./init";
+import { useAudioModel, audioEffect } from "./init";
 import { useModel } from "../state/model";
-import { SetStoreFunction } from "solid-js/store";
 import { Time } from "tone/build/esm/core/type/Units";
-import { untrack } from "solid-js/web";
 
 /**
  * Toggle the playback of a single phrase.
@@ -76,13 +67,8 @@ function addLinesToPart(part: Tone.Part, model: Model): Tone.Part {
 }
 
 function linePlaybackCallback(time: any, playbackLine: PlaybackLine) {
-  const { model, setModel } = useModel();
-  const activeLineNumber = positionToLine(Tone.Transport.position);
-  if (model.view.mode == ViewMode.Phrase) {
-    setModel("view", "playhead", "line", activeLineNumber);
-  }
-
   // console.log(time);
+  audioEffect();
 
   playNote(time, playbackLine);
 }

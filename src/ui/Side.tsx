@@ -1,9 +1,11 @@
 import { useModel } from "../state/model";
-import { getActiveLine, getActivePhrase } from "../state/utils";
+import { useAudioModel } from "../audio/init";
+import { getActiveLine } from "../state/utils";
 import styles from "/src/App.module.css";
 
 export default function Side() {
   const { model, setModel } = useModel();
+  const { audio, setAudio } = useAudioModel();
 
   // const lines = model.project.song.chains[0].phrases[0].lines;
   // const linesActive = lines.map((line) => line.active);
@@ -20,6 +22,7 @@ export default function Side() {
         {debug("key", () => model.key.event?.key)}
         {debug("cursor", () => model.view.cursor)}
         {debug("playhead", () => model.view.playhead)}
+        {debug("transportPos", () => audio.global.transport.position)}
         {debug("active", () => model.view.active)}
         {debug("activeLine", () => getActiveLine())}
         {/* {debug("linesInPhrase", () => */}

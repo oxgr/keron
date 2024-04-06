@@ -2,10 +2,9 @@ import * as Tone from "tone";
 import { createStore } from "solid-js/store";
 import { createContext, useContext } from "solid-js";
 import { AudioModel, InstrumentTypes } from "./types";
-import {
-  Instrument as AudioInstrument,
-  InstrumentOptions,
-} from "tone/build/esm/instrument/Instrument";
+import { ViewMode } from "../types";
+import { useModel } from "../state/model";
+import { positionToLine } from "./utils";
 
 const defaultAudioModel = createDefaultAudioModel();
 const [audio, setAudio] = createStore(defaultAudioModel);
@@ -20,6 +19,17 @@ export function onMountAudio(element: HTMLElement) {
   // TODO: Find a way to remove the other when one is triggered.
   element.addEventListener("click", enableAudioContext, { once: true });
   element.addEventListener("keydown", enableAudioContext, { once: true });
+}
+
+export function audioEffect() {
+  const { model, setModel } = useModel();
+  const { audio, setAudio } = useAudioModel();
+  const transport = audio.global.transport;
+  const position = transport.position;
+  const activeLineNumber = positionToLine(position);
+  if (model.view.mode == ViewMode.Phrase) {
+    setModel("view", "playhead", "line", activeLineNumber);
+  }
 }
 
 async function enableAudioContext() {
