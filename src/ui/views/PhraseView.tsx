@@ -1,14 +1,12 @@
-import styles from "../../App.module.css";
 import { For } from "solid-js";
 import { useModel } from "../../state/model";
-import { getActivePhrase, getPhrase } from "../../state/utils";
+import { getPhrase } from "../../state/utils";
 import Grid from "../components/Grid";
 import Gutter from "../components/Gutter";
 import Column from "../components/Column";
 import { emptyBlockString, fillArrayTo, toHexString } from "./utils";
 import Block from "../components/Block";
 import { Line } from "../../types";
-import Playhead from "../components/Playhead";
 
 export default function PhraseView() {
   const { model, setModel } = useModel();

@@ -2,6 +2,8 @@ import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
 import { ViewMode, Model, NOTES, OCTAVES, Bank, Project } from "../types";
+import { InstrumentTypes } from "../audio/types";
+import { getEnumKeys } from "../ui/views/utils";
 
 const defaultModel = createDefaultModel();
 const [model, setModel] = createStore(defaultModel);
@@ -93,7 +95,12 @@ function randomiseModelProject(
         return undefined;
       });
 
-  project.bank.instruments = randArray(numInstruments, 1, () => ({}));
+  console.log(InstrumentTypes);
+  const instTypeKeys = getEnumKeys(InstrumentTypes);
+  project.bank.instruments = randArray(numInstruments, 1, () => ({
+    type: randInt(instTypeKeys.length),
+    table: {},
+  }));
 
   project.bank.phrases = randArray(numPhrases, 1, () => ({
     lines: randArray(numLines, 1, () => {

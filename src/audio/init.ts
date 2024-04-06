@@ -1,7 +1,11 @@
 import * as Tone from "tone";
 import { createStore } from "solid-js/store";
 import { createContext, useContext } from "solid-js";
-import { AudioModel } from "./types";
+import { AudioModel, InstrumentTypes } from "./types";
+import {
+  Instrument as AudioInstrument,
+  InstrumentOptions,
+} from "tone/build/esm/instrument/Instrument";
 
 const defaultAudioModel = createDefaultAudioModel();
 const [audio, setAudio] = createStore(defaultAudioModel);
@@ -40,14 +44,17 @@ function createDefaultAudioModel(): AudioModel {
       destination: Tone.Destination,
     },
 
-    instrumentEngines: [
-      new Tone.Synth().toDestination(),
-      new Tone.MembraneSynth().toDestination(),
-      new Tone.PluckSynth().toDestination(),
+    instrumentEngines: {
+      [InstrumentTypes.Synth]: new Tone.Synth().toDestination(),
+      [InstrumentTypes.Membrane]: new Tone.MembraneSynth().toDestination(),
+      [InstrumentTypes.Pluck]: new Tone.PluckSynth().toDestination(),
+    },
 
-      // TODO: Noise doesnt work with notes. Need to filter somehow
-      // new Tone.NoiseSynth().toDestination(),
-    ],
+    active: {
+      table: new Tone.Pattern(),
+      phrase: new Tone.Part(),
+      chain: new Tone.Sequence(),
+    },
   };
 
   return defaultAudioModel;

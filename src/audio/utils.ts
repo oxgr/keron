@@ -14,7 +14,5 @@ export function positionToLine(position: Time): number {
   const sixts = Number(comps[2].split(".")[0]);
   const line = bars * 16 + beats * 4 + sixts;
 
-  console.log(bars, beats, sixts, ":", line);
-
   return line;
 }

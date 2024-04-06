@@ -13,8 +13,6 @@ export type Action = {
   fn: Function;
 };
 
-const { model, setModel } = useModel();
-
 /**
  * All possible actions that can be carried out.
  */

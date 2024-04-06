@@ -1,4 +1,7 @@
-import { InstrumentTypes } from "./audio/types";
+import { SetStoreFunction } from "solid-js/store";
+import { AudioModel, InstrumentTypes } from "./audio/types";
+
+export type StoreTuple = [Model | AudioModel, SetStoreFunction<any>];
 
 export type Model = {
   view: View;

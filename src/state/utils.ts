@@ -1,4 +1,12 @@
-import { Chain, Line, Phrase, Track } from "../types";
+import {
+  Chain,
+  ChainId,
+  InstrumentId,
+  Line,
+  Phrase,
+  PhraseId,
+  Track,
+} from "../types";
 import { useModel } from "./model";
 
 const { model } = useModel();
@@ -7,16 +15,20 @@ export function getTrack(id: number) {
   return model.project.song.tracks[id];
 }
 
-export function getChain(id: number) {
+export function getChain(id: ChainId) {
   return model.project.bank.chains[id];
 }
 
-export function getPhrase(id: number) {
+export function getPhrase(id: PhraseId) {
   return model.project.bank.phrases[id];
 }
 
-export function getLine(id: number, phraseId: number) {
+export function getLine(id: number, phraseId: PhraseId) {
   return model.project.bank.phrases[phraseId].lines[id];
+}
+
+export function getInstrument(id: InstrumentId) {
+  return model.project.bank.instruments[id];
 }
 
 export function getActiveTrack(): Track {
@@ -32,5 +44,9 @@ export function getActivePhrase(): Phrase {
 }
 
 export function getActiveLine(): Line {
+  return getLine(model.view.active.line, model.view.active.phrase);
+}
+
+export function getActiveInstrument(): Line {
   return getLine(model.view.active.line, model.view.active.phrase);
 }
