@@ -1,5 +1,5 @@
 import { produce } from "solid-js/store";
-import { useModel } from "../state/model";
+import { useModel } from "../state/init";
 import { keymap } from "./keymap";
 
 /**

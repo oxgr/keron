@@ -1,6 +1,5 @@
 import { untrack } from "solid-js/web";
-import { useModel } from "../../state/model";
-import { getActiveLine } from "../../state/utils";
+import { useModel } from "../../state/init";
 import {
   Direction,
   Line,
@@ -33,7 +32,7 @@ export function moveValue(direction: Direction) {
             case Direction.Down:
               (() => {
                 key = "note";
-                const oldValue = untrack(() => getActiveLine()[key]);
+                const oldValue = untrack(() => model.getActiveLine()[key]);
                 newValue = newValueFromRefArray(oldValue, NOTES, direction);
               })();
               break;
@@ -42,7 +41,7 @@ export function moveValue(direction: Direction) {
             case Direction.Right:
               (() => {
                 key = "octave";
-                const oldValue = untrack(() => getActiveLine()[key]);
+                const oldValue = untrack(() => model.getActiveLine()[key]);
                 newValue = newValueFromRefArray(
                   oldValue,
                   OCTAVES,
@@ -56,7 +55,7 @@ export function moveValue(direction: Direction) {
           (() => {
             key = "velocity";
             const oldValue =
-              (untrack(() => getActiveLine()[key]) as number) ?? 0;
+              (untrack(() => model.getActiveLine()[key]) as number) ?? 0;
             const VELOCITY_RANGE = 127;
             enum ChangeRate {
               Low = 1,
@@ -85,7 +84,7 @@ export function moveValue(direction: Direction) {
           (() => {
             key = "instrument";
             const oldValue =
-              (untrack(() => getActiveLine()[key]) as number) ?? 0;
+              (untrack(() => model.getActiveLine()[key]) as number) ?? 0;
             const range = model.project.bank.instruments.length;
             enum ChangeRate {
               Low = 1,

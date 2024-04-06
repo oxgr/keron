@@ -1,6 +1,5 @@
-import { useModel } from "../state/model";
+import { useModel } from "../state/init";
 import { useAudioModel } from "../audio/init";
-import { getActiveLine } from "../state/utils";
 import styles from "/src/App.module.css";
 
 export default function Side() {
@@ -24,7 +23,7 @@ export default function Side() {
         {debug("playhead", () => model.view.playhead)}
         {debug("transportPos", () => audio.global.transport.position)}
         {debug("active", () => model.view.active)}
-        {debug("activeLine", () => getActiveLine())}
+        {debug("activeLine", () => model.getActiveLine())}
         {/* {debug("linesInPhrase", () => */}
         {/*   getActivePhrase().lines.map((v, i) => ({ ...v, index: i })), */}
         {/* )} */}

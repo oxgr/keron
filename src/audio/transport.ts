@@ -1,19 +1,19 @@
 import * as Tone from "tone";
 import { playNote } from "./synth";
-import { lineToPosition } from "./utils";
-import { getActivePhrase } from "../state/utils";
-import { Instrument, Line, Model, ViewMode } from "../types";
+import { Instrument, Line } from "../types";
 import { createMemo } from "solid-js";
 import { useAudioModel, audioEffect } from "./init";
-import { useModel } from "../state/model";
+import { useModel } from "../state/init";
 import { Time } from "tone/build/esm/core/type/Units";
+import { Model } from "../state/Model";
+import { lineToPosition } from "./utils";
 
 /**
  * Toggle the playback of a single phrase.
  */
 export function togglePlaybackPhrase() {
-  const { model, setModel } = useModel();
-  const { audio, setAudio } = useAudioModel();
+  const { model } = useModel();
+  const { audio } = useAudioModel();
 
   const transport = createMemo(() => audio.global.transport);
 
@@ -40,17 +40,17 @@ export function togglePlaybackPhrase() {
     transport().start();
   } else {
     console.log("pausing...");
+    // Tone.Transport.pause();
     transport().stop();
     transport().loop = false;
     phrasePart.clear();
-    // Tone.Transport.pause();
   }
 }
 
 export type PlaybackLine = { line: Line; time: Time; instrument: Instrument };
 
 function addLinesToPart(part: Tone.Part, model: Model): Tone.Part {
-  const activePhrase = getActivePhrase();
+  const activePhrase = model.getActivePhrase();
   const lines = activePhrase.lines
     .map((line, index) => {
       return {

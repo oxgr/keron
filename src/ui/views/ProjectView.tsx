@@ -1,4 +1,4 @@
-import { useModel } from "../../state/model";
+import { useModel } from "../../state/init";
 import styles from "/src/App.module.css";
 import view from "./View.module.css";
 

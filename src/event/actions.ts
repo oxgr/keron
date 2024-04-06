@@ -1,11 +1,11 @@
 import { togglePlaybackPhrase } from "../audio/transport";
 import { playNote } from "../audio/synth";
 import * as Tone from "tone";
-import { useModel } from "../state/model";
 import { Direction, ValueDirection } from "../types";
 import { moveCursor } from "./actions/cursor";
 import { moveValue } from "./actions/value";
 import { moveViewMode } from "./actions/view";
+import { useModel } from "../state/init";
 
 export type Action = {
   label: string;
@@ -35,13 +35,23 @@ export const actions: Record<string, Action> = {
   playDefaultNote: {
     label: "Play default note",
     desc: "Plays a C4 note for 8n.",
-    fn: () =>
-      playNote(Tone.Transport.now(), {
-        note: "C",
-        octave: 4,
-        velocity: 100,
-        instrument: 1,
-      }),
+    fn: () => {
+      const { model } = useModel();
+      const time = Tone.Transport.now();
+      playNote(time, {
+        line: {
+          note: "C",
+          octave: 4,
+          velocity: 100,
+          instrument: 0,
+          fx1: { id: 0, val: 0 },
+          fx2: { id: 0, val: 0 },
+          fx3: { id: 0, val: 0 },
+        },
+        time,
+        instrument: model.getInstrument(1),
+      });
+    },
   },
   playNote: {
     label: "Play note",

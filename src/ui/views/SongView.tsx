@@ -1,7 +1,6 @@
 import { For } from "solid-js";
-import { useModel } from "../../state/model";
+import { useModel } from "../../state/init";
 import Block from "../components/Block";
-import { getTrack } from "../../state/utils";
 import Column from "../components/Column";
 import Grid from "../components/Grid";
 import Gutter from "../components/Gutter";
@@ -16,7 +15,7 @@ export default function SongView() {
 
   const allTracks = () => model.project.song.tracks.map((_, index) => index);
   const allChainsInTrack = (trackId: number) => {
-    return !isNaN(trackId) ? getTrack(trackId)?.chains ?? [] : [];
+    return !isNaN(trackId) ? model.getTrack(trackId)?.chains ?? [] : [];
   };
 
   const fullTracks = (tracks: number[]) => fillArrayTo(tracks, 8);

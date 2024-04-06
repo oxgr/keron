@@ -1,13 +1,8 @@
 import { SetStoreFunction } from "solid-js/store";
 import { AudioModel, InstrumentTypes } from "./audio/types";
+import { Model } from "./state/Model";
 
 export type StoreTuple = [Model | AudioModel, SetStoreFunction<any>];
-
-export type Model = {
-  view: View;
-  key: Key;
-  project: Project;
-};
 
 export type View = {
   mode: ViewMode;
@@ -74,6 +69,7 @@ export type Active = {
   chain: number;
   phrase: number;
   line: number;
+  instrument: number;
 };
 
 export type Project = {

@@ -1,5 +1,5 @@
 import { keymap } from "../event/keymap";
-import { useModel } from "./model";
+import { useModel } from "./init";
 
 const { model } = useModel();
 

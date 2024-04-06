@@ -1,5 +1,5 @@
 import { Match, Switch } from "solid-js";
-import { useModel } from "../state/model";
+import { useModel } from "../state/init";
 import { ViewMode } from "../types";
 import styles from "/src/App.module.css";
 import ProjectView from "./views/ProjectView";

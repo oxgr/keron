@@ -1,10 +1,5 @@
 import { untrack } from "solid-js/web";
-import { useModel } from "../../state/model";
-import {
-  getActiveChain,
-  getActivePhrase,
-  getActiveTrack,
-} from "../../state/utils";
+import { useModel } from "../../state/init";
 import { Active, Direction, ViewMode } from "../../types";
 
 const { model, setModel } = useModel();
@@ -55,14 +50,16 @@ export function moveCursor(direction: Direction) {
       if (axis == "column")
         updateActiveModel("track", model.view.cursor.column);
       if (axis == "line") {
-        const newChain = getActiveTrack()?.chains?.[model.view.cursor.line];
+        const newChain =
+          model.getActiveTrack()?.chains?.[model.view.cursor.line];
         if (!isNaN(newChain)) updateActiveModel("chain", newChain);
       }
       break;
 
     case ViewMode.Chain:
       if (axis == "line") {
-        const newPhrase = getActiveChain()?.phrases?.[model.view.cursor.line];
+        const newPhrase =
+          model.getActiveChain()?.phrases?.[model.view.cursor.line];
         if (!isNaN(newPhrase)) updateActiveModel("phrase", newPhrase);
       }
       break;
@@ -70,7 +67,7 @@ export function moveCursor(direction: Direction) {
     case ViewMode.Phrase:
       if (axis == "line") {
         const cursorLine = model.view.cursor.line;
-        const newLine = getActivePhrase()?.lines?.[cursorLine];
+        const newLine = model.getActivePhrase()?.lines?.[cursorLine];
         if (newLine) updateActiveModel("line", cursorLine);
       }
       break;

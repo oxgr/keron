@@ -1,8 +1,5 @@
 import { Time } from "tone/build/esm/core/type/Units";
-import { Line } from "../types";
 import { useAudioModel } from "./init";
-import { InstrumentTypes } from "./types";
-import { useModel } from "../state/model";
 import { PlaybackLine } from "./transport";
 
 export function playNote(time: Time, playbackLine: PlaybackLine) {

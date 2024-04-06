@@ -3,7 +3,7 @@ import { createStore } from "solid-js/store";
 import { createContext, useContext } from "solid-js";
 import { AudioModel, InstrumentTypes } from "./types";
 import { ViewMode } from "../types";
-import { useModel } from "../state/model";
+import { useModel } from "../state/init";
 import { positionToLine } from "./utils";
 
 const defaultAudioModel = createDefaultAudioModel();
@@ -23,7 +23,7 @@ export function onMountAudio(element: HTMLElement) {
 
 export function audioEffect() {
   const { model, setModel } = useModel();
-  const { audio, setAudio } = useAudioModel();
+  const { audio } = useAudioModel();
   const transport = audio.global.transport;
   const position = transport.position;
   const activeLineNumber = positionToLine(position);

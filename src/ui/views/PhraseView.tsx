@@ -1,6 +1,5 @@
 import { For } from "solid-js";
-import { useModel } from "../../state/model";
-import { getPhrase } from "../../state/utils";
+import { useModel } from "../../state/init";
 import Grid from "../components/Grid";
 import Gutter from "../components/Gutter";
 import Column from "../components/Column";
@@ -18,7 +17,7 @@ export default function PhraseView() {
 
   const activePhraseId = () => model.view.active.phrase;
   const allLinesInPhrase = (phraseId: number) => {
-    return !isNaN(phraseId) ? getPhrase(phraseId)?.lines ?? [] : [];
+    return !isNaN(phraseId) ? model.getPhrase(phraseId)?.lines ?? [] : [];
   };
   const activeLines = () => allLinesInPhrase(activePhraseId());
 
