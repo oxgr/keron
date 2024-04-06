@@ -6,6 +6,7 @@ import ProjectView from "./views/ProjectView";
 import SongView from "./views/SongView";
 import ChainView from "./views/ChainView";
 import PhraseView from "./views/PhraseView";
+import InstrumentView from "./views/InstrumentView";
 
 export default function Main() {
   const { model } = useModel();
@@ -27,6 +28,9 @@ export default function Main() {
         </Match>
         <Match when={model.view.mode === ViewMode.Phrase}>
           <PhraseView />
+        </Match>
+        <Match when={model.view.mode === ViewMode.Instrument}>
+          <InstrumentView />
         </Match>
       </Switch>
     </main>
