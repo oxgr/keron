@@ -6,7 +6,7 @@ import { moveCursor } from "./actions/cursor";
 import { moveValue } from "./actions/value";
 import { moveViewMode } from "./actions/view";
 import { useModel } from "../state/init";
-import { AudioEventCollection } from "../audio/types";
+import { SequenceCollection } from "../audio/types";
 
 export type Action = {
   label: string;
@@ -63,10 +63,7 @@ export const actions: Record<string, Action> = {
     desc: "Toggle playback of a phrase.",
     fn: () => {
       const { model } = useModel();
-      const sequenceTarget = ViewMode[
-        model.view.mode
-      ].toLowerCase() as keyof AudioEventCollection;
-      togglePlayback(sequenceTarget);
+      togglePlayback(model.view.mode);
     },
   },
   moveCursorLeft: {

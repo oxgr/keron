@@ -5,8 +5,6 @@ import { AudioModel, InstrumentTypes } from "./types";
 import { ViewMode } from "../types";
 import { useModel } from "../state/init";
 import { positionToLine } from "./utils";
-import { playNote } from "./synth";
-import { LineEvent } from "./transport";
 
 const defaultAudioModel = createDefaultAudioModel();
 const [audio, setAudio] = createStore(defaultAudioModel);
@@ -68,6 +66,7 @@ function createDefaultAudioModel(): AudioModel {
     global: {
       transport: Tone.getTransport(),
       destination: Tone.getDestination(),
+      sequence: new Tone.Sequence(),
     },
 
     instrumentEngines: {
@@ -75,18 +74,7 @@ function createDefaultAudioModel(): AudioModel {
       [InstrumentTypes.Membrane]: new Tone.MembraneSynth().toDestination(),
       [InstrumentTypes.Pluck]: new Tone.PluckSynth().toDestination(),
     },
-
-    active: {
-      table: new Tone.Sequence(linePlaybackCallback, [], "16n"),
-      phrase: new Tone.Sequence(linePlaybackCallback, [], "16n"),
-      chain: new Tone.Sequence(linePlaybackCallback, [], "1m"),
-      song: new Tone.Sequence(linePlaybackCallback, [], "16m"),
-    },
   };
 
   return defaultAudioModel;
-}
-
-function linePlaybackCallback(time: any, lineEvent: LineEvent) {
-  playNote(time, lineEvent);
 }

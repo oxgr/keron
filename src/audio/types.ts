@@ -6,31 +6,23 @@ import {
   InstrumentOptions,
 } from "tone/build/esm/instrument/Instrument";
 import * as Tone from "tone";
-import { Line } from "../types";
 
 export type AudioModel = {
   ready: boolean;
   global: AudioGlobals;
   instrumentEngines: InstrumentEngines;
-  active: AudioEventCollection;
 };
 
 export type AudioGlobals = {
   transport: typeof Tone.Transport;
   destination: typeof Tone.Destination;
+  sequence: Tone.Sequence;
 };
 
 export type InstrumentEngines = Record<
   InstrumentTypes,
   AudioInstrument<InstrumentOptions>
 >;
-
-export type AudioEventCollection = {
-  table: Tone.Sequence;
-  phrase: Tone.Sequence;
-  chain: Tone.Sequence;
-  song: Tone.Sequence;
-};
 
 export enum InstrumentTypes {
   Synth,

@@ -1,26 +1,28 @@
-import { AudioEventCollection, PlaybackState } from "./types";
+import { PlaybackState } from "./types";
 import { Active, Instrument, Line, Phrase } from "../types";
 import { useAudioModel, audioEffect } from "./init";
 import { useModel } from "../state/init";
 import { Time } from "tone/build/esm/core/type/Units";
 import { lineToPosition } from "./utils";
+import { Model } from "../state/Model";
+import { ViewMode } from "../types";
+import { playNote } from "./synth";
+import * as Tone from "tone";
+import { untrack } from "solid-js/web";
 
 export function setupPlaybackPhrase() {
   const { model } = useModel();
   const { audio, setAudio } = useAudioModel();
 
-  const phrasePart = audio.active.phrase;
+  const phraseSeq = audio.global.sequence;
 
   const activePhrase = model.getActivePhrase();
   const instruments = model.project.bank.instruments;
-  phrasePart.events = makePhraseEvents(activePhrase, instruments);
-  phrasePart.start(0);
-  // const state = togglePlayback();
-  //
-  // if (state !== PlaybackState.started) phrasePart.clear();
+  phraseSeq.events = makePhraseEvents(activePhrase, instruments);
+  phraseSeq.start(0);
 
   return (postState: keyof typeof PlaybackState) => {
-    if (postState !== PlaybackState.started) phrasePart.clear();
+    if (postState !== PlaybackState.started) phraseSeq.clear();
   };
 }
 
@@ -28,7 +30,7 @@ export function setupPlaybackChain() {
   const { model } = useModel();
   const { audio, setAudio } = useAudioModel();
 
-  const chainSeq = audio.active.chain;
+  const chainSeq = audio.global.sequence;
 
   const activeChain = model.getActiveChain();
   const instruments = model.project.bank.instruments;
@@ -51,28 +53,65 @@ export function setupPlaybackChain() {
   };
 }
 
-/**
- * Toggle the playback of a single phrase.
- */
-export function togglePlayback(sequence: keyof AudioEventCollection) {
-  const { audio } = useAudioModel();
+function eventsGenerator(
+  sequence: ViewMode,
+  model: Model,
+): [(LineEvent | (LineEvent[] | LineEvent[][]))[], Time, [Time, Time]] {
+  switch (sequence) {
+    case ViewMode.Chain: {
+      const interval = "1n";
+      const loopPoints: [Time, Time] = [0, "16:0:0"];
 
-  let loopPoints: [Time, Time] = [0, 0];
-  const cleanupCallback = (() => {
-    switch (sequence) {
-      case "chain":
-        loopPoints = [0, "16:0:0"];
-        return setupPlaybackChain();
-      case "phrase":
-        loopPoints = [0, "1:0:0"];
-        return setupPlaybackPhrase();
-      default:
-        return () => {};
+      const activeChain = model.getActiveChain();
+      const instruments = model.project.bank.instruments;
+
+      const events = Array(16)
+        .fill(0)
+        .map((_, subdivIndex) => {
+          const phraseIndex = activeChain.phrases[subdivIndex];
+          const activePhrase = model.getPhrase(phraseIndex);
+          console.log({ subdivIndex, phraseIndex, activePhrase });
+          if (!activePhrase) return null;
+          return makePhraseEvents(activePhrase, instruments);
+        });
+
+      return [events, interval, loopPoints];
     }
-  })();
+    case ViewMode.Phrase: {
+      const loopPoints: [Time, Time] = [0, "1:0:0"];
+      const interval = "16n";
+
+      const activePhrase = model.getActivePhrase();
+      const instruments = model.project.bank.instruments;
+
+      const events = makePhraseEvents(activePhrase, instruments);
+      return [events, interval, loopPoints];
+    }
+    default:
+      return [[], "1n" as Time, [0, 0] as [Time, Time]];
+  }
+}
+
+/**
+ * Toggle the playback of depending on the view mode.
+ */
+export function togglePlayback(viewMode: ViewMode) {
+  const { model } = useModel();
+  const { audio, setAudio } = useAudioModel();
+
+  const loopPoints = untrack(() => {
+    const [events, interval, loopPoints] = eventsGenerator(viewMode, model);
+    audio.global.sequence.dispose();
+    setAudio(
+      "global",
+      "sequence",
+      new Tone.Sequence(linePlaybackCallback, events, interval),
+    );
+    return loopPoints;
+  });
+  audio.global.sequence.start(0);
 
   const transport = audio.global.transport;
-
   const preState = transport.state;
 
   if (preState != PlaybackState.started) {
@@ -94,11 +133,13 @@ export function togglePlayback(sequence: keyof AudioEventCollection) {
 
   const postState = transport.state;
   console.log("playback:", postState);
-  cleanupCallback(postState);
+  if (postState !== PlaybackState.started) audio.global.sequence.clear();
+
+  // cleanupCallback(postState);
   return postState;
 }
 
-export type LineEvent = { line: Line; instrument: Instrument };
+export type LineEvent = { line: Line; instrument: Instrument } | null;
 
 function makePhraseEvents(
   activePhrase: Phrase,
@@ -114,4 +155,8 @@ function makePhraseEvents(
     };
   });
   return sequenceEvents;
+}
+
+function linePlaybackCallback(time: any, lineEvent: LineEvent) {
+  playNote(time, lineEvent);
 }
