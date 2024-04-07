@@ -22,7 +22,7 @@ export function onMountAudio(element: HTMLElement) {
 
   Tone.Transport.scheduleRepeat((time) => {
     audioEffect();
-  }, "1n");
+  }, "16n");
 }
 
 export function audioEffect() {

@@ -1,5 +1,5 @@
 import { PlaybackState } from "./types";
-import { Active, Instrument, Line, Phrase } from "../types";
+import { Active, Bank, Instrument, Line, Phrase } from "../types";
 import { useAudioModel, audioEffect } from "./init";
 import { useModel } from "../state/init";
 import { Time } from "tone/build/esm/core/type/Units";
@@ -10,87 +10,7 @@ import { playNote } from "./synth";
 import * as Tone from "tone";
 import { untrack } from "solid-js/web";
 
-export function setupPlaybackPhrase() {
-  const { model } = useModel();
-  const { audio, setAudio } = useAudioModel();
-
-  const phraseSeq = audio.global.sequence;
-
-  const activePhrase = model.getActivePhrase();
-  const instruments = model.project.bank.instruments;
-  phraseSeq.events = makePhraseEvents(activePhrase, instruments);
-  phraseSeq.start(0);
-
-  return (postState: keyof typeof PlaybackState) => {
-    if (postState !== PlaybackState.started) phraseSeq.clear();
-  };
-}
-
-export function setupPlaybackChain() {
-  const { model } = useModel();
-  const { audio, setAudio } = useAudioModel();
-
-  const chainSeq = audio.global.sequence;
-
-  const activeChain = model.getActiveChain();
-  const instruments = model.project.bank.instruments;
-
-  chainSeq.events = Array(16)
-    .fill(0)
-    .map((_, subdivIndex) => {
-      const phraseIndex = activeChain.phrases[subdivIndex];
-      const activePhrase = model.getPhrase(phraseIndex);
-      console.log({ subdivIndex, phraseIndex, activePhrase });
-      if (!activePhrase) return null;
-      return makePhraseEvents(activePhrase, instruments);
-    });
-  console.log(chainSeq.events);
-  chainSeq.start(0);
-
-  // const state = togglePlayback();
-  return (postState: keyof typeof PlaybackState) => {
-    if (postState !== PlaybackState.started) chainSeq.clear();
-  };
-}
-
-function eventsGenerator(
-  sequence: ViewMode,
-  model: Model,
-): [(LineEvent | (LineEvent[] | LineEvent[][]))[], Time, [Time, Time]] {
-  switch (sequence) {
-    case ViewMode.Chain: {
-      const interval = "1n";
-      const loopPoints: [Time, Time] = [0, "16:0:0"];
-
-      const activeChain = model.getActiveChain();
-      const instruments = model.project.bank.instruments;
-
-      const events = Array(16)
-        .fill(0)
-        .map((_, subdivIndex) => {
-          const phraseIndex = activeChain.phrases[subdivIndex];
-          const activePhrase = model.getPhrase(phraseIndex);
-          console.log({ subdivIndex, phraseIndex, activePhrase });
-          if (!activePhrase) return null;
-          return makePhraseEvents(activePhrase, instruments);
-        });
-
-      return [events, interval, loopPoints];
-    }
-    case ViewMode.Phrase: {
-      const loopPoints: [Time, Time] = [0, "1:0:0"];
-      const interval = "16n";
-
-      const activePhrase = model.getActivePhrase();
-      const instruments = model.project.bank.instruments;
-
-      const events = makePhraseEvents(activePhrase, instruments);
-      return [events, interval, loopPoints];
-    }
-    default:
-      return [[], "1n" as Time, [0, 0] as [Time, Time]];
-  }
-}
+export type LineEvent = { line: Line; instrument: Instrument } | null;
 
 /**
  * Toggle the playback of depending on the view mode.
@@ -99,9 +19,26 @@ export function togglePlayback(viewMode: ViewMode) {
   const { model } = useModel();
   const { audio, setAudio } = useAudioModel();
 
+  const array = (() => {
+    switch (model.view.mode) {
+      case ViewMode.Chain:
+        return model.getActiveChain().phrases;
+      case ViewMode.Phrase:
+        return model.getActivePhrase().lines;
+      default:
+        return [];
+    }
+  })();
+
   const loopPoints = untrack(() => {
-    const [events, interval, loopPoints] = eventsGenerator(viewMode, model);
+    const bank = model.project.bank;
+    const [events, interval, loopPoints] = eventsGenerator(
+      viewMode,
+      array,
+      bank,
+    );
     audio.global.sequence.dispose();
+    console.log(model.view.mode, events);
     setAudio(
       "global",
       "sequence",
@@ -139,7 +76,50 @@ export function togglePlayback(viewMode: ViewMode) {
   return postState;
 }
 
-export type LineEvent = { line: Line; instrument: Instrument } | null;
+function eventsGenerator(
+  sequence: ViewMode,
+  array: any[],
+  bank: Bank,
+): [any[], Time, [Time, Time]] {
+  switch (sequence) {
+    case ViewMode.Chain: {
+      const interval = "1n";
+      const loopPoints: [Time, Time] = [0, "16:0:0"];
+
+      const events = Array(16)
+        .fill(0)
+        .map((_, subdivIndex) => {
+          const subPhraseIndex = array[subdivIndex];
+          const subPhrase = bank.phrases[subPhraseIndex];
+          // console.log({ subdivIndex, phraseIndex, activePhrase });
+          if (!subPhrase) return null;
+          const [phraseEvents] = eventsGenerator(
+            ViewMode.Phrase,
+            subPhrase.lines,
+            bank,
+          );
+          return phraseEvents;
+        });
+
+      console.log(events);
+      return [events, interval, loopPoints];
+    }
+    case ViewMode.Phrase: {
+      const interval = "16n";
+      const loopPoints: [Time, Time] = [0, "1:0:0"];
+
+      const instruments = bank.instruments;
+      const events = array.map((line) => ({
+        line,
+        instrument: instruments[line.instrument],
+      }));
+
+      return [events, interval, loopPoints];
+    }
+    default:
+      return [[], "1n" as Time, [0, 0] as [Time, Time]];
+  }
+}
 
 function makePhraseEvents(
   activePhrase: Phrase,
