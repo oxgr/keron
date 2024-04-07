@@ -6,7 +6,6 @@ import { moveCursor } from "./actions/cursor";
 import { moveValue } from "./actions/value";
 import { moveViewMode } from "./actions/view";
 import { useModel } from "../state/init";
-import { SequenceCollection } from "../audio/types";
 
 export type Action = {
   label: string;

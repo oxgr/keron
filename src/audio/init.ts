@@ -31,7 +31,7 @@ export function audioEffect() {
   const transport = audio.global.transport;
   const position = transport.position;
   const activeLineNumber = positionToLine(position);
-  console.log(activeLineNumber, position);
+  // console.log(activeLineNumber, position);
   const playheadLine = (() => {
     switch (model.view.mode) {
       case ViewMode.Phrase:

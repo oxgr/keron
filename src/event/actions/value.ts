@@ -19,113 +19,155 @@ export function moveValue(direction: Direction) {
     case ViewMode.Project:
     case ViewMode.Song:
     case ViewMode.Chain:
+      {
+        const phrasesInActiveChain = model.getActiveChain().phrases;
+        const phrasesInBank = model.project.bank.phrases;
+        let index: number = model.view.cursor.line;
+        const oldValue =
+          untrack(() => phrasesInActiveChain[index] as number) ?? 0;
+        const phraseRange = phrasesInBank.length - 1;
+        enum ChangeRate {
+          Low = 1,
+          High = 5,
+        }
+        let op = 0;
+        switch (direction) {
+          case Direction.Up:
+            op = +ChangeRate.Low;
+            break;
+          case Direction.Down:
+            op = -ChangeRate.Low;
+            break;
+          case Direction.Right:
+            op = +ChangeRate.High;
+            break;
+          case Direction.Left:
+            op = -ChangeRate.High;
+            break;
+        }
+        const rawValue = clamp(oldValue + op, -1, phraseRange);
+        const newValue = rawValue === -1 ? undefined : rawValue;
+
+        setModel(
+          "project",
+          "bank",
+          "chains",
+          model.view.active.chain,
+          "phrases",
+          index,
+          newValue,
+        );
+      }
       break;
 
     case ViewMode.Phrase:
-      let newValue,
-        key: keyof Line = "note";
+      {
+        let newValue,
+          key: keyof Line = "note";
 
-      switch (model.view.cursor.column) {
-        case PhraseViewColumn.Note:
-          switch (direction) {
-            case Direction.Up:
-            case Direction.Down:
-              (() => {
-                key = "note";
-                const oldValue = untrack(() => model.getActiveLine()[key]);
-                newValue = newValueFromRefArray(oldValue, NOTES, direction);
-              })();
-              break;
-
-            case Direction.Left:
-            case Direction.Right:
-              (() => {
-                key = "octave";
-                const oldValue = untrack(() => model.getActiveLine()[key]);
-                newValue = newValueFromRefArray(
-                  oldValue,
-                  OCTAVES,
-                  XDirectionMap[direction],
-                );
-              })();
-              break;
-          }
-          break;
-        case PhraseViewColumn.Velocity:
-          (() => {
-            key = "velocity";
-            const oldValue =
-              (untrack(() => model.getActiveLine()[key]) as number) ?? 0;
-            const VELOCITY_RANGE = 127;
-            enum ChangeRate {
-              Low = 1,
-              High = 8,
-            }
-            let op = 0;
+        switch (model.view.cursor.column) {
+          case PhraseViewColumn.Note:
             switch (direction) {
               case Direction.Up:
-                op = +ChangeRate.Low;
-                break;
               case Direction.Down:
-                op = -ChangeRate.Low;
+                (() => {
+                  key = "note";
+                  const oldValue = untrack(() => model.getActiveLine()[key]);
+                  newValue = newValueFromRefArray(oldValue, NOTES, direction);
+                })();
                 break;
-              case Direction.Right:
-                op = +ChangeRate.High;
-                break;
+
               case Direction.Left:
-                op = -ChangeRate.High;
-                break;
-            }
-            const rawValue = clamp(oldValue + op, -1, VELOCITY_RANGE);
-            newValue = rawValue === -1 ? undefined : rawValue;
-          })();
-          break;
-        case PhraseViewColumn.Instrument:
-          (() => {
-            key = "instrument";
-            const oldValue =
-              (untrack(() => model.getActiveLine()[key]) as number) ?? 0;
-            const range = model.project.bank.instruments.length;
-            enum ChangeRate {
-              Low = 1,
-              High = 2,
-            }
-            let op = 0;
-            switch (direction) {
-              case Direction.Up:
-                op = +ChangeRate.Low;
-                break;
-              case Direction.Down:
-                op = -ChangeRate.Low;
-                break;
               case Direction.Right:
-                op = +ChangeRate.High;
-                break;
-              case Direction.Left:
-                op = -ChangeRate.High;
+                (() => {
+                  key = "octave";
+                  const oldValue = untrack(() => model.getActiveLine()[key]);
+                  newValue = newValueFromRefArray(
+                    oldValue,
+                    OCTAVES,
+                    XDirectionMap[direction],
+                  );
+                })();
                 break;
             }
-            const rawValue = clamp(oldValue + op, -1, range);
-            newValue = rawValue === -1 ? undefined : rawValue;
-          })();
-          break;
-        case PhraseViewColumn.FX1:
-        case PhraseViewColumn.FX2:
-        case PhraseViewColumn.FX3:
-        default:
-          return;
+
+            break;
+          case PhraseViewColumn.Velocity:
+            (() => {
+              key = "velocity";
+              const oldValue =
+                (untrack(() => model.getActiveLine()[key]) as number) ?? 0;
+              const VELOCITY_RANGE = 127;
+              enum ChangeRate {
+                Low = 1,
+                High = 8,
+              }
+              let op = 0;
+              switch (direction) {
+                case Direction.Up:
+                  op = +ChangeRate.Low;
+                  break;
+                case Direction.Down:
+                  op = -ChangeRate.Low;
+                  break;
+                case Direction.Right:
+                  op = +ChangeRate.High;
+                  break;
+                case Direction.Left:
+                  op = -ChangeRate.High;
+                  break;
+              }
+              const rawValue = clamp(oldValue + op, -1, VELOCITY_RANGE);
+              newValue = rawValue === -1 ? undefined : rawValue;
+            })();
+            break;
+          case PhraseViewColumn.Instrument:
+            (() => {
+              key = "instrument";
+              const oldValue =
+                (untrack(() => model.getActiveLine()[key]) as number) ?? 0;
+              const range = model.project.bank.instruments.length;
+              enum ChangeRate {
+                Low = 1,
+                High = 2,
+              }
+              let op = 0;
+              switch (direction) {
+                case Direction.Up:
+                  op = +ChangeRate.Low;
+                  break;
+                case Direction.Down:
+                  op = -ChangeRate.Low;
+                  break;
+                case Direction.Right:
+                  op = +ChangeRate.High;
+                  break;
+                case Direction.Left:
+                  op = -ChangeRate.High;
+                  break;
+              }
+              const rawValue = clamp(oldValue + op, -1, range);
+              newValue = rawValue === -1 ? undefined : rawValue;
+            })();
+            break;
+          case PhraseViewColumn.FX1:
+          case PhraseViewColumn.FX2:
+          case PhraseViewColumn.FX3:
+          default:
+            return;
+        }
+
+        setModel(
+          "project",
+          "bank",
+          "phrases",
+          model.view.active.phrase,
+          "lines",
+          model.view.active.line,
+          key,
+          newValue,
+        );
       }
-
-      setModel(
-        "project",
-        "bank",
-        "phrases",
-        model.view.active.phrase,
-        "lines",
-        model.view.active.line,
-        key,
-        newValue,
-      );
       break;
 
     case ViewMode.Instrument:

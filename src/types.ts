@@ -95,7 +95,7 @@ export type Track = {
 
 export type ChainId = number;
 export type Chain = {
-  phrases: PhraseId[];
+  phrases: (PhraseId | undefined)[];
 };
 
 export type PhraseId = number;

@@ -20,7 +20,7 @@ export function togglePlayback(viewMode: ViewMode) {
   const { audio, setAudio } = useAudioModel();
 
   const array = (() => {
-    switch (model.view.mode) {
+    switch (viewMode) {
       case ViewMode.Chain:
         return model.getActiveChain().phrases;
       case ViewMode.Phrase:
@@ -63,8 +63,8 @@ export function togglePlayback(viewMode: ViewMode) {
     transport.setLoopPoints(loopPoints[0], loopPoints[1]);
     transport.start();
   } else {
-    transport.pause();
-    // transport.stop();
+    // transport.pause();
+    transport.stop();
     transport.loop = false;
   }
 
@@ -119,22 +119,6 @@ function eventsGenerator(
     default:
       return [[], "1n" as Time, [0, 0] as [Time, Time]];
   }
-}
-
-function makePhraseEvents(
-  activePhrase: Phrase,
-  instruments: Instrument[],
-): LineEvent[] {
-  // TODO: phrase sequence only gets updated on playback because map returns a new array
-  const sequenceEvents = activePhrase.lines.map((line, index) => {
-    const time = lineToPosition(index) as Time;
-
-    return {
-      line,
-      instrument: instruments[line.instrument],
-    };
-  });
-  return sequenceEvents;
 }
 
 function linePlaybackCallback(time: any, lineEvent: LineEvent) {
