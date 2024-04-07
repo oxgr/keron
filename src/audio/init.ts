@@ -6,6 +6,7 @@ import { ViewMode } from "../types";
 import { useModel } from "../state/init";
 import { positionToLine } from "./utils";
 import { playNote } from "./synth";
+import { LineEvent } from "./transport";
 
 const defaultAudioModel = createDefaultAudioModel();
 const [audio, setAudio] = createStore(defaultAudioModel);
@@ -55,8 +56,8 @@ function createDefaultAudioModel(): AudioModel {
   const defaultAudioModel = {
     ready: false,
     global: {
-      transport: Tone.Transport,
-      destination: Tone.Destination,
+      transport: Tone.getTransport(),
+      destination: Tone.getDestination(),
     },
 
     instrumentEngines: {
@@ -76,9 +77,8 @@ function createDefaultAudioModel(): AudioModel {
   return defaultAudioModel;
 }
 
-function linePlaybackCallback(time: any, playbackLine: PlaybackLine) {
+function linePlaybackCallback(time: any, lineEvent: LineEvent) {
   console.log(time);
   audioEffect();
-
-  playNote(time, playbackLine);
+  playNote(time, lineEvent);
 }

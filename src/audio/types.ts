@@ -42,7 +42,7 @@ export enum InstrumentTypes {
  * Adapter to Tone.PlaybackState
  */
 export const PlaybackState = {
-  Started: "started",
-  Stopped: "stopped",
-  Paused: "paused",
+  started: "started",
+  stopped: "stopped",
+  paused: "paused",
 } as const;

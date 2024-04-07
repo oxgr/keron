@@ -1,7 +1,7 @@
-import { togglePlaybackPhrase } from "../audio/transport";
+import { togglePlayback } from "../audio/transport";
 import { playNote } from "../audio/synth";
 import * as Tone from "tone";
-import { Direction, ValueDirection } from "../types";
+import { Direction, ValueDirection, ViewMode } from "../types";
 import { moveCursor } from "./actions/cursor";
 import { moveValue } from "./actions/value";
 import { moveViewMode } from "./actions/view";
@@ -48,7 +48,6 @@ export const actions: Record<string, Action> = {
           fx2: { id: 0, val: 0 },
           fx3: { id: 0, val: 0 },
         },
-        time,
         instrument: model.getInstrument(1),
       });
     },
@@ -61,7 +60,11 @@ export const actions: Record<string, Action> = {
   togglePlaybackPhrase: {
     label: "Toggle playback",
     desc: "Toggle playback of a phrase.",
-    fn: togglePlaybackPhrase,
+    fn: () => {
+      const { model } = useModel();
+      const sequenceTarget = ViewMode[model.view.mode].toLowerCase();
+      togglePlayback(sequenceTarget);
+    },
   },
   moveCursorLeft: {
     label: "Move cursor left",
