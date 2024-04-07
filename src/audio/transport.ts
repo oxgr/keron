@@ -1,74 +1,70 @@
-import * as Tone from "tone";
-import { playNote } from "./synth";
-import { Instrument, Line } from "../types";
-import { createMemo } from "solid-js";
+import { PlaybackState } from "./types";
+import { Instrument, Line, Phrase } from "../types";
 import { useAudioModel, audioEffect } from "./init";
 import { useModel } from "../state/init";
 import { Time } from "tone/build/esm/core/type/Units";
-import { Model } from "../state/Model";
 import { lineToPosition } from "./utils";
+
+export function togglePlaybackPhrase() {
+  const { model } = useModel();
+  const { audio, setAudio } = useAudioModel();
+
+  const phrasePart = audio.active.phrase;
+
+  const activePhrase = model.getActivePhrase();
+  const instruments = model.project.bank.instruments;
+  phrasePart.events = makePhraseEvents(activePhrase, instruments);
+  phrasePart.start(0);
+  const state = togglePlayback();
+  if (state !== PlaybackState.Started) phrasePart.clear();
+}
 
 /**
  * Toggle the playback of a single phrase.
  */
-export function togglePlaybackPhrase() {
-  const { model } = useModel();
+export function togglePlayback() {
   const { audio } = useAudioModel();
 
-  const transport = createMemo(() => audio.global.transport);
+  const transport = audio.global.transport;
 
-  const state = transport().state;
-  console.log("playback:", state);
+  const preState = transport.state;
 
-  const phrasePart = audio.active.phrase;
-
-  if (state != "started") {
-    console.log("playing...");
-
-    addLinesToPart(phrasePart, model).start(0);
-    phrasePart.callback = linePlaybackCallback;
-
+  if (preState != PlaybackState.Started) {
     // Start playback on cursor
     //
     // const startPoint = lineIndexToNotation(
     //   untrack(() => model.view.cursor.line),
     // );
-    // // transport().start().position = startPoint;
+    // // transport.start().position = startPoint;
 
-    transport().loop = true;
-    transport().setLoopPoints(0, "1:0:0");
-    transport().start();
+    transport.loop = true;
+    transport.setLoopPoints(0, "1:0:0");
+    transport.start();
   } else {
-    console.log("pausing...");
     // Tone.Transport.pause();
-    transport().stop();
-    transport().loop = false;
-    phrasePart.clear();
+    transport.stop();
+    transport.loop = false;
   }
+
+  const postState = transport.state;
+  console.log("playback:", postState);
+  return postState;
 }
 
-export type PlaybackLine = { line: Line; time: Time; instrument: Instrument };
+export type PlaybackLine = { line: Line; instrument: Instrument };
 
-function addLinesToPart(part: Tone.Part, model: Model): Tone.Part {
-  const activePhrase = model.getActivePhrase();
-  const lines = activePhrase.lines
-    .map((line, index) => {
-      return {
-        line,
-        time: lineToPosition(index) as Time,
-        instrument: model.project.bank.instruments[line.instrument],
-      };
-    })
-    .forEach((l) => {
-      part.add(l);
-      return l;
-    });
-  return part;
-}
+function makePhraseEvents(
+  activePhrase: Phrase,
+  instruments: Instrument[],
+): PlaybackLine[] {
+  // TODO: phrase sequence only gets updated on playback because map returns a new array
+  const sequenceEvents = activePhrase.lines.map((line, index) => {
+    const time = lineToPosition(index) as Time;
 
-function linePlaybackCallback(time: any, playbackLine: PlaybackLine) {
-  // console.log(time);
-  audioEffect();
-
-  playNote(time, playbackLine);
+    return {
+      line,
+      instrument: instruments[line.instrument],
+    };
+  });
+  return sequenceEvents;
 }

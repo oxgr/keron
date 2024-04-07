@@ -26,9 +26,10 @@ export type InstrumentEngines = Record<
 >;
 
 export type AudioEventCollection = {
-  table: Tone.Pattern<any>;
-  phrase: Tone.Part<any>;
+  table: Tone.Sequence;
+  phrase: Tone.Sequence;
   chain: Tone.Sequence;
+  song: Tone.Sequence;
 };
 
 export enum InstrumentTypes {
@@ -36,3 +37,12 @@ export enum InstrumentTypes {
   Membrane,
   Pluck,
 }
+
+/**
+ * Adapter to Tone.PlaybackState
+ */
+export const PlaybackState = {
+  Started: "started",
+  Stopped: "stopped",
+  Paused: "paused",
+} as const;

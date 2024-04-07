@@ -5,6 +5,7 @@ import { AudioModel, InstrumentTypes } from "./types";
 import { ViewMode } from "../types";
 import { useModel } from "../state/init";
 import { positionToLine } from "./utils";
+import { playNote } from "./synth";
 
 const defaultAudioModel = createDefaultAudioModel();
 const [audio, setAudio] = createStore(defaultAudioModel);
@@ -19,6 +20,10 @@ export function onMountAudio(element: HTMLElement) {
   // TODO: Find a way to remove the other when one is triggered.
   element.addEventListener("click", enableAudioContext, { once: true });
   element.addEventListener("keydown", enableAudioContext, { once: true });
+
+  // Tone.Transport.scheduleRepeat((time) => {
+  //   console.log(time);
+  // }, "16n");
 }
 
 export function audioEffect() {
@@ -61,11 +66,19 @@ function createDefaultAudioModel(): AudioModel {
     },
 
     active: {
-      table: new Tone.Pattern(),
-      phrase: new Tone.Part(),
-      chain: new Tone.Sequence(),
+      table: new Tone.Sequence(linePlaybackCallback, [], "16n"),
+      phrase: new Tone.Sequence(linePlaybackCallback, [], "16n"),
+      chain: new Tone.Sequence(linePlaybackCallback, [], "1m"),
+      song: new Tone.Sequence(linePlaybackCallback, [], "16m"),
     },
   };
 
   return defaultAudioModel;
+}
+
+function linePlaybackCallback(time: any, playbackLine: PlaybackLine) {
+  console.log(time);
+  audioEffect();
+
+  playNote(time, playbackLine);
 }
