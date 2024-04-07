@@ -13,6 +13,7 @@ export default function ChainView() {
 
   const lineRange = () => model.view.lineRange;
   const cursorLine = () => model.view.cursor.line;
+  const playheadLine = () => model.view.playhead.line;
 
   const activeChainId = () => model.view.active.chain;
 
@@ -28,6 +29,7 @@ export default function ChainView() {
           headerPad={2}
           lineRange={lineRange}
           activeLine={cursorLine}
+          playheadLine={playheadLine}
         ></Gutter>
         <Column headerText={"PH"} active={() => true}>
           <For each={fillArrayTo(allPhrasesInChain(activeChainId()), 16)}>

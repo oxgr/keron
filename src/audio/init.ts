@@ -22,9 +22,9 @@ export function onMountAudio(element: HTMLElement) {
   element.addEventListener("click", enableAudioContext, { once: true });
   element.addEventListener("keydown", enableAudioContext, { once: true });
 
-  // Tone.Transport.scheduleRepeat((time) => {
-  //   console.log(time);
-  // }, "16n");
+  Tone.Transport.scheduleRepeat((time) => {
+    audioEffect();
+  }, "1n");
 }
 
 export function audioEffect() {
@@ -33,9 +33,19 @@ export function audioEffect() {
   const transport = audio.global.transport;
   const position = transport.position;
   const activeLineNumber = positionToLine(position);
-  if (model.view.mode == ViewMode.Phrase) {
-    setModel("view", "playhead", "line", activeLineNumber);
-  }
+  console.log(activeLineNumber, position);
+  const playheadLine = (() => {
+    switch (model.view.mode) {
+      case ViewMode.Phrase:
+        return activeLineNumber;
+      case ViewMode.Chain:
+        return Math.floor(activeLineNumber / 16);
+      default:
+        return 0;
+    }
+  })();
+
+  setModel("view", "playhead", "line", playheadLine);
 }
 
 async function enableAudioContext() {
@@ -78,7 +88,5 @@ function createDefaultAudioModel(): AudioModel {
 }
 
 function linePlaybackCallback(time: any, lineEvent: LineEvent) {
-  console.log(time);
-  audioEffect();
   playNote(time, lineEvent);
 }

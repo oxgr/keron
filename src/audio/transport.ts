@@ -33,11 +33,15 @@ export function setupPlaybackChain() {
   const activeChain = model.getActiveChain();
   const instruments = model.project.bank.instruments;
 
-  chainSeq.events = activeChain.phrases.map((phraseIndex) => {
-    const activePhrase = model.getPhrase(phraseIndex);
-    if (!activePhrase) return [];
-    return makePhraseEvents(activePhrase, instruments);
-  });
+  chainSeq.events = Array(16)
+    .fill(0)
+    .map((_, subdivIndex) => {
+      const phraseIndex = activeChain.phrases[subdivIndex];
+      const activePhrase = model.getPhrase(phraseIndex);
+      console.log({ subdivIndex, phraseIndex, activePhrase });
+      if (!activePhrase) return null;
+      return makePhraseEvents(activePhrase, instruments);
+    });
   console.log(chainSeq.events);
   chainSeq.start(0);
 
