@@ -1,12 +1,4 @@
-import {
-  ViewMode,
-  NOTES,
-  OCTAVES,
-  Project,
-  View,
-  Key,
-  LineFxRange,
-} from "../types";
+import { ViewMode, NOTES, OCTAVES, Project, View, LineFxRange } from "../types";
 import { InstrumentTypes } from "../audio/types";
 import { getEnumKeys } from "../ui/views/utils";
 

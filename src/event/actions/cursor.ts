@@ -1,5 +1,5 @@
 import { untrack } from "solid-js/web";
-import { useModel } from "../../state/init";
+import { useModel } from "../../state/ModelProvider";
 import { Active, Direction, ViewMode } from "../../types";
 
 const { model, setModel } = useModel();
@@ -60,7 +60,8 @@ export function moveCursor(direction: Direction) {
       if (axis == "line") {
         const newPhrase =
           model.getActiveChain()?.phrases?.[model.view.cursor.line];
-        if (!isNaN(newPhrase)) updateActiveModel("phrase", newPhrase);
+        if (newPhrase && !isNaN(newPhrase))
+          updateActiveModel("phrase", newPhrase);
       }
       break;
 

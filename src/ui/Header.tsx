@@ -1,4 +1,4 @@
-import { useModel } from "../state/init";
+import { useModel } from "../state/ModelProvider";
 import { ViewMode } from "../types";
 import styles from "/src/App.module.css";
 import { For } from "solid-js";

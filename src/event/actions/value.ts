@@ -1,5 +1,5 @@
 import { untrack } from "solid-js/web";
-import { useModel } from "../../state/init";
+import { useModel } from "../../state/ModelProvider";
 import {
   Direction,
   Line,

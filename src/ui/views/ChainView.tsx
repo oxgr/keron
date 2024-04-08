@@ -1,7 +1,7 @@
 import phrase from "./View.module.css";
 import styles from "../../App.module.css";
 import { For } from "solid-js";
-import { useModel } from "../../state/init";
+import { useModel } from "../../state/ModelProvider";
 import Grid from "../components/Grid";
 import Column from "../components/Column";
 import Block from "../components/Block";

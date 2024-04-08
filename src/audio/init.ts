@@ -1,19 +1,8 @@
 import * as Tone from "tone";
-import { createStore } from "solid-js/store";
-import { createContext, useContext } from "solid-js";
-import { AudioModel, InstrumentTypes } from "./types";
 import { ViewMode } from "../types";
-import { useModel } from "../state/init";
+import { useModel } from "../state/ModelProvider";
+import { useAudioModel } from "./AudioModelProvider";
 import { positionToLine } from "./utils";
-
-const defaultAudioModel = createDefaultAudioModel();
-const [audio, setAudio] = createStore(defaultAudioModel);
-
-export const AudioModelContext = createContext({ audio, setAudio });
-
-export function useAudioModel() {
-  return useContext(AudioModelContext);
-}
 
 export function onMountAudio(element: HTMLElement) {
   // TODO: Find a way to remove the other when one is triggered.
@@ -58,23 +47,4 @@ async function enableAudioContext() {
   const compressor = new Tone.Compressor(-18);
   audio.global.destination.chain(lowpass, reverb, compressor);
   audio.global.destination.volume.value = -30;
-}
-
-function createDefaultAudioModel(): AudioModel {
-  const defaultAudioModel = {
-    ready: false,
-    global: {
-      transport: Tone.getTransport(),
-      destination: Tone.getDestination(),
-      sequence: new Tone.Sequence(),
-    },
-
-    instrumentEngines: {
-      [InstrumentTypes.Synth]: new Tone.Synth().toDestination(),
-      [InstrumentTypes.Membrane]: new Tone.MembraneSynth().toDestination(),
-      [InstrumentTypes.Pluck]: new Tone.PluckSynth().toDestination(),
-    },
-  };
-
-  return defaultAudioModel;
 }

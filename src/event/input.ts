@@ -1,17 +1,7 @@
 import { produce, createStore } from "solid-js/store";
-import { createContext, useContext } from "solid-js";
-import { useModel } from "../state/init";
+import { useModel } from "../state/ModelProvider";
 import { InputModel } from "./InputModel";
 import { keymap, Modifiers } from "./keymap";
-
-const defaultAudioModel = new InputModel();
-const [audio, setAudio] = createStore(defaultAudioModel);
-
-export const AudioModelContext = createContext({ audio, setAudio });
-
-export function useAudioModel() {
-  return useContext(AudioModelContext);
-}
 
 /**
  * Initialise event listeners for keypresses
@@ -32,7 +22,7 @@ export function onMountInput(element: HTMLElement) {
 
     // sum to get bits of active modifiers state
     const modifierBits = modActive.shift + modActive.option + modActive.edit;
-    console.log(modifierBits, Modifiers[modifierBits]);
+    // console.log(modifierBits, Modifiers[modifierBits]);
 
     if (event.type === "keydown") {
       const action = keymap[event.key];

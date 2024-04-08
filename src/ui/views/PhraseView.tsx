@@ -1,5 +1,5 @@
 import { For } from "solid-js";
-import { useModel } from "../../state/init";
+import { useModel } from "../../state/ModelProvider";
 import Grid from "../components/Grid";
 import Gutter from "../components/Gutter";
 import Column from "../components/Column";

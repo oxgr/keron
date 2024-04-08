@@ -1,4 +1,4 @@
-import { useModel } from "../../state/init";
+import { useModel } from "../../state/ModelProvider";
 import Grid from "../components/Grid";
 import Block from "../components/Block";
 

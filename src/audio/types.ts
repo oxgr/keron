@@ -7,12 +7,6 @@ import {
 } from "tone/build/esm/instrument/Instrument";
 import * as Tone from "tone";
 
-export type AudioModel = {
-  ready: boolean;
-  global: AudioGlobals;
-  instrumentEngines: InstrumentEngines;
-};
-
 export type AudioGlobals = {
   transport: typeof Tone.Transport;
   destination: typeof Tone.Destination;

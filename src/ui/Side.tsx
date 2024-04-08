@@ -1,5 +1,5 @@
-import { useModel } from "../state/init";
-import { useAudioModel } from "../audio/init";
+import { useModel } from "../state/ModelProvider";
+import { useAudioModel } from "../audio/AudioModelProvider";
 import styles from "/src/App.module.css";
 
 export default function Side() {

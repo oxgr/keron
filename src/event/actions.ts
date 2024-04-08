@@ -5,7 +5,7 @@ import { Direction, ValueDirection, ViewMode } from "../types";
 import { moveCursor } from "./actions/cursor";
 import { moveValue } from "./actions/value";
 import { moveViewMode } from "./actions/view";
-import { useModel } from "../state/init";
+import { useModel } from "../state/ModelProvider";
 
 export type Action = {
   label: string;

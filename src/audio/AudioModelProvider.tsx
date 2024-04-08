@@ -1,7 +1,17 @@
 import { ParentProps } from "solid-js";
-import { AudioModelContext, useAudioModel } from "./init";
+import { createContext, useContext } from "solid-js";
+import { createStore } from "solid-js/store";
+import { AudioModel } from "./AudioModel";
 
-export default function ModelProvider(props: ParentProps) {
+const defaultAudioModel = new AudioModel();
+const [audio, setAudio] = createStore(defaultAudioModel);
+const AudioModelContext = createContext({ audio, setAudio });
+
+export function useAudioModel() {
+  return useContext(AudioModelContext);
+}
+
+export default function AudioModelProvider(props: ParentProps) {
   const { audio, setAudio } = useAudioModel();
 
   return (

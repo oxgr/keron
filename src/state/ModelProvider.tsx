@@ -1,5 +1,15 @@
 import { ParentProps } from "solid-js";
-import { ModelContext, useModel } from "./init";
+import { createContext, useContext } from "solid-js";
+import { createStore } from "solid-js/store";
+import { Model } from "./Model";
+
+const defaultModel: Model = new Model();
+const [model, setModel] = createStore(defaultModel);
+const ModelContext = createContext({ model, setModel });
+
+export function useModel() {
+  return useContext(ModelContext);
+}
 
 export default function ModelProvider(props: ParentProps) {
   const { model, setModel } = useModel();

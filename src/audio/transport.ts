@@ -1,10 +1,8 @@
 import { PlaybackState } from "./types";
-import { Active, Bank, Instrument, Line, Phrase } from "../types";
-import { useAudioModel, audioEffect } from "./init";
-import { useModel } from "../state/init";
+import { Bank, Instrument, Line } from "../types";
+import { useAudioModel } from "./AudioModelProvider";
+import { useModel } from "../state/ModelProvider";
 import { Time } from "tone/build/esm/core/type/Units";
-import { lineToPosition } from "./utils";
-import { Model } from "../state/Model";
 import { ViewMode } from "../types";
 import { playNote } from "./synth";
 import * as Tone from "tone";

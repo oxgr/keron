@@ -1,7 +1,7 @@
 import { produce } from "solid-js/store";
 import { untrack } from "solid-js/web";
 import { getEnumValues } from "../../ui/views/utils";
-import { useModel } from "../../state/init";
+import { useModel } from "../../state/ModelProvider";
 import { ValueDirection, ViewMode } from "../../types";
 
 const { model, setModel } = useModel();
