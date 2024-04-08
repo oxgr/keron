@@ -1,6 +1,6 @@
-import { produce, createStore } from "solid-js/store";
+import { produce, unwrap, createStore } from "solid-js/store";
 import { useModel } from "../state/ModelProvider";
-import { InputModel } from "./InputModel";
+import { useInputModel } from "./InputModelProvider";
 import { keymap, Modifiers } from "./keymap";
 
 /**
@@ -29,20 +29,17 @@ export function onMountInput(element: HTMLElement) {
       if (action) action.fn();
     }
 
-    const { setModel } = useModel();
-    setModel(
-      "debug",
-      produce((debug: {}) => ({
-        ...debug,
-        input: {
-          key: event.key,
-          modifiers: {
+    // const { model, setModel } = useModel();
+    const { input, setInput } = useInputModel();
+    setInput(
+      produce((input) => {
+        (input.key = event.key),
+          (input.modifiers = {
             shift: false,
             option: false,
             edit: false,
-          },
-        },
-      })),
+          });
+      }),
     );
   }
 }

@@ -5,9 +5,7 @@ import { getEnumKeys } from "../ui/views/utils";
 export class Model {
   view: View;
   project: Project;
-  debug: {
-    input: {};
-  } = { input: {} };
+  debug: any = false;
 
   constructor() {
     const DEFAULT_PROJECT_NAME = "~";
