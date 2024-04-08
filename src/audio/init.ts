@@ -16,7 +16,8 @@ export function onMountAudio(element: HTMLElement) {
 
 export function audioEffect() {
   const { model, setModel } = useModel();
-  const { audio } = useAudioModel();
+  const { audio, setAudio } = useAudioModel();
+
   const transport = audio.global.transport;
   const position = transport.position;
   const activeLineNumber = positionToLine(position);
@@ -32,6 +33,7 @@ export function audioEffect() {
     }
   })();
 
+  setAudio("global", "position", position);
   setModel("view", "playhead", "line", playheadLine);
 }
 

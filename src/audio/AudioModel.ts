@@ -11,6 +11,7 @@ export class AudioModel {
       transport: Tone.getTransport(),
       destination: Tone.getDestination(),
       sequence: new Tone.Sequence(),
+      position: "0:0:0",
     };
 
     this.instrumentEngines = {

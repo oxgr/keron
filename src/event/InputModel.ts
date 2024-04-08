@@ -1,12 +1,12 @@
+import { InputMode, Modifiers } from "./keymap";
+
 export class InputModel {
   key: string = "";
-  modifiers: {
-    shift: boolean;
-    option: boolean;
-    edit: boolean;
-  } = {
-    shift: false,
-    option: false,
-    edit: false,
+  combo: string = "";
+  mode: InputMode = InputMode.Normal;
+  modifiers: Record<keyof typeof Modifiers, boolean> = {
+    Shift: false,
+    Option: false,
+    Edit: false,
   };
 }

@@ -11,6 +11,7 @@ export type AudioGlobals = {
   transport: typeof Tone.Transport;
   destination: typeof Tone.Destination;
   sequence: Tone.Sequence;
+  position: Tone.Unit.Time;
 };
 
 export type InstrumentEngines = Record<

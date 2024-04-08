@@ -18,7 +18,7 @@ export default function Side() {
         {debug("input", () => input)}
         {debug("cursor", () => model.view.cursor)}
         {debug("playhead", () => model.view.playhead)}
-        {debug("transportPos", () => audio.global.transport.position)}
+        {debug("transportPos", () => audio.global.position)}
         {debug("active", () => model.view.active)}
         {debug("activeLine", () => model.getActiveLine())}
         {/* {debug("linesInPhrase", () => */}
