@@ -1,5 +1,16 @@
 import { Action, actions } from "./actions";
 
+// order is important for bitwise operations of active modifiers state
+export enum Modifiers {
+  None,
+  Shift,
+  Option,
+  Edit,
+  OptionShift,
+  EditShift,
+  EditOption,
+  EditOptionShift,
+}
 type Keymap = Record<string, Action>;
 
 /**

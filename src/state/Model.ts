@@ -13,7 +13,9 @@ import { getEnumKeys } from "../ui/views/utils";
 export class Model {
   view: View;
   project: Project;
-  key: Key;
+  debug: {
+    input: {};
+  } = { input: {} };
 
   constructor() {
     const DEFAULT_PROJECT_NAME = "~";
@@ -51,10 +53,6 @@ export class Model {
         numInstruments: 8,
       },
     );
-
-    this.key = {
-      active: false,
-    };
 
     // console.log(defaultModel);
     return this;

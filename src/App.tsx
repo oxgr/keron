@@ -3,11 +3,12 @@ import styles from "/src/App.module.css";
 
 import ModelProvider from "./state/ModelProvider";
 import AudioModelProvider from "./audio/AudioModelProvider";
+import InputModelProvider from "./audio/AudioModelProvider";
 import Header from "./ui/Header";
 import Main from "./ui/Main";
 import Side from "./ui/Side";
 
-import { onMountInput, keyEffect } from "./event/key";
+import { onMountInput } from "./event/input";
 import { onMountAudio, audioEffect } from "./audio/init";
 
 export default function App() {
@@ -21,19 +22,23 @@ export default function App() {
       { once: true },
     );
 
-    createEffect(keyEffect);
+    // createEffect(keyEffect);
     createEffect(audioEffect);
   });
 
   return (
     <ModelProvider>
       <AudioModelProvider>
-        <div class={styles.App}>
-          <Header />
-          <Main />
-          <Side />
-        </div>
+        <InputModelProvider>
+          {/* Gamepad emulation buttons go here */}
+        </InputModelProvider>
       </AudioModelProvider>
+
+      <div role="main" class={styles.App}>
+        <Header />
+        <Main />
+        <Side />
+      </div>
     </ModelProvider>
   );
 }
