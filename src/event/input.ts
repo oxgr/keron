@@ -61,7 +61,7 @@ export function onMountInput(element: HTMLElement) {
         const comboHasInput = comboKey?.includes(inputKey);
         if (!inputHasMods && !comboIsSpecial) return comboHasInput;
 
-        // special keys with <>
+        // special no-mod keys ( with <> )
         const comboKeySpecial = comboKey.replace(/[<>]/g, "");
         const inputHasComboKeySpecial = inputKey.includes(comboKeySpecial);
         if (!inputHasMods) return inputHasComboKeySpecial;

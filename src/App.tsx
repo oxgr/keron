@@ -26,6 +26,12 @@ export default function App() {
     createEffect(audioEffect);
   });
 
+  // while it seems that providers don't restrict
+  // access to stores depending on if an element is its child,
+  // this layout underlines the structure of the data flow.
+  //
+  // Audio and Input only interact with the Model.
+  // state of Model determines the View.
   return (
     <ModelProvider>
       <AudioModelProvider>

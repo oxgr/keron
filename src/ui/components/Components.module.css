@@ -11,7 +11,7 @@
 }
 
 .columnHeader {
-  flex-basis: 2em;
+  flex-basis: 1.5rem;
 }
 
 .gutter .columnHeader .block {
