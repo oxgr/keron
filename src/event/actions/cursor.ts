@@ -1,4 +1,5 @@
 import { untrack } from "solid-js/web";
+import { unwrap } from "solid-js/store";
 import { useModel } from "../../state/ModelProvider";
 import { Active, Direction, ViewMode } from "../../types";
 
@@ -24,7 +25,7 @@ export function moveCursor(direction: Direction) {
   //dont update model if cursor pos is outside bounds
   const LINE_BOUNDS = 16;
   const COLUMN_BOUNDS = 8;
-  const newPos = untrack(updatePos);
+  const newPos = unwrap(updatePos());
   if (
     newPos >= 0 &&
     ((axis == "line" && newPos < LINE_BOUNDS) ||
@@ -35,12 +36,7 @@ export function moveCursor(direction: Direction) {
 
   const updateActiveModel = (prop: keyof Active, value: any) => {
     // if (!value) return;
-    setModel(
-      "view",
-      "active",
-      prop,
-      untrack(() => value),
-    );
+    setModel("view", "active", prop, value);
   };
 
   switch (model.view.mode) {

@@ -5,6 +5,7 @@ import { LineEvent } from "./transport";
 export function playNote(time: Time, playbackLine: LineEvent) {
   const { audio } = useAudioModel();
 
+  if (!playbackLine) return;
   const line = playbackLine.line;
   if (!line.note || !line.octave || !line.velocity || !line.instrument) return;
 

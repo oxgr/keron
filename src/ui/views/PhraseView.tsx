@@ -60,7 +60,7 @@ export default function PhraseView() {
       key: "velocity",
       pad: 2,
       lineMapFn: (line: Line) => {
-        if (line.velocity === undefined) return undefined;
+        if (line.note === undefined) return undefined;
         return line.velocity;
       },
     },
@@ -69,7 +69,7 @@ export default function PhraseView() {
       key: "instrument",
       pad: 2,
       lineMapFn: (line: Line) => {
-        if (line.instrument === undefined) return undefined;
+        if (line.note === undefined) return undefined;
         return line.instrument;
       },
     },
