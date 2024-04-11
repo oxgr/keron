@@ -75,19 +75,19 @@ export default function PhraseView() {
     },
     {
       headerText: "FX1",
-      key: "instrument",
+      key: "fx1",
       pad: 4,
       lineMapFn: lineFxMapFn("fx1"),
     },
     {
       headerText: "FX2",
-      key: "instrument",
+      key: "fx2",
       pad: 4,
       lineMapFn: lineFxMapFn("fx2"),
     },
     {
       headerText: "FX3",
-      key: "instrument",
+      key: "fx3",
       pad: 4,
       lineMapFn: lineFxMapFn("fx3"),
     },
